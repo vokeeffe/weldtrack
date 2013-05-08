@@ -13,7 +13,7 @@ Current Weld List is:
 <c:forEach items="${welds}" var="weld" varStatus="row">
 ${row.count } - ${weld.weldnum} - ${weld.spoolnum} - ${weld.isonum} - ${weld.size} - ${weld.type} - ${weld.fw} - ${weld.weldernum}
 </c:forEach>
-<form action="create.html">
+<form action="create.html" method = "post">
 Iso <input name="isonum">
 Spool <input name="spoolnum">
 Weld <input name="weldnum">
