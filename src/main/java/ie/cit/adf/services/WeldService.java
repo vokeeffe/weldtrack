@@ -8,6 +8,10 @@ public interface WeldService {
 
 	List<Weld> getAllWelds();
 
-	void createNewWeld(String isonum);
+	Weld createNewWeld(String isonum);
+	
+	void delete(String weldId);
+	
+	Weld get(String weldId);
 	
 }

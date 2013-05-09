@@ -1,13 +1,17 @@
 package ie.cit.adf.domain;
 
 import java.util.Date;
+import java.util.UUID;
+//import javax.xml.bind.annotation.XmlRootElement;
 
+//@XmlRootElement(name = "weld")
 public class Weld {
-
-	private String type; //weld type, e.g. butt, socket, etc...
+	
+	private String id;
+	private String weld_type; //weld type, e.g. butt, socket, etc...
 	private String weldnum; //weld number
 	private String spoolnum; //spool number
-	private String isonum; //isomentric number
+	private String isonum; //isometric number
 	private int size; //pipe diameter in mm
 	private boolean fw; //indicates if the weld is a field weld
 	private String weldernum;//the code that identifies the welder who welded the pipe
@@ -15,11 +19,22 @@ public class Weld {
 	private String fitting1;
 	private String fitting2;
 	
+	public Weld(){
+		id = UUID.randomUUID().toString();
+	}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 	public String getType() {
-		return type;
+		return weld_type;
 	}
 	public void setType(String type) {
-		this.type = type;
+		this.weld_type = type;
 	}
 	public String getWeldnum() {
 		return weldnum;
