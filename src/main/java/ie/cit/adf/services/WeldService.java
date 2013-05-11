@@ -14,4 +14,6 @@ public interface WeldService {
 	
 	Weld get(String weldId);
 	
+	void updateWeld(String weldId);
+	
 }

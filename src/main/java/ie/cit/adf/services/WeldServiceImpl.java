@@ -5,6 +5,8 @@ import ie.cit.adf.domain.dao.WeldRepository;
 
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
 public class WeldServiceImpl implements WeldService {
 
 	private WeldRepository repo;
@@ -43,12 +45,24 @@ public class WeldServiceImpl implements WeldService {
 	}
 	
 	//Delete Weld
+	@Transactional
 	public void delete(String weldId){
 		
 		Weld weld = repo.findById(weldId);
 		if (weld != null) {
 			repo.delete(weldId);
 		}	
+	}
+	
+	//If this method was not transactional there would be 2 sessions to the DB (repo)
+	@Transactional
+	public void updateWeld(String weldId){
+		
+		Weld weld = repo.findById(weldId);//Session 1 to DB (if not transactional)
+		if (weld != null) {
+			repo.update(weld);//Session 2 to DB (if not transactional)
+		}
+		
 	}
 	
 }
