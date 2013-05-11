@@ -31,6 +31,18 @@
 	</bean>
 
 	<bean class="ie.cit.adf.aspects.TracingAspect" />
+	
+	<security:http auto-config="true" />
+	<security:global-method-security
+		secured-annotations="enabled" />
+
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:password-encoder hash="md5" />
+			<security:jdbc-user-service data-source-ref="dataSource" />
+		</security:authentication-provider>
+	</security:authentication-manager>
 
 	<beans profile="default">
 		<jdbc:embedded-database id="dataSource" type="H2">

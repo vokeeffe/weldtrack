@@ -38,7 +38,7 @@ public class JdbcWeldRepository implements WeldRepository {
 		System.out.println("About to create weld in DB with isonum: " + weld.getIsonum());
 		jdbcTemplate.update("INSERT INTO WELD VALUES(?,?,?,?,?,?,?,?,?,?,?)", weld.getId(),
 				weld.getType(), weld.getWeldnum(), weld.getSpoolnum(), weld.getIsonum(),
-				weld.getSize(), weld.isFw(), weld.getWeldernum(), weld.getDate_welded(),
+				weld.getSize(), weld.isFw()? 1 : 0, weld.getWeldernum(), weld.getDate_welded(),
 				weld.getFitting1(), weld.getFitting2());
 	}
 
@@ -56,7 +56,7 @@ public class JdbcWeldRepository implements WeldRepository {
 		jdbcTemplate.update("UPDATE WELD SET WELDTYPE=?, WELDNUM=?, SPOOLNUM=?," + 
 " ISONUM=?, SIZE=?, FW=?, WELDERNUM=?, DATE_WELDED=?, FITTING1=?, FITTING2=?, WHERE ID=?",
 				weld.getType(), weld.getWeldnum(), weld.getSpoolnum(), weld.getIsonum(),
-				weld.getSize(), weld.isFw(), weld.getWeldernum(), weld.getDate_welded(),
+				weld.getSize(), weld.isFw()? 1 : 0, weld.getWeldernum(), weld.getDate_welded(),
 				weld.getFitting1(), weld.getFitting2(),weld.getId());
 	}
 }
