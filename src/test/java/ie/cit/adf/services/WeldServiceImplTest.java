@@ -16,11 +16,11 @@ public class WeldServiceImplTest {
 	private WeldRepository weldRepository;
 
 	@Before
-	public void setup(){
+	public void setup() {
 		weldRepository = Mockito.mock(WeldRepository.class);
 		tested = new WeldServiceImpl(weldRepository);
 	}
-	
+
 	@Test
 	public void testCreateWeld() {
 		Weld createNewWeld = tested.createNewWeld("TESTISO");

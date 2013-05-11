@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
 		http://schema.cloudfoundry.org/spring http://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
@@ -21,7 +23,7 @@
 	<bean class="ie.cit.adf.services.WeldServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
-	
+
 	<aop:aspectj-autoproxy />
 
 	<tx:annotation-driven />
@@ -31,16 +33,16 @@
 	</bean>
 
 	<bean class="ie.cit.adf.aspects.TracingAspect" />
-	
+
 	<security:http auto-config="true" />
 	<security:global-method-security
 		secured-annotations="enabled" />
 
-
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:password-encoder hash="md5" />
-			<security:jdbc-user-service data-source-ref="dataSource" />
+			<security:jdbc-user-service
+				data-source-ref="dataSource" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 
@@ -55,9 +57,9 @@
 			<constructor-arg value="-web,-webPort,8082" />
 		</bean>
 	</beans>
-	
+
 	<beans profile="cloud">
 		<cloud:data-source id="dataSource" service-name="weldtrackdb" />
 	</beans>
-	
+
 </beans>

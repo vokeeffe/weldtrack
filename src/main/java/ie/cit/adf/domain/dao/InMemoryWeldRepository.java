@@ -7,10 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InMemoryWeldRepository implements WeldRepository{
-	
+public class InMemoryWeldRepository implements WeldRepository {
+
 	private Map<String, Weld> data = new HashMap<String, Weld>();
-	
+
 	public Weld findById(String id) {
 		return data.get(id);
 	}
@@ -20,7 +20,8 @@ public class InMemoryWeldRepository implements WeldRepository{
 	}
 
 	public void add(Weld weld) {
-		System.out.println("About to create weld in Memory with isonum: " + weld.getIsonum());
+		System.out.println("About to create weld in Memory with isonum: "
+				+ weld.getIsonum());
 		data.put(weld.getId(), weld);
 	}
 

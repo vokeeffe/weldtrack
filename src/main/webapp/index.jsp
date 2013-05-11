@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Weld Track Application</title>
+<title>Weld Track</title>
 </head>
 <body>
-<h1>Weld Track Application</h1>
-Welcome!
+<h1>Welcome to the Weld Tracker Application</h1>
+Login <a href="index.html">here.</a>
 </body>
 </html>

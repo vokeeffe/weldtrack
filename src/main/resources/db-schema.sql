@@ -2,3 +2,5 @@ CREATE TABLE WELD (ID VARCHAR, WELDTYPE VARCHAR, WELDNUM VARCHAR, SPOOLNUM VARCH
 CREATE TABLE users(username varchar_ignorecase(50) not null primary key, password varchar_ignorecase(50) not null, enabled boolean not null)
 CREATE TABLE authorities(username varchar_ignorecase(50) not null, authority varchar_ignorecase(50) not null, constraint fk_authorities_users foreign key(username) references users(username))
 CREATE UNIQUE INDEX ix_auth_username on authorities (username,authority)
+INSERT INTO users (username, password, enabled) VALUES ('vinny', '2ac9cb7dc02b3c0083eb70898e549b63', true)
+INSERT INTO authorities (username, authority) VALUES ('vinny', 'ROLE_USER')
