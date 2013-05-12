@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,12 +51,12 @@ public class WeldRestController {
 	@RequestMapping(value = "weld", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public void create(@RequestParam String isonum, HttpServletRequest req,
+	public void create(@ModelAttribute ("weld") Weld weld, HttpServletRequest req,
 			HttpServletResponse resp) {
-		Weld weld = weldService.createNewWeld(isonum);
+		Weld newWeld = weldService.createNewWeld(weld);
 		StringBuffer url = req.getRequestURL().append("/{id}");
 		UriTemplate uriTemplate = new UriTemplate(url.toString());
-		resp.addHeader("location", uriTemplate.expand(weld.getId()).toASCIIString());
+		resp.addHeader("location", uriTemplate.expand(newWeld.getId()).toASCIIString());
 	}
 	
 	// curl -X DELETE -i http://server/port/weldtrack/api/1/weld/{id}

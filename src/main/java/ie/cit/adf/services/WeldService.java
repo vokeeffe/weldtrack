@@ -8,12 +8,12 @@ public interface WeldService {
 
 	List<Weld> getAllWelds();
 
-	Weld createNewWeld(String isonum);
+	Weld createNewWeld(Weld weld);
 	
 	void delete(String weldId);
 	
 	Weld get(String weldId);
 	
-	void updateWeld(String weldId);
+	void updateWeld(Weld weld);
 	
 }

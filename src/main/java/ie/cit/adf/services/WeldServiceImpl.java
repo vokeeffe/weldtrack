@@ -29,18 +29,9 @@ public class WeldServiceImpl implements WeldService {
 	}
 
 	// Create New Weld
-	public Weld createNewWeld(String isonum) {
+	public Weld createNewWeld(Weld weld) {
 
-		Weld weld = new Weld();
-		weld.setType("butt");
-		weld.setFitting1("1"); // Pipe
-		weld.setFitting2("2"); // 90 Elbow
-		weld.setFw(false); // shop weld
-		weld.setIsonum(isonum); // Isometric Number
-		weld.setSpoolnum("1");
-		weld.setWeldnum("1");
 		repo.add(weld);// Add the weld to the Array
-
 		return weld;
 	}
 
@@ -57,11 +48,11 @@ public class WeldServiceImpl implements WeldService {
 	// If this method was not transactional there would be 2 sessions to the DB
 	// (repo)
 	@Transactional
-	public void updateWeld(String weldId) {
-
-		Weld weld = repo.findById(weldId);// Session 1 to DB (if not
+	public void updateWeld(Weld weld) {
+		System.out.println("WeldServiceImpl.updateWeld() About to update weld ID: " + weld.getId());
+		Weld updateWeld = repo.findById(weld.getId());// Session 1 to DB (if not
 											// transactional)
-		if (weld != null) {
+		if (updateWeld != null) {
 			repo.update(weld);// Session 2 to DB (if not transactional)
 		}
 

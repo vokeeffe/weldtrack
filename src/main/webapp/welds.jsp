@@ -14,28 +14,49 @@
 			property="principal.username" />
 	</a>
 	<h1>Weld Track Application</h1>
-	Current Weld List is:
+	Current Weld List is:<br>
 	<c:forEach items="${welds}" var="weld" varStatus="row">
-${row.count } - ${weld.weldnum} - ${weld.spoolnum} - ${weld.isonum} - ${weld.size} - ${weld.type} - ${weld.fw} - ${weld.weldernum}
+ 
 <form action="update.html" method="post">
-			<input name="weldId" value="${weld.id}" type="hidden"> Iso <input
-				name="isonum"> Spool <input name="spoolnum"> Weld <input
-				name="weldnum"> Size <input name="size"> Type: Butt
-			<input type="radio" name="type" value="butt"> Socket <input
-				type="radio" name="type" value="socket"> Field Weld: True <input
-				type="radio" name="fw" value="true"> False <input
-				type="radio" name="fw" value="false"> UPDATE* <input
-				type="submit" value="Update">
+			${row.count }
+			Iso <input name="isonum" value="${weld.isonum}"  size = "10px" required>
+			Spool <input name="spoolnum" value="${weld.spoolnum}" size = "5px" required>
+			Weld <input name="weldnum" value="${weld.weldnum}" size = "5px" required>
+			Size <input name="size" value="${weld.size}" size = "5px" required>
+			Type: 
+			<select name="type">
+			<option value="butt">Butt</option>
+			<option value="socket">Socket</option>
+			</select>
+			Field Weld:
+			<select name="fw">
+			<option value="true">Yes</option>
+			<option value="false">No</option>
+			</select>
+			Welder <input name="weldernum" value="${weld.weldernum}" size = "5px">
+			Date Welded <input name="date_welded" type="date" value="${weld.date_welded}" size = "10px">
+			<input name="weldId" value="${weld.id}" type="hidden">
+			<input type="submit" value="Update">
 		</form>
 	</c:forEach>
+	<br><br>
+	Create New:
 	<form action="create.html" method="post">
-		Iso <input name="isonum"> Spool <input name="spoolnum">
-		Weld <input name="weldnum"> Size <input name="size">
-		Type: Butt <input type="radio" name="type" value="butt">
-		Socket <input type="radio" name="type" value="socket"> Field
-		Weld: True <input type="radio" name="fw" value="true"> False <input
-			type="radio" name="fw" value="false"> NEW* <input
-			type="submit" value="Create">
+		Iso <input name="isonum" size = "10px" STYLE="color: #FFFFFF; font-family: Verdana; font-weight: bold; font-size: 12px; background-color: #72A4D2;" required>
+		Spool <input name="spoolnum" size = "5px" STYLE="color: #FFFFFF; font-family: Verdana; font-weight: bold; font-size: 12px; background-color: #72A4D2;" required>
+		Weld <input name="weldnum" size = "5px" STYLE="color: #FFFFFF; font-family: Verdana; font-weight: bold; font-size: 12px; background-color: #72A4D2;" required>
+		Size <input name="size" size = "5px" STYLE="color: #FFFFFF; font-family: Verdana; font-weight: bold; font-size: 12px; background-color: #72A4D2;" required>
+		Type: 
+			<select name="type">
+			<option value="butt">Butt</option>
+			<option value="socket">Socket</option>
+			</select>
+		Field Weld:
+			<select name="fw">
+			<option value="true">Yes</option>
+			<option value="false">No</option>
+			</select>
+		<input type="submit" value="Create">
 	</form>
 
 </body>

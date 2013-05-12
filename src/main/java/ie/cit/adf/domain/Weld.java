@@ -12,7 +12,7 @@ public class Weld {
 	private String weldnum; //weld number
 	private String spoolnum; //spool number
 	private String isonum; //isometric number
-	private int size; //pipe diameter in mm
+	private Integer size; //pipe diameter in mm
 	private boolean fw; //indicates if the weld is a field weld
 	private String weldernum;//the code that identifies the welder who welded the pipe
 	private Date date_welded;
@@ -54,10 +54,10 @@ public class Weld {
 	public void setIsonum(String isonum) {
 		this.isonum = isonum;
 	}
-	public int getSize() {
+	public Integer getSize() {
 		return size;
 	}
-	public void setSize(int size) {
+	public void setSize(Integer size) {
 		this.size = size;
 	}
 	public boolean isFw() {
