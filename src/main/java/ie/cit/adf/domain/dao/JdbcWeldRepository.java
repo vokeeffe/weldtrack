@@ -28,12 +28,14 @@ public class JdbcWeldRepository implements WeldRepository {
 	private String getCurrentUser() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
-
+	
+	@Secured({"ROLE_USER", "ROLE_GUEST"})
 	public Weld findById(String id) {
 		return jdbcTemplate.queryForObject("SELECT * FROM WELD WHERE ID=?",
 				weldMapper, id);
 	}
-
+	
+	@Secured({"ROLE_USER", "ROLE_GUEST"})
 	public List<Weld> getAll() {
 		return jdbcTemplate.query("SELECT * FROM WELD", weldMapper);
 	}

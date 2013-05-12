@@ -4,3 +4,5 @@ CREATE TABLE authorities(username varchar_ignorecase(50) not null, authority var
 CREATE UNIQUE INDEX ix_auth_username on authorities (username,authority)
 INSERT INTO users (username, password, enabled) VALUES ('vinny', '2ac9cb7dc02b3c0083eb70898e549b63', true)
 INSERT INTO authorities (username, authority) VALUES ('vinny', 'ROLE_USER')
+INSERT INTO users (username, password, enabled) VALUES ('guest', '084e0343a0486ff05530df6c705c8bb4', true)
+INSERT INTO authorities (username, authority) VALUES ('guest', 'ROLE_GUEST')
