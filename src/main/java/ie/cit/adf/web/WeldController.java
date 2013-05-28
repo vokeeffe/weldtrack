@@ -52,4 +52,10 @@ public class WeldController {
 		return "welds.jsp";
 	}
 	
+	@RequestMapping("static")
+	public String static_page(Model model){
+		model.addAttribute("welds", weldService.getAllWelds());
+		return "static_page.html";
+	}
+	
 }

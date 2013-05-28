@@ -49,7 +49,7 @@ public class WeldServiceImpl implements WeldService {
 	// (repo)
 	@Transactional
 	public void updateWeld(Weld weld) {
-		System.out.println("WeldServiceImpl.updateWeld() About to update weld ID: " + weld.getId());
+		//System.out.println("WeldServiceImpl.updateWeld() About to update weld ID: " + weld.getId());
 		Weld updateWeld = repo.findById(weld.getId());// Session 1 to DB (if not
 											// transactional)
 		if (updateWeld != null) {
