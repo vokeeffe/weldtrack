@@ -11,6 +11,32 @@
 <title>Weld Track Application</title>
 </head>
 <body>
+<script type = "text/javascript">
+var d = new Date();
+var name;
+name = prompt("Please enter your name:","");
+document.write("<br/>");
+if (name != null && name != "")
+	{
+	document.write("Hello " + name + " and ");
+	}
+var intHr = d.getHours();
+//document.write(d);
+
+if(intHr <= 11)
+{
+	document.write("<b>Good Morning</b>");
+}
+else if (intHr > 11 && intHr <= 16)
+{
+	document.write("<b>Good Afternoon</b>");
+}
+else if (intHr > 16)
+{
+	document.write("<b>Good Evening</b>");
+}
+document.write("<br/>");
+</script>
 	<a href="j_spring_security_logout">Logout: <security:authentication
 			property="principal.username" />
 	</a>
@@ -21,7 +47,7 @@
 	<c:forEach items="${welds}" var="weld" varStatus="row">
 
 		<form action="update.html" method="post">
-			${row.count } Iso <input name="isonum" value="${weld.isonum}"
+			${row.count } Iso <input id="important" name="isonum" value="${weld.isonum}"
 				size="10px" required> Spool <input name="spoolnum"
 				value="${weld.spoolnum}" size="5px" required> Weld <input
 				name="weldnum" value="${weld.weldnum}" size="5px" required>
@@ -65,7 +91,7 @@
 		<ul>
 			<li>Cork
 			<ul>
-				<li>Glanmire</li>
+				<li class="important">Glanmire</li>
 				<li>Mayfield&euro;</li>
 			</ul>
 			</li>

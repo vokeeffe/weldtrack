@@ -3,9 +3,123 @@
 <head>
 <link rel="stylesheet" type="text/css" href="static/sitestyle.css" />
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Static Page</title>
+<script type = "text/javascript">
+
+function getCookie(name) { // use: getCookie("name");
+	
+	strCookie = document.cookie + ";";
+
+	intLocation = strCookie.indexOf(name + "=");
+	intStart= intLocation + 7;
+	intEnd = strCookie.indexOf(";",intStart);
+	value = strCookie.substring(intStart,intEnd);
+	return value;
+	
+	/*
+    var re = new RegExp(name + "=([^;]+)");
+    var value = re.exec(document.cookie);
+    return (value != null) ? unescape(value[1]) : null;*/
+  }
+
+  var today = new Date();
+  var expiry = new Date(today.getTime() + 30 * 24 * 3600 * 1000); // plus 30 days
+  var expired = new Date(today.getTime() - 24 * 3600 * 1000); // less 24 hours
+
+  function setCookie(name, value) { // use: setCookie("name", value);
+    document.cookie=name + "=" + escape(value) + "; path=/; expires=" + expiry.toGMTString();
+  }
+
+  function deleteCookie(name) { // use: deleteCookie("name");
+    document.cookie=name + "=null; path=/; expires=" + expired.toGMTString();
+  }
+
+  // start of page-specific JavaScript
+
+  // set a cookie for each input field
+  // a better method would be to use a single cookie
+  function storeValues(form)
+  {
+    setCookie("field1", form.field1.value);
+    setCookie("field2", form.field2.value);
+    setCookie("field3", form.field3.value);
+    setCookie("field4", form.field4.value);
+    return true;
+  }
+  
+  function clearCookies()
+  {
+    deleteCookie("field1");
+    deleteCookie("field2");
+    deleteCookie("field3"); 
+    deleteCookie("field4");
+    alert('Your cookies have been deleted!');
+  }
+
+function toss()
+{
+
+rand1 = Math.round(Math.random());
+rand2 = Math.round(Math.random());
+
+firstcoin = "images/coin" + rand1 + ".gif";
+secondcoin = "images/coin" + rand2 + ".gif";
+
+//alert(secondcoin);
+
+var first = new Image();
+first.src = firstcoin;
+
+var second = new Image();
+second.src = secondcoin;
+
+
+
+document.coina.src = first.src;
+document.coinb.src = second.src;
+
+if (rand1 == 0 && rand2 == 0)
+{
+document.getElementById("resulttext").innerHTML = "You Win!";
+}
+else
+{
+	document.getElementById("resulttext").innerHTML = "You Lose!";	
+}
+
+}
+</script>
 </head>
 <body>
+<div></div>
+<form name="myForm" method="post" action="static.html" onsubmit="return storeValues(this);">
+<fieldset>
+<label>Field 1</label><span><input type="text" size="32" name="field1" value=""></span>
+<label>Field 2</label><span><input type="text" size="32" name="field2" value=""></span>
+<label>Field 3</label><span><input type="text" size="32" name="field3" value=""></span>
+<label>Field 4</label><span><input type="text" size="32" name="field4" value=""></span>
+<span><input type="submit" value="Set Cookies">
+<input type="button" onclick="clearCookies();" value="Clear Cookies"></span>
+</fieldset>
+</form>
+
+<div></div>
+<script type="text/javascript">
+
+  if(field1 = getCookie("field1")) document.myForm.field1.value = field1;
+  if(field2 = getCookie("field2")) document.myForm.field2.value = field2;
+  if(field3 = getCookie("field3")) document.myForm.field3.value = field3;
+  if(field4 = getCookie("field4")) document.myForm.field4.value = field4;
+
+</script>
+
+<img src="images/coin0.gif" width="207" height="207" alt="coin" name="coina"/>
+<img src="images/coin0.gif" width="207" height="207" alt="coin" name="coinb"/>
+<div>
+<button type="button" onclick="toss()" >Go</button>
+<div id="resulttext">press GO to play</div>
+</div>
+<div></div>
 <map name="usa">
 <area shape="rect" coords="130, 75, 190, 140" href="http://wyoming.gov" alt="Wyoming"/> 
 </map>
@@ -23,11 +137,11 @@ alt="map" width="526" height="357" />
 		</li>
 	</ul>
 	<dl>
-		<dt>espresso</dt>
+		<dt class="important">espresso</dt>
 		<dd>strong <em>black</em> coffee made with ground coffee beans</dd>
-		<dt>latte</dt>
+		<dt class="important">latte</dt>
 		<dd>a drink made by adding a cup of <strong>frothy</strong> steamed milk
-		<dt>Americano</dt>
+		<dt class="important">Americano</dt>
 		<dd>a drink of espresso diluted
 	</dl>
 	
