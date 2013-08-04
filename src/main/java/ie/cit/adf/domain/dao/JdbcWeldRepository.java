@@ -43,11 +43,13 @@ public class JdbcWeldRepository implements WeldRepository {
 	public void add(Weld weld) {
 		System.out.println("About to create weld in DB with isonum: "
 				+ weld.getIsonum());
-		jdbcTemplate.update("INSERT INTO WELD VALUES(?,?,?,?,?,?,?,?,?,?,?)",
-				weld.getId(), weld.getType(), weld.getWeldnum(),
-				weld.getSpoolnum(), weld.getIsonum(), weld.getSize(),
-				weld.isFw() ? 1 : 0, weld.getWeldernum(),
-				weld.getDate_welded(), weld.getFitting1(), weld.getFitting2());
+		jdbcTemplate.update("INSERT INTO WELD VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+				weld.getId(), weld.getKtn(), weld.getKco(), 
+				weld.getType(), weld.getWeldnum(), weld.getSpoolnum(),
+				weld.getIsonum(), weld.getSize(), weld.isFw() ? 1 : 0,
+				weld.getWeldernum(), weld.getDate_welded(),
+				weld.getFitting1(), weld.getFitting2(), weld.getWld_heat1(),
+				weld.getWld_heat2();
 	}
 
 	/*
@@ -61,30 +63,37 @@ public class JdbcWeldRepository implements WeldRepository {
 
 	public void update(Weld weld) {
 		jdbcTemplate
-				.update("UPDATE WELD SET WELDTYPE=?, WELDNUM=?, SPOOLNUM=?,"
-						+ " ISONUM=?, SIZE=?, FW=?, WELDERNUM=?, DATE_WELDED=?, FITTING1=?, FITTING2=? WHERE ID=?",
+				.update("UPDATE WELD SET ktn=?, kco=?, wty_code=?, wld_num=?, spl_num=?,"
+						+ " iso_num=?, pdr_size=?, wld_fw=?, wdr_num=?, wld_wdate=?, fit_fitting1=?, fit_fitting2=?, wld_heat1=?, wld_heat2=? WHERE id=?",
+						weld.getKtn(), weld.getKco(), 
 						weld.getType(), weld.getWeldnum(), weld.getSpoolnum(),
 						weld.getIsonum(), weld.getSize(), weld.isFw() ? 1 : 0,
 						weld.getWeldernum(), weld.getDate_welded(),
-						weld.getFitting1(), weld.getFitting2(), weld.getId());
+						weld.getFitting1(), weld.getFitting2(), weld.getWld_heat1(),
+						weld.getWld_heat2(), weld.getId());
 	}
 
 }
 
 class WeldMapper implements RowMapper<Weld> {
 	public Weld mapRow(ResultSet rs, int rowNum) throws SQLException {
+
 		Weld weld = new Weld();
 		weld.setId(rs.getString("ID"));
-		weld.setType(rs.getString("WELDTYPE"));
-		weld.setWeldnum(rs.getString("WELDNUM"));
-		weld.setSpoolnum(rs.getString("SPOOLNUM"));
-		weld.setIsonum(rs.getString("ISONUM"));
-		weld.setSize(rs.getInt("SIZE"));
-		weld.setFw(rs.getInt("FW") != 0);
-		weld.setWeldernum(rs.getString("WELDERNUM"));
-		weld.setDate_welded(rs.getDate("DATE_WELDED"));
-		weld.setFitting1(rs.getString("FITTING1"));
-		weld.setFitting2(rs.getString("FITTING2"));
+		weld.setFw(rs.getInt("ktn") != 0);
+		weld.setFw(rs.getInt("kco") != 0);
+		weld.setType(rs.getString("wty_code"));
+		weld.setWeldnum(rs.getString("wld_num"));
+		weld.setSpoolnum(rs.getString("spl_num"));
+		weld.setIsonum(rs.getString("iso_num"));
+		weld.setSize(rs.getString("pdr_size"));
+		weld.setFw(rs.getInt("wld_fw") != 0);
+		weld.setWeldernum(rs.getString("wdr_num"));
+		weld.setDate_welded(rs.getDate("wld_wdate"));
+		weld.setFitting1(rs.getString("fit_fitting1"));
+		weld.setFitting2(rs.getString("fit_fitting2"));
+		weld.setFitting1(rs.getString("wld_heat1"));
+		weld.setFitting2(rs.getString("wld_heat2"));
 		return weld;
 	}
 }
