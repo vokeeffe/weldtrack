@@ -49,7 +49,7 @@ public class JdbcWeldRepository implements WeldRepository {
 				weld.getIsonum(), weld.getSize(), weld.isFw() ? 1 : 0,
 				weld.getWeldernum(), weld.getDate_welded(),
 				weld.getFitting1(), weld.getFitting2(), weld.getWld_heat1(),
-				weld.getWld_heat2();
+				weld.getWld_heat2());
 	}
 
 	/*
