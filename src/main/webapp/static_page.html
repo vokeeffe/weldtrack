@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="static/sitestyle.css" />
 <meta charset="UTF-8">
 <title>Static Page</title>
-<script type = "text/javascript">
+<script type="text/javascript">
 
 function getCookie(name) { // use: getCookie("name");
 	
@@ -91,20 +91,23 @@ else
 </script>
 </head>
 <body>
-<div></div>
-<form name="myForm" method="post" action="static.html" onsubmit="return storeValues(this);">
-<fieldset>
-<label>Field 1</label><span><input type="text" size="32" name="field1" value=""></span>
-<label>Field 2</label><span><input type="text" size="32" name="field2" value=""></span>
-<label>Field 3</label><span><input type="text" size="32" name="field3" value=""></span>
-<label>Field 4</label><span><input type="text" size="32" name="field4" value=""></span>
-<span><input type="submit" value="Set Cookies">
-<input type="button" onclick="clearCookies();" value="Clear Cookies"></span>
-</fieldset>
-</form>
+	<div></div>
+	<form name="myForm" method="post" action="static.html"
+		onsubmit="return storeValues(this);">
+		<fieldset>
+			<label>Field 1</label><span><input type="text" size="32"
+				name="field1" value=""></span> <label>Field 2</label><span><input
+				type="text" size="32" name="field2" value=""></span> <label>Field
+				3</label><span><input type="text" size="32" name="field3" value=""></span>
+			<label>Field 4</label><span><input type="text" size="32"
+				name="field4" value=""></span> <span><input type="submit"
+				value="Set Cookies"> <input type="button"
+				onclick="clearCookies();" value="Clear Cookies"></span>
+		</fieldset>
+	</form>
 
-<div></div>
-<script type="text/javascript">
+	<div></div>
+	<script type="text/javascript">
 
   if(field1 = getCookie("field1")) document.myForm.field1.value = field1;
   if(field2 = getCookie("field2")) document.myForm.field2.value = field2;
@@ -112,19 +115,44 @@ else
   if(field4 = getCookie("field4")) document.myForm.field4.value = field4;
 
 </script>
+	<form name="loginForm" method="post" action="static.html"
+		onsubmit="return validateData(this);">
+		<table border="1">
+			<tr>
+				<td>Email:</td>
+				<td><input type="text" size="32" name="email1" id="email1" value=""></td>
+			</tr>
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" size="32" name="password1" id="password1" value=""></td>
+			</tr>
+			<tr>
+				<td>Type:</td>
+				<td><select name="type" id="email1">
+						<option selected>Please Select...</option>
+						<option value = "category1">Student</option>
+						<option value = "category2">Staff</option>
+						<option value = "category3">Guest</option>
+				</select></td>
+			</tr>
+		</table>
+	</form>
 
-<img src="images/coin0.gif" width="207" height="207" alt="coin" name="coina"/>
-<img src="images/coin0.gif" width="207" height="207" alt="coin" name="coinb"/>
-<div>
-<button type="button" onclick="toss()" >Go</button>
-<div id="resulttext">press GO to play</div>
-</div>
-<div></div>
-<map name="usa">
-<area shape="rect" coords="130, 75, 190, 140" href="http://wyoming.gov" alt="Wyoming"/> 
-</map>
-<img usemap="#usa" src="images/sm_usa311.jpg"
-alt="map" width="526" height="357" />
+	<img src="images/coin0.gif" width="207" height="207" alt="coin"
+		name="coina" />
+	<img src="images/coin0.gif" width="207" height="207" alt="coin"
+		name="coinb" />
+	<div>
+		<button type="button" onclick="toss()">Go</button>
+		<div id="resulttext">press GO to play</div>
+	</div>
+	<div></div>
+	<map name="usa">
+		<area shape="rect" coords="130, 75, 190, 140"
+			href="http://wyoming.gov" alt="Wyoming" />
+	</map>
+	<img usemap="#usa" src="images/sm_usa311.jpg" alt="map" width="526"
+		height="357" />
 	<ul>
 		<li>France
 			<ul>
@@ -138,45 +166,45 @@ alt="map" width="526" height="357" />
 	</ul>
 	<dl>
 		<dt class="important">espresso</dt>
-		<dd>strong <em>black</em> coffee made with ground coffee beans</dd>
+		<dd>
+			strong <em>black</em> coffee made with ground coffee beans
+		</dd>
 		<dt class="important">latte</dt>
-		<dd>a drink made by adding a cup of <strong>frothy</strong> steamed milk
+		<dd>
+			a drink made by adding a cup of <strong>frothy</strong> steamed milk
+		</dd>
 		<dt class="important">Americano</dt>
-		<dd>a drink of espresso diluted
+		<dd>a drink of espresso diluted</dd>
 	</dl>
-	
+
 	<code>for (int i=0; i&lt;5; i++)</code>
-	
-	<br/><br/><br/>
+
+	<br />
+	<br />
+	<br />
 	<table>
-	<tr>
-	<th>App</th>
-	<th>Description</th>
-	</tr>
-	<tr>
-	<td>
-	<a href="https://itunes.apple.com/us/app/pipe-master/id561779251?mt=8"> <img
-							src="images/GFH_Logo_114.png" height=114 width=114
-							alt="GFH in iTunes" />
-	</a>
-	</td>
-	<td>
-	GFH Pipe Master iPhone App
-	</td>
-	</tr>
+		<tr>
+			<th>App</th>
+			<th>Description</th>
 		</tr>
-	<tr>
-	<td>
-	<a href="https://itunes.apple.com/ie/app/itss-ltd/id647628021?mt=8"> <img
-							src="images/itss.png" height=114 width=114
-							alt="ITSS in iTunes" />
-	</a>
-	</td>
-	<td>
-	ITSS iPhone App
-	</td>
-	</tr>
+		<tr>
+			<td><a
+				href="https://itunes.apple.com/us/app/pipe-master/id561779251?mt=8">
+					<img src="images/GFH_Logo_114.png" height="114" width="114"
+					alt="GFH in iTunes" />
+			</a></td>
+			<td>GFH Pipe Master iPhone App</td>
+		</tr>
+		<tr></tr>
+		<tr>
+			<td><a
+				href="https://itunes.apple.com/ie/app/itss-ltd/id647628021?mt=8">
+					<img src="images/itss.png" height="114" width="114"
+					alt="ITSS in iTunes" />
+			</a></td>
+			<td>ITSS iPhone App</td>
+		</tr>
 	</table>
 
-		</body>
+</body>
 </html>

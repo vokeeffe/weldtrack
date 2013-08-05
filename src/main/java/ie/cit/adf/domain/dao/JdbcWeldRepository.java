@@ -31,19 +31,19 @@ public class JdbcWeldRepository implements WeldRepository {
 	
 	@Secured({"ROLE_USER", "ROLE_GUEST"})
 	public Weld findById(String id) {
-		return jdbcTemplate.queryForObject("SELECT * FROM WELD WHERE ID=?",
+		return jdbcTemplate.queryForObject("SELECT * FROM fb_weld WHERE ID=?",
 				weldMapper, id);
 	}
 	
 	@Secured({"ROLE_USER", "ROLE_GUEST"})
 	public List<Weld> getAll() {
-		return jdbcTemplate.query("SELECT * FROM WELD", weldMapper);
+		return jdbcTemplate.query("SELECT * FROM fb_weld", weldMapper);
 	}
 
 	public void add(Weld weld) {
 		System.out.println("About to create weld in DB with isonum: "
 				+ weld.getIsonum());
-		jdbcTemplate.update("INSERT INTO WELD VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+		jdbcTemplate.update("INSERT INTO fb_weld VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
 				weld.getId(), weld.getKtn(), weld.getKco(), 
 				weld.getType(), weld.getWeldnum(), weld.getSpoolnum(),
 				weld.getIsonum(), weld.getSize(), weld.isFw() ? 1 : 0,
@@ -58,12 +58,12 @@ public class JdbcWeldRepository implements WeldRepository {
 	 */
 
 	public void delete(String weldId) {
-		jdbcTemplate.update("DELETE FROM WELD WHERE ID=?", weldId);
+		jdbcTemplate.update("DELETE FROM fb_weld WHERE ID=?", weldId);
 	}
 
 	public void update(Weld weld) {
 		jdbcTemplate
-				.update("UPDATE WELD SET ktn=?, kco=?, wty_code=?, wld_num=?, spl_num=?,"
+				.update("UPDATE fb_weld SET ktn=?, kco=?, wty_code=?, wld_num=?, spl_num=?,"
 						+ " iso_num=?, pdr_size=?, wld_fw=?, wdr_num=?, wld_wdate=?, fit_fitting1=?, fit_fitting2=?, wld_heat1=?, wld_heat2=? WHERE id=?",
 						weld.getKtn(), weld.getKco(), 
 						weld.getType(), weld.getWeldnum(), weld.getSpoolnum(),
