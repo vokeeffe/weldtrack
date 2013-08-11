@@ -2,7 +2,7 @@ package ie.cit.pro.services;
 
 import java.util.List;
 
-import ie.cit.pro.domain.Weld;
+import ie.cit.pro.domain.fb.Weld;
 
 public interface WeldService {
 

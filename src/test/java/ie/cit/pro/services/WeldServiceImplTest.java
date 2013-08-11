@@ -1,9 +1,9 @@
-package ie.cit.adf.services;
+package ie.cit.pro.services;
 
 import static org.junit.Assert.*;
 
-import ie.cit.pro.domain.Weld;
-import ie.cit.pro.domain.dao.WeldRepository;
+import ie.cit.pro.domain.fb.Weld;
+import ie.cit.pro.domain.fb.dao.DataRepository;
 import ie.cit.pro.services.WeldServiceImpl;
 
 import org.hamcrest.CoreMatchers;
@@ -16,11 +16,11 @@ import static org.mockito.Mockito.stub;
 public class WeldServiceImplTest {
 
 	private WeldServiceImpl tested;
-	private WeldRepository weldRepository;
+	private DataRepository weldRepository;
 
 	@Before
 	public void setup() {
-		weldRepository = Mockito.mock(WeldRepository.class);
+		weldRepository = Mockito.mock(DataRepository.class);
 		tested = new WeldServiceImpl(weldRepository);
 	}
 
@@ -43,11 +43,11 @@ public class WeldServiceImplTest {
 		Weld weld = new Weld();
 		String id = weld.getId();
 
-		stub(weldRepository.findById(weld.getId())).toReturn(weld);
+		stub(weldRepository.findById(null)).toReturn(weld);
 
 		Weld createNewWeld = tested.createNewWeld(weld);
 		createNewWeld = tested.get(weld.getId());
-		Mockito.verify(weldRepository).findById(createNewWeld.getId());
+		Mockito.verify(weldRepository).findById(null);
 		assertThat(createNewWeld.getId(), CoreMatchers.equalTo(id));
 
 	}

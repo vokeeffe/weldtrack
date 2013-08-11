@@ -1,21 +1,21 @@
-package ie.cit.pro.domain.dao;
+package ie.cit.pro.domain.fb.dao;
 
-import ie.cit.pro.domain.Weld;
+import ie.cit.pro.domain.fb.Weld;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InMemoryWeldRepository implements WeldRepository {
+public class InMemoryDataRepository implements DataRepository {
 
 	private Map<String, Weld> data = new HashMap<String, Weld>();
 
-	public Weld findById(String id) {
+	public Weld findById(Weld weld) {
 		return data.get(id);
 	}
 
-	public List<Weld> getAll() {
+	public List<Weld> getAllWelds() {
 		return new ArrayList<Weld>(data.values());
 	}
 

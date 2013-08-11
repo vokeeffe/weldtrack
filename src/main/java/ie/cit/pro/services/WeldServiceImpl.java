@@ -1,7 +1,7 @@
 package ie.cit.pro.services;
 
-import ie.cit.pro.domain.Weld;
-import ie.cit.pro.domain.dao.WeldRepository;
+import ie.cit.pro.domain.fb.Weld;
+import ie.cit.pro.domain.fb.dao.DataRepository;
 
 import java.util.List;
 
@@ -9,23 +9,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class WeldServiceImpl implements WeldService {
 
-	private WeldRepository repo;
+	private DataRepository repo;
 
 	// Constructor
-	public WeldServiceImpl(WeldRepository repo) {
+	public WeldServiceImpl(DataRepository repo) {
 		this.repo = repo;
 	}
 
 	// Get All Welds
 	public List<Weld> getAllWelds() {
 		// TODO Auto-generated method stub
-		return repo.getAll();
+		return repo.getAllWelds();
 	}
 
 	// Get Weld
 	public Weld get(String weldId) {
-
-		return repo.findById(weldId);
+		Weld weld = new Weld();
+		weld.setId(weldId);
+		return repo.findById(weld);
 	}
 
 	// Create New Weld
@@ -38,8 +39,9 @@ public class WeldServiceImpl implements WeldService {
 	// Delete Weld
 	@Transactional
 	public void delete(String weldId) {
-
-		Weld weld = repo.findById(weldId);
+		Weld weld = new Weld();
+		weld.setId(weldId);
+		weld = repo.findById(weld);
 		if (weld != null) {
 			repo.delete(weldId);
 		}
@@ -50,7 +52,7 @@ public class WeldServiceImpl implements WeldService {
 	@Transactional
 	public void updateWeld(Weld weld) {
 		//System.out.println("WeldServiceImpl.updateWeld() About to update weld ID: " + weld.getId());
-		Weld updateWeld = repo.findById(weld.getId());// Session 1 to DB (if not
+		Weld updateWeld = repo.findById(null);// Session 1 to DB (if not
 											// transactional)
 		if (updateWeld != null) {
 			repo.update(weld);// Session 2 to DB (if not transactional)

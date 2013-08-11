@@ -14,9 +14,9 @@
 
 
 
-	<bean id="weldRepository" class="ie.cit.pro.domain.dao.InMemoryWeldRepository" />
+	<bean id="weldRepository" class="ie.cit.pro.domain.fb.dao.InMemoryDataRepository" />
 
-	<bean id="jdbcWeldRepository" class="ie.cit.pro.domain.dao.JdbcWeldRepository">
+	<bean id="jdbcWeldRepository" class="ie.cit.pro.domain.fb.dao.JdbcDataRepository">
 		<constructor-arg ref="dataSource" />
 	</bean>
 

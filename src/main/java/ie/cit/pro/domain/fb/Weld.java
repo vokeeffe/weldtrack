@@ -1,4 +1,4 @@
-package ie.cit.pro.domain;
+package ie.cit.pro.domain.fb;
 
 import java.util.Date;
 import java.util.UUID;
@@ -33,7 +33,7 @@ public class Weld {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+		
 	public String getType() {
 		return wty_code;
 	}

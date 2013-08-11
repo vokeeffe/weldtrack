@@ -3,7 +3,7 @@ package ie.cit.pro.web;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ie.cit.pro.domain.Weld;
+import ie.cit.pro.domain.fb.Weld;
 import ie.cit.pro.services.WeldService;
 
 import org.springframework.beans.factory.annotation.Autowired;

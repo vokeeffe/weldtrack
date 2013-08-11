@@ -1,6 +1,6 @@
 package ie.cit.pro.web;
 
-import ie.cit.pro.domain.Weld;
+import ie.cit.pro.domain.fb.Weld;
 import ie.cit.pro.services.WeldService;
 
 import java.util.List;
