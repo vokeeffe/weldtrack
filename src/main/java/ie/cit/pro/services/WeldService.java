@@ -1,8 +1,8 @@
-package ie.cit.adf.services;
+package ie.cit.pro.services;
 
 import java.util.List;
 
-import ie.cit.adf.domain.Weld;
+import ie.cit.pro.domain.Weld;
 
 public interface WeldService {
 

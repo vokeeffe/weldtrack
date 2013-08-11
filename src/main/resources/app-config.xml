@@ -14,13 +14,13 @@
 
 
 
-	<bean id="weldRepository" class="ie.cit.adf.domain.dao.InMemoryWeldRepository" />
+	<bean id="weldRepository" class="ie.cit.pro.domain.dao.InMemoryWeldRepository" />
 
-	<bean id="jdbcWeldRepository" class="ie.cit.adf.domain.dao.JdbcWeldRepository">
+	<bean id="jdbcWeldRepository" class="ie.cit.pro.domain.dao.JdbcWeldRepository">
 		<constructor-arg ref="dataSource" />
 	</bean>
 
-	<bean class="ie.cit.adf.services.WeldServiceImpl">
+	<bean class="ie.cit.pro.services.WeldServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
 
@@ -32,7 +32,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean class="ie.cit.adf.aspects.TracingAspect" />
+	<bean class="ie.cit.pro.aspects.TracingAspect" />
 
 	<security:http auto-config="true" />
 	<security:global-method-security

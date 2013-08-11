@@ -1,7 +1,7 @@
-package ie.cit.adf.web;
+package ie.cit.pro.web;
 
-import ie.cit.adf.domain.Weld;
-import ie.cit.adf.services.WeldService;
+import ie.cit.pro.domain.Weld;
+import ie.cit.pro.services.WeldService;
 
 import java.util.List;
 

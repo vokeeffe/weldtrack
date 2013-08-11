@@ -2,8 +2,9 @@ package ie.cit.adf.services;
 
 import static org.junit.Assert.*;
 
-import ie.cit.adf.domain.Weld;
-import ie.cit.adf.domain.dao.WeldRepository;
+import ie.cit.pro.domain.Weld;
+import ie.cit.pro.domain.dao.WeldRepository;
+import ie.cit.pro.services.WeldServiceImpl;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;

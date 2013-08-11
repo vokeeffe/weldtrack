@@ -1,4 +1,4 @@
-package ie.cit.adf.domain;
+package ie.cit.pro.domain;
 
 import java.util.Date;
 import java.util.UUID;

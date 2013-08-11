@@ -1,7 +1,7 @@
-package ie.cit.adf.services;
+package ie.cit.pro.services;
 
-import ie.cit.adf.domain.Weld;
-import ie.cit.adf.domain.dao.WeldRepository;
+import ie.cit.pro.domain.Weld;
+import ie.cit.pro.domain.dao.WeldRepository;
 
 import java.util.List;
 
