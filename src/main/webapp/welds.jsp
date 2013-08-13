@@ -11,32 +11,7 @@
 <title>Weld Track Application</title>
 </head>
 <body>
-<script type = "text/javascript">
-var d = new Date();
-var name;
-name = prompt("Please enter your name:","");
-document.write("<br/>");
-if (name != null && name != "")
-	{
-	document.write("Hello " + name + " and ");
-	}
-var intHr = d.getHours();
-//document.write(d);
 
-if(intHr <= 11)
-{
-	document.write("<b>Good Morning</b>");
-}
-else if (intHr > 11 && intHr <= 16)
-{
-	document.write("<b>Good Afternoon</b>");
-}
-else if (intHr > 16)
-{
-	document.write("<b>Good Evening</b>");
-}
-document.write("<br/>");
-</script>
 	<a href="j_spring_security_logout">Logout: <security:authentication
 			property="principal.username" />
 	</a>

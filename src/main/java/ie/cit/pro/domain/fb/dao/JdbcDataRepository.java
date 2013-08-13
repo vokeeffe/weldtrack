@@ -3,6 +3,7 @@ package ie.cit.pro.domain.fb.dao;
 import ie.cit.pro.domain.fb.Weld;
 import ie.cit.pro.domain.fb.WeldType;
 
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
@@ -49,8 +50,9 @@ public class JdbcDataRepository implements DataRepository {
 				+ weld.getIsonum());
 
 		jdbcTemplate.update("INSERT INTO fb_weld (id, wld_a_createdby, wld_a_createddate) VALUES(?,?,?)",
-				weld.getId(),this.getCurrentUser(), new Date());
+				weld.getId(),this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 		this.update(weld);
+		
 	}
 
 	public void delete(String weldId) {
@@ -62,7 +64,7 @@ public class JdbcDataRepository implements DataRepository {
 				.update("UPDATE fb_weld SET  wld_a_modifiedby=?," +
 						"wld_a_modifieddate=?, ktn=?, kco=?, wty_code=?, wld_num=?, spl_num=?," +
 						" iso_num=?, pdr_size=?, wld_fw=?, wdr_num=?, wld_wdate=?, fit_fitting1=?, fit_fitting2=?, wld_heat1=?, wld_heat2=? WHERE id=?",
-						this.getCurrentUser(), new Date(), weld.getKtn(), weld.getKco(), 
+						this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), weld.getKtn(), weld.getKco(), 
 						weld.getType(), weld.getWeldnum(), weld.getSpoolnum(),
 						weld.getIsonum(), weld.getSize(), weld.isFw() ? 1 : 0,
 						weld.getWeldernum(), weld.getDate_welded(),

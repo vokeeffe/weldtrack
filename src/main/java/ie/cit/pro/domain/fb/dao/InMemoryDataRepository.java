@@ -12,7 +12,7 @@ public class InMemoryDataRepository implements DataRepository {
 	private Map<String, Weld> data = new HashMap<String, Weld>();
 
 	public Weld findById(Weld weld) {
-		return data.get(id);
+		return data.get(weld.getId());
 	}
 
 	public List<Weld> getAllWelds() {

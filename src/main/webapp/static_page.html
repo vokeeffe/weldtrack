@@ -4,6 +4,32 @@
 <link rel="stylesheet" type="text/css" href="static/sitestyle.css" />
 <meta charset="UTF-8">
 <title>Static Page</title>
+<script type = "text/javascript">
+var d = new Date();
+var name;
+name = prompt("Please enter your name:","");
+document.write("<br/>");
+if (name != null && name != "")
+	{
+	document.write("Hello " + name + " and ");
+	}
+var intHr = d.getHours();
+//document.write(d);
+
+if(intHr <= 11)
+{
+	document.write("<b>Good Morning</b>");
+}
+else if (intHr > 11 && intHr <= 16)
+{
+	document.write("<b>Good Afternoon</b>");
+}
+else if (intHr > 16)
+{
+	document.write("<b>Good Evening</b>");
+}
+document.write("<br/>");
+</script>
 <script type="text/javascript">
 
 function getCookie(name) { // use: getCookie("name");
