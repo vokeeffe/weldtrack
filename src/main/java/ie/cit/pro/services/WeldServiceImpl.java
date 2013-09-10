@@ -17,7 +17,7 @@ public class WeldServiceImpl implements WeldService {
 	}
 
 	// Get All Welds
-	public List<Weld> getAllWelds() {
+	public List<Weld> getAll() {
 		// TODO Auto-generated method stub
 		return repo.getAllWelds();
 	}
@@ -30,7 +30,7 @@ public class WeldServiceImpl implements WeldService {
 	}
 
 	// Create New Weld
-	public Weld createNewWeld(Weld weld) {
+	public Weld createNew(Weld weld) {
 
 		repo.add(weld);// Add the weld to the Array
 		return weld;
@@ -50,7 +50,7 @@ public class WeldServiceImpl implements WeldService {
 	// If this method was not transactional there would be 2 sessions to the DB
 	// (repo)
 	@Transactional
-	public void updateWeld(Weld weld) {
+	public void update(Weld weld) {
 		//System.out.println("WeldServiceImpl.updateWeld() About to update weld ID: " + weld.getId());
 		Weld updateWeld = repo.findById(weld);// Session 1 to DB (if not
 											// transactional)

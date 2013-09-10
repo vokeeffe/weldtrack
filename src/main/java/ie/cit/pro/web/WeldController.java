@@ -33,28 +33,28 @@ public class WeldController {
 	
 	@RequestMapping("index")
 	public String index(Model model){
-		model.addAttribute("welds", weldService.getAllWelds());
+		model.addAttribute("welds", weldService.getAll());
 		return "welds.jsp";
 	}
 
 	@RequestMapping("create")
 	public String create(@ModelAttribute ("weld") Weld weld, Model model){
-		weldService.createNewWeld(weld);
-		model.addAttribute("welds", weldService.getAllWelds());
+		weldService.createNew(weld);
+		model.addAttribute("welds", weldService.getAll());
 		return "welds.jsp";
 	}
 	
 	@RequestMapping("update")
 	public String update(@ModelAttribute ("weld") Weld weld, @RequestParam String weldId, Model model){
 		weld.setId(weldId);
-		weldService.updateWeld(weld);
-		model.addAttribute("welds", weldService.getAllWelds());
+		weldService.update(weld);
+		model.addAttribute("welds", weldService.getAll());
 		return "welds.jsp";
 	}
 	
 	@RequestMapping("static")
 	public String static_page(Model model){
-		model.addAttribute("welds", weldService.getAllWelds());
+		model.addAttribute("welds", weldService.getAll());
 		return "static_page.html";
 	}
 	

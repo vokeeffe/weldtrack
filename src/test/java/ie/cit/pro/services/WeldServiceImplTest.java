@@ -33,7 +33,7 @@ public class WeldServiceImplTest {
 		weld.setFw(false);
 		weld.setType("butt");
 
-		Weld createNewWeld = tested.createNewWeld(weld);
+		Weld createNewWeld = tested.createNew(weld);
 		Mockito.verify(weldRepository).add(createNewWeld);
 		assertThat(createNewWeld.getIsonum(), CoreMatchers.equalTo("1001"));
 	}
@@ -45,7 +45,7 @@ public class WeldServiceImplTest {
 
 		stub(weldRepository.findById(null)).toReturn(weld);
 
-		Weld createNewWeld = tested.createNewWeld(weld);
+		Weld createNewWeld = tested.createNew(weld);
 		createNewWeld = tested.get(weld.getId());
 		Mockito.verify(weldRepository).findById(null);
 		assertThat(createNewWeld.getId(), CoreMatchers.equalTo(id));

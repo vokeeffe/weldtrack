@@ -33,7 +33,7 @@ public class WeldRestController {
 	@RequestMapping(value = "weld", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody List<Weld> welds(){
-		return weldService.getAllWelds();
+		return weldService.getAll();
 	}
 	
 	//curl -X GET -i http://vinny:Password1@localhost:8080/weldtrack/api/1/weld/{id}
@@ -54,7 +54,7 @@ public class WeldRestController {
 	@ResponseBody
 	public void create(@RequestBody Weld weld, HttpServletRequest req,
 			HttpServletResponse resp) {
-		weldService.createNewWeld(weld);
+		weldService.createNew(weld);
 		StringBuffer url = req.getRequestURL().append("/{id}");
 		UriTemplate uriTemplate = new UriTemplate(url.toString());
 		resp.addHeader("location", uriTemplate.expand(weld.getId()).toASCIIString());
@@ -76,7 +76,7 @@ public class WeldRestController {
 			throw new NotFoundException();	
 		}
 		weld.setId(id);
-		weldService.updateWeld(weld);
+		weldService.update(weld);
 	}
 }
 

@@ -6,15 +6,11 @@ import ie.cit.pro.domain.fb.Weld;
 
 public interface WeldService {
 
-	List<Weld> getAllWelds();
-
-	Weld createNewWeld(Weld weld);
-	
+	List<Weld> getAll();
+	Weld createNew(Weld weld);
 	void delete(String weldId);
-	
 	Weld get(String weldId);
-	
-	void updateWeld(Weld weld);
+	void update(Weld weld);
 	
 	
 	
