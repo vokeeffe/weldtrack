@@ -1,7 +1,7 @@
 package ie.cit.pro.services;
 
+import ie.cit.pro.domain.dao.DataRepository;
 import ie.cit.pro.domain.fb.Weld;
-import ie.cit.pro.domain.fb.dao.DataRepository;
 
 import java.util.List;
 

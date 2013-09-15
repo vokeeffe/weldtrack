@@ -1,7 +1,8 @@
-package ie.cit.pro.domain.fb.dao;
+package ie.cit.pro.domain.dao;
 
 import ie.cit.pro.domain.fb.Weld;
 import ie.cit.pro.domain.fb.WeldType;
+import ie.cit.pro.domain.sy.SySection;
 
 import java.sql.Timestamp;
 import java.sql.ResultSet;
@@ -55,8 +56,8 @@ public class JdbcDataRepository implements DataRepository {
 		
 	}
 
-	public void delete(String weldId) {
-		jdbcTemplate.update("DELETE FROM fb_weld WHERE ID=?", weldId);
+	public void delete(Weld weld) {
+		jdbcTemplate.update("DELETE FROM fb_weld WHERE ID=?", weld.getId());
 	}
 
 	public void update(Weld weld) {
@@ -111,6 +112,7 @@ class WeldMapper implements RowMapper<Weld> {
 		return weld;
 	}
 }	
+
 	class WeldTypeMapper implements RowMapper<WeldType> {
 		public WeldType mapRow(ResultSet rs, int rowNum) throws SQLException {
 			WeldType weldType = new WeldType();
@@ -121,3 +123,26 @@ class WeldMapper implements RowMapper<Weld> {
 			return weldType;
 		}
 }
+	
+	class SySectionMapper implements RowMapper<SySection> {
+		public SySection mapRow(ResultSet rs, int rowNum) throws SQLException {
+	SySection sySection = new SySection();
+	sySection.setId(rs.getString("id"));
+	sySection.setStn_a_createdby(rs.getString("stn_a_createdby"));
+	sySection.setStn_a_createddate(rs.getDate("stn_a_createddate"));
+	sySection.setStn_a_modifiedby(rs.getString("stn_a_modifiedby"));
+	sySection.setStn_a_modifieddate(rs.getDate("stn_a_modifieddate"));
+	sySection.setStn_code(rs.getString("stn_code"));
+	sySection.setMf_function(rs.getString("mf_function"));
+	sySection.setStn_hservice(rs.getString("stn_hservice"));
+	sySection.setStn_bservice(rs.getString("stn_bservice"));
+	sySection.setStn_brows(rs.getInt ("stn_brows"));
+	sySection.setStn_btitle(rs.getString("stn_btitle"));
+	sySection.setStn_form(rs.getString("stn_form"));
+	sySection.setStn_form_method(rs.getString("stn_form_method"));
+	sySection.setStn_script(rs.getString("stn_script"));
+	sySection.setKtn(rs.getInt ("ktn"));
+	sySection.setStn_form_action(rs.getString("stn_form_action"));
+	return sySection;
+		}
+	;}

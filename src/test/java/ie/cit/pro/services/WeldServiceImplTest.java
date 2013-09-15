@@ -2,8 +2,8 @@ package ie.cit.pro.services;
 
 import static org.junit.Assert.*;
 
+import ie.cit.pro.domain.dao.DataRepository;
 import ie.cit.pro.domain.fb.Weld;
-import ie.cit.pro.domain.fb.dao.DataRepository;
 import ie.cit.pro.services.WeldServiceImpl;
 
 import org.hamcrest.CoreMatchers;
