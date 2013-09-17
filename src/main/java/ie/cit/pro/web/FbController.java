@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class WeldController {
+public class FbController {
 	
 	@Autowired
-	private FbService weldService;
+	private FbService fbService;
 	
 	@InitBinder //Allow Empty dates when binding to the Weld object
 	public void initBinder(WebDataBinder binder) {
@@ -33,28 +33,28 @@ public class WeldController {
 	
 	@RequestMapping("index")
 	public String index(Model model){
-		model.addAttribute("welds", weldService.getAllFbWelds());
+		model.addAttribute("welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
 
 	@RequestMapping("create")
-	public String create(@ModelAttribute ("weld") FbWeld weld, Model model){
-		weldService.createFbWeld(weld);
-		model.addAttribute("welds", weldService.getAllFbWelds());
+	public String create(@ModelAttribute ("weld") FbWeld fbWeld, Model model){
+		fbService.createFbWeld(fbWeld);
+		model.addAttribute("welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
 	
 	@RequestMapping("update")
-	public String update(@ModelAttribute ("weld") FbWeld weld, @RequestParam String weldId, Model model){
-		weld.setId(weldId);
-		weldService.updateFbWeld(weld);
-		model.addAttribute("welds", weldService.getAllFbWelds());
+	public String update(@ModelAttribute ("weld") FbWeld fbWeld, @RequestParam String weldId, Model model){
+		fbWeld.setId(weldId);
+		fbService.updateFbWeld(fbWeld);
+		model.addAttribute("welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
 	
 	@RequestMapping("static")
 	public String static_page(Model model){
-		model.addAttribute("welds", weldService.getAllFbWelds());
+		model.addAttribute("welds", fbService.getAllFbWelds());
 		return "static_page.html";
 	}
 	

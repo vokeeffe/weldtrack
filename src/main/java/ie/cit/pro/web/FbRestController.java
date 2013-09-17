@@ -24,7 +24,7 @@ import org.springframework.web.util.UriTemplate;
 
 @Controller
 @RequestMapping("api/1")//Every method in the Controller mapped to api/1... (1 is version of API)
-public class WeldRestController {
+public class FbRestController {
 
 	@Autowired
 	private FbService weldService;
