@@ -4,7 +4,12 @@ import java.util.Date;
 import java.util.UUID;
 
 public class SySecfield {
-	
+
+	private String id;
+	private String sfd_a_createdby;
+	private Date  sfd_a_createddate;
+	private String  sfd_a_modifiedby;
+	private Date  sfd_a_modifieddate;
 	private String stn_code;
 	private String sfd_wrap;
 	private Integer sfd_width;
@@ -61,7 +66,41 @@ public class SySecfield {
 	private String mf_function;
 	private Integer ktn;
 	private Integer sfd_size;
-
+	
+	public SySecfield(){
+		id = UUID.randomUUID().toString();
+		}
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getSfd_a_createdby() {
+		return sfd_a_createdby;
+	}
+	public void setSfd_a_createdby(String sfd_a_createdby) {
+		this.sfd_a_createdby = sfd_a_createdby;
+	}
+	public Date getSfd_a_createddate() {
+		return sfd_a_createddate;
+	}
+	public void setSfd_a_createddate(Date sfd_a_createddate) {
+		this.sfd_a_createddate = sfd_a_createddate;
+	}
+	public String getSfd_a_modifiedby() {
+		return sfd_a_modifiedby;
+	}
+	public void setSfd_a_modifiedby(String sfd_a_modifiedby) {
+		this.sfd_a_modifiedby = sfd_a_modifiedby;
+	}
+	public Date getSfd_a_modifieddate() {
+		return sfd_a_modifieddate;
+	}
+	public void setSfd_a_modifieddate(Date sfd_a_modifieddate) {
+		this.sfd_a_modifieddate = sfd_a_modifieddate;
+	}
 	public String getStn_code() {
 		return stn_code;
 	}
@@ -398,5 +437,6 @@ public class SySecfield {
 	public void setSfd_size(Integer sfd_size) {
 		this.sfd_size = sfd_size;
 	}
+	
 }
 

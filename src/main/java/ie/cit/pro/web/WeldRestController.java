@@ -1,7 +1,7 @@
 package ie.cit.pro.web;
 
-import ie.cit.pro.domain.fb.Weld;
-import ie.cit.pro.services.WeldService;
+import ie.cit.pro.domain.fb.FbWeld;
+import ie.cit.pro.services.FbService;
 
 import java.util.List;
 
@@ -27,21 +27,21 @@ import org.springframework.web.util.UriTemplate;
 public class WeldRestController {
 
 	@Autowired
-	private WeldService weldService;
+	private FbService weldService;
 	
 	//curl -X GET -i http://vinny:Password1@localhost:8080/weldtrack/api/1/weld
 	@RequestMapping(value = "weld", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
-	public @ResponseBody List<Weld> welds(){
-		return weldService.getAll();
+	public @ResponseBody List<FbWeld> welds(){
+		return weldService.getAllFbWelds();
 	}
 	
 	//curl -X GET -i http://vinny:Password1@localhost:8080/weldtrack/api/1/weld/{id}
 	@RequestMapping(value = "weld/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public Weld weld(@PathVariable String id) {
-		Weld weld = weldService.get(id);
+	public FbWeld weld(@PathVariable String id) {
+		FbWeld weld = weldService.getFbWeld(id);
 		if (weld == null){
 			throw new NotFoundException();
 		}
@@ -52,9 +52,9 @@ public class WeldRestController {
 	@RequestMapping(value = "weld", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
-	public void create(@RequestBody Weld weld, HttpServletRequest req,
+	public void create(@RequestBody FbWeld weld, HttpServletRequest req,
 			HttpServletResponse resp) {
-		weldService.createNew(weld);
+		weldService.createFbWeld(weld);
 		StringBuffer url = req.getRequestURL().append("/{id}");
 		UriTemplate uriTemplate = new UriTemplate(url.toString());
 		resp.addHeader("location", uriTemplate.expand(weld.getId()).toASCIIString());
@@ -64,19 +64,19 @@ public class WeldRestController {
 	@RequestMapping(value = "weld/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable String id) {
-		weldService.delete(id);
+		weldService.deleteFbWeld(id);
 	}
 
 	//curl -X PUT -i http://vinny:Password1@localhost:8080/weldtrack/api/1/weld/{id} -H "Accept: application/json" -H "Content-Type: application/json" -d '{"type":"butt","weldnum":"1","spoolnum":"1","isonum":"1004","size":100,"fw":false,"weldernum":100,"date_welded":"2013-05-01","fitting1":"1","fitting2":"2"}'	@RequestMapping(value = "weld/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@PathVariable String id, @RequestBody Weld weld) {
-		Weld existing = weldService.get(id);
+	public void update(@PathVariable String id, @RequestBody FbWeld weld) {
+		FbWeld existing = weldService.getFbWeld(id);
 		if (existing == null){
 			System.out.println("WeldRestController.update().NotFoundException");
 			throw new NotFoundException();	
 		}
 		weld.setId(id);
-		weldService.update(weld);
+		weldService.updateFbWeld(weld);
 	}
 }
 

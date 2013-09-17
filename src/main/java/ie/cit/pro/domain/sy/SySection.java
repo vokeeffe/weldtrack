@@ -1,6 +1,7 @@
 package ie.cit.pro.domain.sy;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class SySection {
 
@@ -16,6 +17,14 @@ public class SySection {
 	private Integer stn_brows;
 	private String stn_btitle;
 	private String stn_form;
+	private String stn_form_method;
+	private String stn_script;
+	private Integer ktn;
+	private String stn_form_action;
+	
+	public SySection(){
+		id = UUID.randomUUID().toString();
+		}
 	
 	public String getId() {
 		return id;
@@ -47,11 +56,6 @@ public class SySection {
 	public void setStn_a_modifieddate(Date stn_a_modifieddate) {
 		this.stn_a_modifieddate = stn_a_modifieddate;
 	}
-	private String stn_form_method;
-	private String stn_script;
-	private Integer ktn;
-	private String stn_form_action;
-	
 	public String getStn_code() {
 		return stn_code;
 	}
@@ -119,5 +123,4 @@ public class SySection {
 		this.stn_form_action = stn_form_action;
 	}
 
-	
 }

@@ -20,7 +20,7 @@
 		<constructor-arg ref="dataSource" />
 	</bean>
 
-	<bean class="ie.cit.pro.services.WeldServiceImpl">
+	<bean class="ie.cit.pro.services.FbServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
 

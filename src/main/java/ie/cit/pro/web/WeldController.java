@@ -3,8 +3,8 @@ package ie.cit.pro.web;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ie.cit.pro.domain.fb.Weld;
-import ie.cit.pro.services.WeldService;
+import ie.cit.pro.domain.fb.FbWeld;
+import ie.cit.pro.services.FbService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class WeldController {
 	
 	@Autowired
-	private WeldService weldService;
+	private FbService weldService;
 	
 	@InitBinder //Allow Empty dates when binding to the Weld object
 	public void initBinder(WebDataBinder binder) {
@@ -33,28 +33,28 @@ public class WeldController {
 	
 	@RequestMapping("index")
 	public String index(Model model){
-		model.addAttribute("welds", weldService.getAll());
+		model.addAttribute("welds", weldService.getAllFbWelds());
 		return "welds.jsp";
 	}
 
 	@RequestMapping("create")
-	public String create(@ModelAttribute ("weld") Weld weld, Model model){
-		weldService.createNew(weld);
-		model.addAttribute("welds", weldService.getAll());
+	public String create(@ModelAttribute ("weld") FbWeld weld, Model model){
+		weldService.createFbWeld(weld);
+		model.addAttribute("welds", weldService.getAllFbWelds());
 		return "welds.jsp";
 	}
 	
 	@RequestMapping("update")
-	public String update(@ModelAttribute ("weld") Weld weld, @RequestParam String weldId, Model model){
+	public String update(@ModelAttribute ("weld") FbWeld weld, @RequestParam String weldId, Model model){
 		weld.setId(weldId);
-		weldService.update(weld);
-		model.addAttribute("welds", weldService.getAll());
+		weldService.updateFbWeld(weld);
+		model.addAttribute("welds", weldService.getAllFbWelds());
 		return "welds.jsp";
 	}
 	
 	@RequestMapping("static")
 	public String static_page(Model model){
-		model.addAttribute("welds", weldService.getAll());
+		model.addAttribute("welds", weldService.getAllFbWelds());
 		return "static_page.html";
 	}
 	
