@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.access.annotation.Secured;
+
 public class InMemoryDataRepository implements DataRepository {
 
 	private Map<String, FbWeldType> fbWeldTypeMap = new HashMap<String, FbWeldType>();
@@ -282,6 +284,10 @@ public class InMemoryDataRepository implements DataRepository {
 
 	public List<SySection> getAllSySections() {
 	return new ArrayList<SySection>(sySectionMap.values());
+	}
+	
+	public List<SySection> getSySections(List<SySection> sySections){
+		return null;
 	}
 
 	public void add(SySection sySection) {

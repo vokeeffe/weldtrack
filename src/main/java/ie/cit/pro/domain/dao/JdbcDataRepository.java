@@ -427,6 +427,11 @@ public class JdbcDataRepository implements DataRepository {
 	}
 
 @Secured({"ROLE_USER", "ROLE_GUEST"})
+public List<SySection> getSySections(List<SySection> sySections){
+	return null;
+}
+
+@Secured({"ROLE_USER", "ROLE_GUEST"})
 	public void add(SySection sySection) {
 	jdbcTemplate.update("INSERT INTO sy_section (id, stn_a_createdby, stn_a_createddate) VALUES(?,?,?)", sySection.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(sySection);

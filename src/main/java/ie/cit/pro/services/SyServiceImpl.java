@@ -61,6 +61,10 @@ public class SyServiceImpl implements SyService {
 	public List<SySection> getAllSySections() {
 	return repo.getAllSySections();
 	}
+	
+	public List<SySection> getSySections(List<SySection> sySections){
+		return repo.getSySections(sySections);
+	}
 
 	public SySection createSySection(SySection sySection) {
 	repo.add(sySection);

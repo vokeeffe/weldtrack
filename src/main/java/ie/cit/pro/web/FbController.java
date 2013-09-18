@@ -5,6 +5,7 @@ import java.util.Date;
 
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.services.FbService;
+import ie.cit.pro.services.SyService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -22,6 +23,9 @@ public class FbController {
 	@Autowired
 	private FbService fbService;
 	
+	@Autowired
+	private SyService syService;
+	
 	@InitBinder //Allow Empty dates when binding to the Weld object
 	public void initBinder(WebDataBinder binder) {
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -33,6 +37,13 @@ public class FbController {
 	
 	@RequestMapping("index")
 	public String index(Model model){
+		model.addAttribute("welds", fbService.getAllFbWelds());
+		return "welds.jsp";
+	}
+	
+	@RequestMapping("%WFBWLD101")
+	public String index(Model model){
+		//syService.get
 		model.addAttribute("welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}

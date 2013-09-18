@@ -105,6 +105,7 @@ public interface DataRepository {
 	/***************************SY_SECTION***************************/
 	SySection findById(SySection sySection);
 	List<SySection> getAllSySections();
+	List<SySection> getSySections(List<SySection> sySections);
 	void add(SySection sySection);
 	void delete(SySection sySection);
 	void update(SySection sySection);

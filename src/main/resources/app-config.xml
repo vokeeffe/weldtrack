@@ -23,6 +23,18 @@
 	<bean class="ie.cit.pro.services.FbServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
+	
+	<bean class="ie.cit.pro.services.SyServiceImpl">
+		<constructor-arg ref="jdbcWeldRepository" />
+	</bean>
+
+	<bean class="ie.cit.pro.services.TnServiceImpl">
+		<constructor-arg ref="jdbcWeldRepository" />
+	</bean>
+	
+	<bean class="ie.cit.pro.services.CjServiceImpl">
+		<constructor-arg ref="jdbcWeldRepository" />
+	</bean>
 
 	<aop:aspectj-autoproxy />
 
