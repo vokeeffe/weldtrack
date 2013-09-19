@@ -6,6 +6,7 @@ import java.util.Date;
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.services.FbService;
 import ie.cit.pro.services.SyService;
+import ie.cit.pro.sysdomain.fn.FnFind;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -40,10 +41,14 @@ public class FbController {
 		model.addAttribute("welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
-	
-	@RequestMapping("%WFBWLD101")
-	public String index(Model model){
-		//syService.get
+	    
+	@RequestMapping(value = "system", params = {"MainArea","SideArea"})
+	//@RequestParam(value = "MainArea") String MainArea
+	public String weldtrack(Model model, @RequestParam(value = "MainArea", required = false) String MainArea)
+	{
+		System.out.println(MainArea);
+		FnFind fnFind = new FnFind();
+		//fnFind.
 		model.addAttribute("welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
