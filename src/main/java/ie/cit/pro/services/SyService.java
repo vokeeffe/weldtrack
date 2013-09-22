@@ -16,9 +16,9 @@ public interface SyService {
 	/***************************SY_SECTION***************************/
 	SySection getSySection(String id);
 	List<SySection> getAllSySections();
-	List<SySection> getSySections(List<SySection> sySections);
 	SySection createSySection(SySection sySection);
 	void deleteSySection(String id);
 	void updateSySection(SySection sySection);
+	List<SySection> getSySectionsByCode(List<SySection> sySections);
 	
 }

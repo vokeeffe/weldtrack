@@ -24,24 +24,34 @@
 	
 	</div>
 	
-	<c:forEach items="${welds}" var="weld" varStatus="row">
-		<form action="update.html" method="post" id = "${weld.id}" >
-			${row.count } Iso <input id="important" name="iso_num" value="${weld.iso_num}"
+	<c:forEach items="${fb_welds}" var="fb_weld" varStatus="row">
+		<form action="update.html" method="post" id = "${fb_weld.id}" >
+			${row.count } Iso <input id="important" name="iso_num" value="${fb_weld.iso_num}"
 				size="10px" required> Spool <input name="spl_num"
-				value="${weld.spl_num}" size="5px" required> Weld <input
-				name="wld_num" value="${weld.wld_num}" size="5px" required>
-			Size <input name="pdr_size" value="${weld.pdr_size}" size="5px" required>
+				value="${fb_weld.spl_num}" size="5px" required> Weld <input
+				name="wld_num" value="${fb_weld.wld_num}" size="5px" required>
+			Size <input name="pdr_size" value="${fb_weld.pdr_size}" size="5px" required>
 			Type: <select name="wty_code">
 				<option value="butt">Butt</option>
 				<option value="socket">Socket</option>
 			</select> Field Weld: <select name="wld_fw">
 				<option value="true">Yes</option>
 				<option value="false">No</option>
-			</select> Welder <input name="wdr_num" value="${weld.wdr_num}" size="5px">
+			</select> Welder <input name="wdr_num" value="${fb_weld.wdr_num}" size="5px">
 			Date Welded <input name="wld_wdate" type="date"
-				value="${weld.wld_wdate}" size="10px"> <input
-				name="weldId" value="${weld.id}" type="hidden"> <input
+				value="${fb_weld.wld_wdate}" size="10px"> <input
+				name="weldId" value="${fb_weld.id}" type="hidden"> <input
 				type="submit" value="Update"  accesskey="s">
+		</form>
+	</c:forEach>
+	
+		<c:forEach items="${sy_sections}" var="sy_section" varStatus="row">
+		<form action="update.html" method="post" id = "${sy_section.id}" >
+			${row.count } Code <input id="important" name="stn_code" value="${sy_section.stn_code}"
+				size="15px" required>
+				Title <input id="important" name="stn_btitle" value="${sy_section.stn_btitle}"
+				size="15px" required>
+				<input type="submit" value="Update"  accesskey="s">
 		</form>
 	</c:forEach>
 	

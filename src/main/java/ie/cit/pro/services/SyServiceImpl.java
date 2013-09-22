@@ -61,10 +61,6 @@ public class SyServiceImpl implements SyService {
 	public List<SySection> getAllSySections() {
 	return repo.getAllSySections();
 	}
-	
-	public List<SySection> getSySections(List<SySection> sySections){
-		return repo.getSySections(sySections);
-	}
 
 	public SySection createSySection(SySection sySection) {
 	repo.add(sySection);
@@ -83,9 +79,16 @@ public class SyServiceImpl implements SyService {
 
 	@Transactional
 	public void updateSySection(SySection sySection) {
-	if (repo.findById(sySection) != null) {
-		repo.update(sySection);
+		if (repo.findById(sySection) != null)
+		{
+			repo.update(sySection);
+		}
 	}
+	
+	public List<SySection> getSySectionsByCode(List<SySection> sySections){
+		
+		return repo.getSySectionsByCode(sySections);
+		
 	}
 
 

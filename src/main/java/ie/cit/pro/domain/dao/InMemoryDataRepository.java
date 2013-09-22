@@ -286,7 +286,7 @@ public class InMemoryDataRepository implements DataRepository {
 	return new ArrayList<SySection>(sySectionMap.values());
 	}
 	
-	public List<SySection> getSySections(List<SySection> sySections){
+	public List<SySection> getSySectionsByCode(List<SySection> sySections){
 		return null;
 	}
 

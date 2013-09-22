@@ -1,12 +1,16 @@
 package ie.cit.pro.web;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import ie.cit.pro.domain.fb.FbWeld;
+import ie.cit.pro.domain.sy.SySection;
 import ie.cit.pro.services.FbService;
 import ie.cit.pro.services.SyService;
 import ie.cit.pro.sysdomain.fn.FnFind;
+import ie.cit.pro.sysdomain.fn.FnFindElement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -38,39 +42,41 @@ public class FbController {
 	
 	@RequestMapping("index")
 	public String index(Model model){
-		model.addAttribute("welds", fbService.getAllFbWelds());
+		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
 	    
 	@RequestMapping(value = "system", params = {"MainArea","SideArea"})
-	//@RequestParam(value = "MainArea") String MainArea
 	public String weldtrack(Model model, @RequestParam(value = "MainArea", required = false) String MainArea)
 	{
 		System.out.println(MainArea);
-		FnFind fnFind = new FnFind();
-		//fnFind.
-		model.addAttribute("welds", fbService.getAllFbWelds());
+		List<SySection> sySections = new ArrayList<SySection>();
+		SySection sySection = new SySection();
+		sySection.setStn_code(MainArea);
+		sySections.add(sySection);
+		model.addAttribute("sy_sections", syService.getSySectionsByCode(sySections));
+		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
 
 	@RequestMapping("create")
-	public String create(@ModelAttribute ("weld") FbWeld fbWeld, Model model){
+	public String create(@ModelAttribute ("fb_welds") FbWeld fbWeld, Model model){
 		fbService.createFbWeld(fbWeld);
-		model.addAttribute("welds", fbService.getAllFbWelds());
+		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
 	
 	@RequestMapping("update")
-	public String update(@ModelAttribute ("weld") FbWeld fbWeld, @RequestParam String weldId, Model model){
+	public String update(@ModelAttribute ("fb_welds") FbWeld fbWeld, @RequestParam String weldId, Model model){
 		fbWeld.setId(weldId);
 		fbService.updateFbWeld(fbWeld);
-		model.addAttribute("welds", fbService.getAllFbWelds());
+		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
 	
 	@RequestMapping("static")
 	public String static_page(Model model){
-		model.addAttribute("welds", fbService.getAllFbWelds());
+		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "static_page.html";
 	}
 	
