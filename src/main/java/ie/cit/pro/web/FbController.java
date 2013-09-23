@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import ie.cit.pro.domain.fb.FbWeld;
+import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
 import ie.cit.pro.services.FbService;
 import ie.cit.pro.services.SyService;
@@ -50,11 +51,21 @@ public class FbController {
 	public String weldtrack(Model model, @RequestParam(value = "MainArea", required = false) String MainArea)
 	{
 		System.out.println(MainArea);
+		//Retrieve the section information
 		List<SySection> sySections = new ArrayList<SySection>();
 		SySection sySection = new SySection();
 		sySection.setStn_code(MainArea);
 		sySections.add(sySection);
+		
+		//Retrieve the section information
+		List<SySecfield> sySecfields = new ArrayList<SySecfield>();
+		SySecfield sySecfield = new SySecfield();
+		sySecfield.setStn_code(MainArea);
+		sySecfields.add(sySecfield);
+		
 		model.addAttribute("sy_sections", syService.getSySectionsByCode(sySections));
+		model.addAttribute("sy_secfields", syService.getSySecfieldsByCode(sySecfields));
+		
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}

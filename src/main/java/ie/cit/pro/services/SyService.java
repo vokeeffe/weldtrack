@@ -13,6 +13,8 @@ public interface SyService {
 	SySecfield createSySecfield(SySecfield sySecfield);
 	void deleteSySecfield(String id);
 	void updateSySecfield(SySecfield sySecfield);
+	List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields);
+	
 	/***************************SY_SECTION***************************/
 	SySection getSySection(String id);
 	List<SySection> getAllSySections();

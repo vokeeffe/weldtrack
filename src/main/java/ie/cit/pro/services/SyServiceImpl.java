@@ -49,6 +49,13 @@ public class SyServiceImpl implements SyService {
 		repo.update(sySecfield);
 	}
 	}
+	
+	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields)
+	{
+		
+		return repo.getSySecfieldsByCode(sySecfields);
+		
+	}
 
 
 	/***************************SY_SECTION***************************/

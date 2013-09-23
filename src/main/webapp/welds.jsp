@@ -21,9 +21,33 @@
 	<i>Weld List</i> is:
 	<br />
 	<div id = "panel">
-	
+	<table id="main_table">
+	<tr>
+	<c:forEach items="${sy_secfields}" var="sy_secfield" varStatus="row">
+	<th>
+	${sy_secfield.sfd_label}
+	</th>
+	</c:forEach>
+	</tr>
+	<c:forEach items="${fb_welds}" var="fb_weld" varStatus="row">
+		<tr>
+		<form action="update.html" method="post" id = "${fb_weld.id}">
+		<td>${row.count}</td>
+		<c:forEach items="${sy_secfields}" var="sy_secfield">
+		<c:set var="property" value="${sy_secfield.sfd_name}"/>	
+			<td><input id="important" name="${sy_secfield.sfd_name}" value="${fb_weld[property]}"
+				size="${sy_secfield.sfd_size}px" required></td>	
+		</c:forEach>
+		<td>
+		<input type="submit" value="Update"  accesskey="s">
+		</td>
+		</form>
+		</tr>
+	</c:forEach>
+	</table>
 	</div>
 	
+	<div id = "debug" hidden>
 	<c:forEach items="${fb_welds}" var="fb_weld" varStatus="row">
 		<form action="update.html" method="post" id = "${fb_weld.id}" >
 			${row.count } Iso <input id="important" name="iso_num" value="${fb_weld.iso_num}"
@@ -45,11 +69,21 @@
 		</form>
 	</c:forEach>
 	
-		<c:forEach items="${sy_sections}" var="sy_section" varStatus="row">
+	<c:forEach items="${sy_sections}" var="sy_section" varStatus="row">
 		<form action="update.html" method="post" id = "${sy_section.id}" >
-			${row.count } Code <input id="important" name="stn_code" value="${sy_section.stn_code}"
+			${row.count} Code <input id="important" name="stn_code" value="${sy_section.stn_code}"
 				size="15px" required>
 				Title <input id="important" name="stn_btitle" value="${sy_section.stn_btitle}"
+				size="15px" required>
+				<input type="submit" value="Update"  accesskey="s">
+		</form>
+	</c:forEach>
+	
+	<c:forEach items="${sy_secfields}" var="sy_secfield" varStatus="row">
+		<form action="update.html" method="post" id = "${sy_secfield.id}" >
+			${row.count} Code <input id="important" name="stn_code" value="${sy_secfield.stn_code}"
+				size="15px" required>
+				Title <input id="important" name="sfd_name" value="${sy_secfield.sfd_name}"
 				size="15px" required>
 				<input type="submit" value="Update"  accesskey="s">
 		</form>
@@ -76,18 +110,7 @@
 	</form>
 	<br />
 	<br />
-	<ul>
-		<li>Ireland
-		<ul>
-			<li>Cork
-			<ul>
-				<li class="important">Glanmire</li>
-				<li>Mayfield&euro;</li>
-			</ul>
-			</li>
-		</ul>
-		</li>
-	</ul>
+</div>
 	<a href="http://www.bmd.ie/"> <img src="images/logo-bmd.gif"
 		alt="BMD Homepage" width="185" height="66"></a>
 

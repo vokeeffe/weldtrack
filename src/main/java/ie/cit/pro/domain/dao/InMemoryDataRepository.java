@@ -277,6 +277,12 @@ public class InMemoryDataRepository implements DataRepository {
 	public void update(SySecfield sySecfield) {
 	sySecfieldMap.put(sySecfield.getId(), sySecfield);
 	}
+	
+	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields){
+
+		return null;
+	}
+	
 	/***************************SY_SECTION***************************/
 	public SySection findById(SySection sySection) {
 	return sySectionMap.get(sySection.getId());
@@ -284,10 +290,6 @@ public class InMemoryDataRepository implements DataRepository {
 
 	public List<SySection> getAllSySections() {
 	return new ArrayList<SySection>(sySectionMap.values());
-	}
-	
-	public List<SySection> getSySectionsByCode(List<SySection> sySections){
-		return null;
 	}
 
 	public void add(SySection sySection) {
@@ -300,6 +302,11 @@ public class InMemoryDataRepository implements DataRepository {
 
 	public void update(SySection sySection) {
 	sySectionMap.put(sySection.getId(), sySection);
+	}
+	
+	public List<SySection> getSySectionsByCode(List<SySection> sySections){
+
+		return null;
 	}
 
 }

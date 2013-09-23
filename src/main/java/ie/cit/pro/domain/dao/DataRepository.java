@@ -101,6 +101,7 @@ public interface DataRepository {
 	void add(SySecfield sySecfield);
 	void delete(SySecfield sySecfield);
 	void update(SySecfield sySecfield);
+	List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields);
 
 	/***************************SY_SECTION***************************/
 	SySection findById(SySection sySection);

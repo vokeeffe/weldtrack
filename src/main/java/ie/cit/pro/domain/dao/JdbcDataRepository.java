@@ -414,6 +414,22 @@ public class JdbcDataRepository implements DataRepository {
 				"stn_code=?, sfd_wrap=?, sfd_width=?, sfd_visible=?, sfd_value=?, sfd_valid=?, sfd_update=?, sfd_tooltip=?, sfd_tab=?, sfd_src=?, sfd_sort=?, sfd_seq=?, sfd_rows=?, sfd_required=?, sfd_readonly=?, sfd_range_step=?, sfd_range_num=?, sfd_range_min=?, sfd_range_max=?, sfd_progress_value=?, sfd_progress_max=?, sfd_placeholder=?, sfd_param=?, sfd_options=?, sfd_onok=?, sfd_onchange=?, sfd_onblur=?, sfd_name=?, sfd_maxlength=?, sfd_lspan=?, sfd_lclass=?, sfd_label=?, sfd_input_type=?, sfd_img_src=?, sfd_id=?, sfd_hide=?, sfd_height=?, sfd_generate=?, sfd_format=?, sfd_form=?, sfd_disabled=?, sfd_default=?, sfd_column=?, sfd_code=?, sfd_class=?, sfd_calc=?, sfd_build=?, sfd_autofocus=?, sfd_autocomplete=?, sfd_append=?, sfd_align=?, sfd_addblank=?, sfd_add=?, mf_function=?, ktn=?, sfd_size=? WHERE id=?",
 				this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), sySecfield.getStn_code(), sySecfield.getSfd_wrap(), sySecfield.getSfd_width(), sySecfield.isSfd_visible(), sySecfield.getSfd_value(), sySecfield.getSfd_valid(), sySecfield.isSfd_update(), sySecfield.getSfd_tooltip(), sySecfield.getSfd_tab(), sySecfield.getSfd_src(), sySecfield.getSfd_sort(), sySecfield.getSfd_seq(), sySecfield.getSfd_rows(), sySecfield.getSfd_required(), sySecfield.getSfd_readonly(), sySecfield.getSfd_range_step(), sySecfield.getSfd_range_num(), sySecfield.getSfd_range_min(), sySecfield.getSfd_range_max(), sySecfield.getSfd_progress_value(), sySecfield.getSfd_progress_max(), sySecfield.getSfd_placeholder(), sySecfield.getSfd_param(), sySecfield.getSfd_options(), sySecfield.getSfd_onok(), sySecfield.getSfd_onchange(), sySecfield.getSfd_onblur(), sySecfield.getSfd_name(), sySecfield.getSfd_maxlength(), sySecfield.getSfd_lspan(), sySecfield.getSfd_lclass(), sySecfield.getSfd_label(), sySecfield.getSfd_input_type(), sySecfield.getSfd_img_src(), sySecfield.getSfd_id(), sySecfield.isSfd_hide(), sySecfield.getSfd_height(), sySecfield.getSfd_generate(), sySecfield.getSfd_format(), sySecfield.getSfd_form(), sySecfield.getSfd_disabled(), sySecfield.getSfd_default(), sySecfield.getSfd_column(), sySecfield.getSfd_code(), sySecfield.getSfd_class(), sySecfield.getSfd_calc(), sySecfield.getSfd_build(), sySecfield.getSfd_autofocus(), sySecfield.getSfd_autocomplete(), sySecfield.getSfd_append(), sySecfield.getSfd_align(), sySecfield.isSfd_addblank(), sySecfield.isSfd_add(), sySecfield.getMf_function(), sySecfield.getKtn(), sySecfield.getSfd_size(), sySecfield.getId());
 	}
+	
+	@Secured({"ROLE_USER", "ROLE_GUEST"})
+	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields){
+
+		List<SySecfield> sySecfieldsList = new ArrayList<SySecfield>(); 
+
+		for (SySecfield sySecfield : sySecfields)
+		{
+			if (sySecfield.getStn_code() != null)
+			{
+				sySecfieldsList.addAll(jdbcTemplate.query("SELECT * FROM sy_secfield WHERE stn_code=?", sySecfieldMapper, sySecfield.getStn_code()));
+			}	    
+		}
+
+		return sySecfieldsList;
+	}
 
 
 	/***************************SY_SECTION***************************/
