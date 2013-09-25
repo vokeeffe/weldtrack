@@ -13,6 +13,8 @@ import ie.cit.pro.services.SyService;
 import ie.cit.pro.sysdomain.fn.FnFind;
 import ie.cit.pro.sysdomain.fn.FnFindElement;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -63,7 +65,11 @@ public class FbController {
 		sySecfield.setStn_code(MainArea);
 		sySecfields.add(sySecfield);
 		
-		model.addAttribute("sy_sections", syService.getSySectionsByCode(sySections));
+		sySection = syService.getSySectionsByCode(sySections).get(0);
+		
+		JSONObject sySectionJSONstr = JSONObject.fromObject( sySection ); 
+		System.out.println(sySectionJSONstr);
+		model.addAttribute("sy_section_jsonstr", sySectionJSONstr);
 		model.addAttribute("sy_secfields", syService.getSySecfieldsByCode(sySecfields));
 		
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
