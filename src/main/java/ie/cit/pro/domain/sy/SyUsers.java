@@ -3,7 +3,7 @@ package ie.cit.pro.domain.sy;
 import java.util.Date;
 import java.util.UUID;
 
-public class Users {
+public class SyUsers {
 
 	private String id;
 	private String usr_a_createdby;
@@ -14,7 +14,7 @@ public class Users {
 	private String password;
 	private boolean enabled;
 
-	public Users(){
+	public SyUsers(){
 		id = UUID.randomUUID().toString();
 		}
 

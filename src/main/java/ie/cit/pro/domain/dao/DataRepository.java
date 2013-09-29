@@ -9,13 +9,13 @@ import ie.cit.pro.domain.fb.FbSpool;
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
-import ie.cit.pro.domain.sy.Authorities;
-import ie.cit.pro.domain.sy.GroupAuthorities;
-import ie.cit.pro.domain.sy.GroupMembers;
-import ie.cit.pro.domain.sy.Groups;
+import ie.cit.pro.domain.sy.SyAuthorities;
+import ie.cit.pro.domain.sy.SyGroupAuthorities;
+import ie.cit.pro.domain.sy.SyGroupMembers;
+import ie.cit.pro.domain.sy.SyGroups;
 import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
-import ie.cit.pro.domain.sy.Users;
+import ie.cit.pro.domain.sy.SyUsers;
 import ie.cit.pro.domain.tn.TnCompany;
 import ie.cit.pro.domain.tn.TnTenant;
 
@@ -124,40 +124,41 @@ public interface DataRepository {
 	void delete(SySection sySection);
 	void update(SySection sySection);
 
-	/***************************USERS***************************/
-	Users findById(Users users);
-	List<Users> getAllUserss();
-	void add(Users users);
-	void delete(Users users);
-	void update(Users users);
+	/***************************SY_USERS***************************/
+	SyUsers findById(SyUsers syUsers);
+	List<SyUsers> getAllSyUserss();
+	void add(SyUsers syUsers);
+	void delete(SyUsers syUsers);
+	void update(SyUsers syUsers);
 
-	/***************************AUTHORITIES***************************/
-	Authorities findById(Authorities authorities);
-	List<Authorities> getAllAuthoritiess();
-	void add(Authorities authorities);
-	void delete(Authorities authorities);
-	void update(Authorities authorities);
+	/***************************SY_AUTHORITIES***************************/
+	SyAuthorities findById(SyAuthorities syAuthorities);
+	List<SyAuthorities> getAllSyAuthoritiess();
+	void add(SyAuthorities syAuthorities);
+	void delete(SyAuthorities syAuthorities);
+	void update(SyAuthorities syAuthorities);
 
-	/***************************GROUPS***************************/
-	Groups findById(Groups groups);
-	List<Groups> getAllGroupss();
-	void add(Groups groups);
-	void delete(Groups groups);
-	void update(Groups groups);
+	/***************************SY_GROUPS***************************/
+	SyGroups findById(SyGroups syGroups);
+	List<SyGroups> getAllSyGroupss();
+	void add(SyGroups syGroups);
+	void delete(SyGroups syGroups);
+	void update(SyGroups syGroups);
 
-	/***************************GROUP_AUTHORITIES***************************/
-	GroupAuthorities findById(GroupAuthorities groupAuthorities);
-	List<GroupAuthorities> getAllGroupAuthoritiess();
-	void add(GroupAuthorities groupAuthorities);
-	void delete(GroupAuthorities groupAuthorities);
-	void update(GroupAuthorities groupAuthorities);
+	/***************************SY_GROUP_AUTHORITIES***************************/
+	SyGroupAuthorities findById(SyGroupAuthorities syGroupAuthorities);
+	List<SyGroupAuthorities> getAllSyGroupAuthoritiess();
+	void add(SyGroupAuthorities syGroupAuthorities);
+	void delete(SyGroupAuthorities syGroupAuthorities);
+	void update(SyGroupAuthorities syGroupAuthorities);
 
-	/***************************GROUP_MEMBERS***************************/
-	GroupMembers findById(GroupMembers groupMembers);
-	List<GroupMembers> getAllGroupMemberss();
-	void add(GroupMembers groupMembers);
-	void delete(GroupMembers groupMembers);
-	void update(GroupMembers groupMembers);
+	/***************************SY_GROUP_MEMBERS***************************/
+	SyGroupMembers findById(SyGroupMembers syGroupMembers);
+	List<SyGroupMembers> getAllSyGroupMemberss();
+	void add(SyGroupMembers syGroupMembers);
+	void delete(SyGroupMembers syGroupMembers);
+	void update(SyGroupMembers syGroupMembers);
+
 
 
 }

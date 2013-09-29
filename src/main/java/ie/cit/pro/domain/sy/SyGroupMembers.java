@@ -3,7 +3,7 @@ package ie.cit.pro.domain.sy;
 import java.util.Date;
 import java.util.UUID;
 
-public class GroupMembers {
+public class SyGroupMembers {
 
 	private String id;
 	private String grm_a_createdby;
@@ -13,7 +13,7 @@ public class GroupMembers {
 	private String username;
 	private Integer group_id;
 
-	public GroupMembers(){
+	public SyGroupMembers(){
 		id = UUID.randomUUID().toString();
 		}
 

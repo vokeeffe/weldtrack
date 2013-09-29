@@ -55,9 +55,9 @@
 			<security:password-encoder hash="md5" />
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
-				users-by-username-query="select username,password,enabled from users where username = ?"
-          		authorities-by-username-query="select username,authority from authorities where username = ?"
-          		group-authorities-by-username-query="select g.id, g.group_name, ga.authority from groups g, group_members gm, group_authorities ga where gm.username = ? and g.id = ga.group_id and g.id = gm.group_id"
+				users-by-username-query="SELECT username,password,enabled FROM sy_users WHERE username = ?"
+           		authorities-by-username-query="SELECT u.username, r.authority FROM sy_users u, sy_authorities r WHERE u.id = r.userid AND u.username = ?"
+          		group-authorities-by-username-query="SELECT g.id, g.group_name, ga.authority FROM groups g, group_members gm, group_authorities ga WHERE gm.username = ? and g.id = ga.group_id and g.id = gm.group_id"
           />
 		</security:authentication-provider>
 	</security:authentication-manager>
