@@ -9,8 +9,13 @@ import ie.cit.pro.domain.fb.FbSpool;
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
+import ie.cit.pro.domain.sy.Authorities;
+import ie.cit.pro.domain.sy.GroupAuthorities;
+import ie.cit.pro.domain.sy.GroupMembers;
+import ie.cit.pro.domain.sy.Groups;
 import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
+import ie.cit.pro.domain.sy.Users;
 import ie.cit.pro.domain.tn.TnCompany;
 import ie.cit.pro.domain.tn.TnTenant;
 
@@ -36,6 +41,25 @@ public class InMemoryDataRepository implements DataRepository {
 	private Map<String, TnCompany> tnCompanyMap = new HashMap<String, TnCompany>();
 	private Map<String, SySecfield> sySecfieldMap = new HashMap<String, SySecfield>();
 	private Map<String, SySection> sySectionMap = new HashMap<String, SySection>();
+	private Map<String, Users> usersMap = new HashMap<String, Users>();
+	private Map<String, Authorities> authoritiesMap = new HashMap<String, Authorities>();
+	private Map<String, Groups> groupsMap = new HashMap<String, Groups>();
+	private Map<String, GroupAuthorities> groupAuthoritiesMap = new HashMap<String, GroupAuthorities>();
+	private Map<String, GroupMembers> groupMembersMap = new HashMap<String, GroupMembers>();
+	
+	/***************************SY_SECFIELD***************************/
+	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields){
+
+		return null;
+	}
+	
+	/***************************SY_SECTION***************************/
+	public List<SySection> getSySectionsByCode(List<SySection> sySections){
+
+		return null;
+	}
+	
+	/*##########################GENERIC##########################*/
 
 	/***************************FB_WELDTYPE***************************/
 	public FbWeldType findById(FbWeldType fbWeldType) {
@@ -277,12 +301,6 @@ public class InMemoryDataRepository implements DataRepository {
 	public void update(SySecfield sySecfield) {
 	sySecfieldMap.put(sySecfield.getId(), sySecfield);
 	}
-	
-	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields){
-
-		return null;
-	}
-	
 	/***************************SY_SECTION***************************/
 	public SySection findById(SySection sySection) {
 	return sySectionMap.get(sySection.getId());
@@ -303,10 +321,105 @@ public class InMemoryDataRepository implements DataRepository {
 	public void update(SySection sySection) {
 	sySectionMap.put(sySection.getId(), sySection);
 	}
-	
-	public List<SySection> getSySectionsByCode(List<SySection> sySections){
+	/***************************USERS***************************/
+	public Users findById(Users users) {
+	return usersMap.get(users.getId());
+	}
 
-		return null;
+	public List<Users> getAllUserss() {
+	return new ArrayList<Users>(usersMap.values());
+	}
+
+	public void add(Users users) {
+	usersMap.put(users.getId(), users);
+	}
+
+	public void delete(Users users) {
+	usersMap.remove(users.getId());
+	}
+
+	public void update(Users users) {
+	usersMap.put(users.getId(), users);
+	}
+	/***************************AUTHORITIES***************************/
+	public Authorities findById(Authorities authorities) {
+	return authoritiesMap.get(authorities.getId());
+	}
+
+	public List<Authorities> getAllAuthoritiess() {
+	return new ArrayList<Authorities>(authoritiesMap.values());
+	}
+
+	public void add(Authorities authorities) {
+	authoritiesMap.put(authorities.getId(), authorities);
+	}
+
+	public void delete(Authorities authorities) {
+	authoritiesMap.remove(authorities.getId());
+	}
+
+	public void update(Authorities authorities) {
+	authoritiesMap.put(authorities.getId(), authorities);
+	}
+	/***************************GROUPS***************************/
+	public Groups findById(Groups groups) {
+	return groupsMap.get(groups.getId());
+	}
+
+	public List<Groups> getAllGroupss() {
+	return new ArrayList<Groups>(groupsMap.values());
+	}
+
+	public void add(Groups groups) {
+	groupsMap.put(groups.getId(), groups);
+	}
+
+	public void delete(Groups groups) {
+	groupsMap.remove(groups.getId());
+	}
+
+	public void update(Groups groups) {
+	groupsMap.put(groups.getId(), groups);
+	}
+	/***************************GROUP_AUTHORITIES***************************/
+	public GroupAuthorities findById(GroupAuthorities groupAuthorities) {
+	return groupAuthoritiesMap.get(groupAuthorities.getId());
+	}
+
+	public List<GroupAuthorities> getAllGroupAuthoritiess() {
+	return new ArrayList<GroupAuthorities>(groupAuthoritiesMap.values());
+	}
+
+	public void add(GroupAuthorities groupAuthorities) {
+	groupAuthoritiesMap.put(groupAuthorities.getId(), groupAuthorities);
+	}
+
+	public void delete(GroupAuthorities groupAuthorities) {
+	groupAuthoritiesMap.remove(groupAuthorities.getId());
+	}
+
+	public void update(GroupAuthorities groupAuthorities) {
+	groupAuthoritiesMap.put(groupAuthorities.getId(), groupAuthorities);
+	}
+	/***************************GROUP_MEMBERS***************************/
+	public GroupMembers findById(GroupMembers groupMembers) {
+	return groupMembersMap.get(groupMembers.getId());
+	}
+
+	public List<GroupMembers> getAllGroupMemberss() {
+	return new ArrayList<GroupMembers>(groupMembersMap.values());
+	}
+
+	public void add(GroupMembers groupMembers) {
+	groupMembersMap.put(groupMembers.getId(), groupMembers);
+	}
+
+	public void delete(GroupMembers groupMembers) {
+	groupMembersMap.remove(groupMembers.getId());
+	}
+
+	public void update(GroupMembers groupMembers) {
+	groupMembersMap.put(groupMembers.getId(), groupMembers);
 	}
 
 }

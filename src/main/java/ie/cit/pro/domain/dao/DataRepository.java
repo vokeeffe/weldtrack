@@ -9,14 +9,29 @@ import ie.cit.pro.domain.fb.FbSpool;
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
+import ie.cit.pro.domain.sy.Authorities;
+import ie.cit.pro.domain.sy.GroupAuthorities;
+import ie.cit.pro.domain.sy.GroupMembers;
+import ie.cit.pro.domain.sy.Groups;
 import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
+import ie.cit.pro.domain.sy.Users;
 import ie.cit.pro.domain.tn.TnCompany;
 import ie.cit.pro.domain.tn.TnTenant;
 
 import java.util.List;
 
 public interface DataRepository {
+	
+	
+	
+	/***************************SY_SECFIELD***************************/
+	List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields);
+	
+	/***************************SY_SECTION***************************/
+	List<SySection> getSySectionsByCode(List<SySection> sySections);
+	
+	/*##########################GENERIC##########################*/
 	
 	/***************************FB_WELDTYPE***************************/
 	FbWeldType findById(FbWeldType fbWeldType);
@@ -101,7 +116,6 @@ public interface DataRepository {
 	void add(SySecfield sySecfield);
 	void delete(SySecfield sySecfield);
 	void update(SySecfield sySecfield);
-	List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields);
 
 	/***************************SY_SECTION***************************/
 	SySection findById(SySection sySection);
@@ -109,7 +123,42 @@ public interface DataRepository {
 	void add(SySection sySection);
 	void delete(SySection sySection);
 	void update(SySection sySection);
-	List<SySection> getSySectionsByCode(List<SySection> sySections);
+
+	/***************************USERS***************************/
+	Users findById(Users users);
+	List<Users> getAllUserss();
+	void add(Users users);
+	void delete(Users users);
+	void update(Users users);
+
+	/***************************AUTHORITIES***************************/
+	Authorities findById(Authorities authorities);
+	List<Authorities> getAllAuthoritiess();
+	void add(Authorities authorities);
+	void delete(Authorities authorities);
+	void update(Authorities authorities);
+
+	/***************************GROUPS***************************/
+	Groups findById(Groups groups);
+	List<Groups> getAllGroupss();
+	void add(Groups groups);
+	void delete(Groups groups);
+	void update(Groups groups);
+
+	/***************************GROUP_AUTHORITIES***************************/
+	GroupAuthorities findById(GroupAuthorities groupAuthorities);
+	List<GroupAuthorities> getAllGroupAuthoritiess();
+	void add(GroupAuthorities groupAuthorities);
+	void delete(GroupAuthorities groupAuthorities);
+	void update(GroupAuthorities groupAuthorities);
+
+	/***************************GROUP_MEMBERS***************************/
+	GroupMembers findById(GroupMembers groupMembers);
+	List<GroupMembers> getAllGroupMemberss();
+	void add(GroupMembers groupMembers);
+	void delete(GroupMembers groupMembers);
+	void update(GroupMembers groupMembers);
+
 
 }
 
