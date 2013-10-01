@@ -23,7 +23,7 @@
 	<bean class="ie.cit.pro.services.FbServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
-	
+
 	<bean class="ie.cit.pro.services.SyServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
@@ -31,7 +31,7 @@
 	<bean class="ie.cit.pro.services.TnServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
-	
+
 	<bean class="ie.cit.pro.services.CjServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
@@ -51,15 +51,16 @@
 		secured-annotations="enabled" />
 
 	<security:authentication-manager>
+
 		<security:authentication-provider>
 			<security:password-encoder hash="md5" />
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
-				users-by-username-query="SELECT username,password,enabled FROM sy_users WHERE username = ?"
-           		authorities-by-username-query="SELECT u.username, r.authority FROM sy_users u, sy_authorities r WHERE u.id = r.userid AND u.username = ?"
-          		group-authorities-by-username-query="SELECT g.id, g.group_name, ga.authority FROM groups g, group_members gm, group_authorities ga WHERE gm.username = ? and g.id = ga.group_id and g.id = gm.group_id"
-          />
+				users-by-username-query="SELECT sur_login AS username, sur_password AS password, sur_enabled AS enabled FROM sy_users WHERE sur_login = ?"
+				authorities-by-username-query="SELECT usr.sur_login AS username, aut.sau_authority AS authority FROM sy_users usr, sy_authorities aut WHERE usr.sur_login = aut.sur_login AND usr.sur_login = ?"
+				group-authorities-by-username-query="SELECT grp.sgr_group_name AS id, grp.sgr_group_name AS group_name, gra.sga_authority AS authority FROM sy_groups grp, sy_group_members grm, sy_group_authorities gra WHERE grm.sur_login = ? AND grp.sgr_group_name = gra.sgr_group_name AND grp.sgr_group_name = grm.sgr_group_name" />
 		</security:authentication-provider>
+
 	</security:authentication-manager>
 
 	<beans profile="default">
@@ -72,10 +73,12 @@
 			destroy-method="stop" depends-on="dataSource">
 			<constructor-arg value="-web,-webPort,8082" />
 		</bean>
+
 	</beans>
 
 	<beans profile="cloud">
 		<cloud:data-source id="dataSource" service-name="weldtrackdb" />
+
 	</beans>
 
 </beans>

@@ -6,12 +6,12 @@ import java.util.UUID;
 public class SyGroupMembers {
 
 	private String id;
-	private String grm_a_createdby;
-	private Date  grm_a_createddate;
-	private String  grm_a_modifiedby;
-	private Date  grm_a_modifieddate;
-	private String username;
-	private Integer group_id;
+	private String sgm_a_createdby;
+	private Date  sgm_a_createddate;
+	private String  sgm_a_modifiedby;
+	private Date  sgm_a_modifieddate;
+	private String sur_login;
+	private String sgr_group_name;
 
 	public SyGroupMembers(){
 		id = UUID.randomUUID().toString();
@@ -25,52 +25,51 @@ public class SyGroupMembers {
 		this.id = id;
 	}
 
-	public String getGrm_a_createdby() {
-		return grm_a_createdby;
+	public String getSgm_a_createdby() {
+		return sgm_a_createdby;
 	}
 
-	public void setGrm_a_createdby(String grm_a_createdby) {
-		this.grm_a_createdby = grm_a_createdby;
+	public void setSgm_a_createdby(String sgm_a_createdby) {
+		this.sgm_a_createdby = sgm_a_createdby;
 	}
 
-	public Date getGrm_a_createddate() {
-		return grm_a_createddate;
+	public Date getSgm_a_createddate() {
+		return sgm_a_createddate;
 	}
 
-	public void setGrm_a_createddate(Date grm_a_createddate) {
-		this.grm_a_createddate = grm_a_createddate;
+	public void setSgm_a_createddate(Date sgm_a_createddate) {
+		this.sgm_a_createddate = sgm_a_createddate;
 	}
 
-	public String getGrm_a_modifiedby() {
-		return grm_a_modifiedby;
+	public String getSgm_a_modifiedby() {
+		return sgm_a_modifiedby;
 	}
 
-	public void setGrm_a_modifiedby(String grm_a_modifiedby) {
-		this.grm_a_modifiedby = grm_a_modifiedby;
+	public void setSgm_a_modifiedby(String sgm_a_modifiedby) {
+		this.sgm_a_modifiedby = sgm_a_modifiedby;
 	}
 
-	public Date getGrm_a_modifieddate() {
-		return grm_a_modifieddate;
+	public Date getSgm_a_modifieddate() {
+		return sgm_a_modifieddate;
 	}
 
-	public void setGrm_a_modifieddate(Date grm_a_modifieddate) {
-		this.grm_a_modifieddate = grm_a_modifieddate;
+	public void setSgm_a_modifieddate(Date sgm_a_modifieddate) {
+		this.sgm_a_modifieddate = sgm_a_modifieddate;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getSur_login() {
+		return sur_login;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setSur_login(String sur_login) {
+		this.sur_login = sur_login;
 	}
 
-	public Integer getGroup_id() {
-		return group_id;
+	public String getSgr_group_name() {
+		return sgr_group_name;
 	}
 
-	public void setGroup_id(Integer group_id) {
-		this.group_id = group_id;
+	public void setSgr_group_name(String sgr_group_name) {
+		this.sgr_group_name = sgr_group_name;
 	}
-	
 }

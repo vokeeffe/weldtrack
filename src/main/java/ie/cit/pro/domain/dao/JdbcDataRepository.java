@@ -33,7 +33,7 @@ import org.springframework.security.access.annotation.Secured;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@Secured("ROLE_USER")//Secures all of the methods in the class.
+@Secured("ROLE_READ")//Secures all of the methods in the class.
 public class JdbcDataRepository implements DataRepository {
 
 	private JdbcTemplate jdbcTemplate;
@@ -64,9 +64,9 @@ public class JdbcDataRepository implements DataRepository {
 	private String getCurrentUser() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
-
+	
 	/***************************SY_SECFIELD***************************/
-	@Secured({"ROLE_USER", "ROLE_GUEST"})
+	@Secured({"ROLE_READ"})
 	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields){
 
 		List<SySecfield> sySecfieldsList = new ArrayList<SySecfield>(); 
@@ -83,7 +83,7 @@ public class JdbcDataRepository implements DataRepository {
 	}
 	
 	/***************************SY_SECTION***************************/
-	@Secured({"ROLE_USER", "ROLE_GUEST"})
+	@Secured({"ROLE_READ"})
 	public List<SySection> getSySectionsByCode(List<SySection> sySections){
 
 		List<SySection> sySectionsList = new ArrayList<SySection>(); 
@@ -102,28 +102,28 @@ public class JdbcDataRepository implements DataRepository {
 	/*##########################GENERIC##########################*/
 
 	/***************************FB_WELDTYPE***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public FbWeldType findById(FbWeldType fbWeldType) {
 	return jdbcTemplate.queryForObject("SELECT * FROM fb_weldtype WHERE ID=?", fbWeldTypeMapper, fbWeldType.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<FbWeldType> getAllFbWeldTypes(){
 	return jdbcTemplate.query("SELECT * FROM fb_weldtype", fbWeldTypeMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(FbWeldType fbWeldType) {
 	jdbcTemplate.update("INSERT INTO fb_weldtype (id, wty_a_createdby, wty_a_createddate) VALUES(?,?,?)", fbWeldType.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbWeldType);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(FbWeldType fbWeldType) {
 	jdbcTemplate.update("DELETE FROM fb_weldtype WHERE ID=?", fbWeldType.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(FbWeldType fbWeldType) {
 	jdbcTemplate.update("UPDATE fb_weldtype SET wty_a_modifiedby=?, wty_a_modifieddate=?, " + 
 	"ktn=?, wty_code=?, wty_name=?, wty_sort=? WHERE id=?",
@@ -132,28 +132,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************FB_WELD***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public FbWeld findById(FbWeld fbWeld) {
 	return jdbcTemplate.queryForObject("SELECT * FROM fb_weld WHERE ID=?", fbWeldMapper, fbWeld.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<FbWeld> getAllFbWelds(){
 	return jdbcTemplate.query("SELECT * FROM fb_weld", fbWeldMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(FbWeld fbWeld) {
 	jdbcTemplate.update("INSERT INTO fb_weld (id, wld_a_createdby, wld_a_createddate) VALUES(?,?,?)", fbWeld.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbWeld);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(FbWeld fbWeld) {
 	jdbcTemplate.update("DELETE FROM fb_weld WHERE ID=?", fbWeld.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(FbWeld fbWeld) {
 	jdbcTemplate.update("UPDATE fb_weld SET wld_a_modifiedby=?, wld_a_modifieddate=?, " + 
 	"ktn=?, kco=?, wty_code=?, wld_num=?, spl_num=?, iso_num=?, pdr_size=?, wld_fw=?, wdr_num=?, wld_wdate=?, fit_fitting1=?, fit_fitting2=?, wld_heat1=?, wld_heat2=? WHERE id=?",
@@ -162,28 +162,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************FB_WELDER***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public FbWelder findById(FbWelder fbWelder) {
 	return jdbcTemplate.queryForObject("SELECT * FROM fb_welder WHERE ID=?", fbWelderMapper, fbWelder.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<FbWelder> getAllFbWelders(){
 	return jdbcTemplate.query("SELECT * FROM fb_welder", fbWelderMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(FbWelder fbWelder) {
 	jdbcTemplate.update("INSERT INTO fb_welder (id, wdr_a_createdby, wdr_a_createddate) VALUES(?,?,?)", fbWelder.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbWelder);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(FbWelder fbWelder) {
 	jdbcTemplate.update("DELETE FROM fb_welder WHERE ID=?", fbWelder.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(FbWelder fbWelder) {
 	jdbcTemplate.update("UPDATE fb_welder SET wdr_a_modifiedby=?, wdr_a_modifieddate=?, " + 
 	"ktn=?, kco=?, wdr_num=?, wdr_name=?, wdr_status=?, wdr_active=? WHERE id=?",
@@ -192,28 +192,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************FB_ISOMETRIC***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public FbIsometric findById(FbIsometric fbIsometric) {
 	return jdbcTemplate.queryForObject("SELECT * FROM fb_isometric WHERE ID=?", fbIsometricMapper, fbIsometric.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<FbIsometric> getAllFbIsometrics(){
 	return jdbcTemplate.query("SELECT * FROM fb_isometric", fbIsometricMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(FbIsometric fbIsometric) {
 	jdbcTemplate.update("INSERT INTO fb_isometric (id, iso_a_createdby, iso_a_createddate) VALUES(?,?,?)", fbIsometric.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbIsometric);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(FbIsometric fbIsometric) {
 	jdbcTemplate.update("DELETE FROM fb_isometric WHERE ID=?", fbIsometric.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(FbIsometric fbIsometric) {
 	jdbcTemplate.update("UPDATE fb_isometric SET iso_a_modifiedby=?, iso_a_modifieddate=?, " + 
 	"ktn=?, kco=?, con_num=?, job_num=?, iso_num=?, iso_revno=?, iso_revcode=? WHERE id=?",
@@ -222,28 +222,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************FB_SPOOL***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public FbSpool findById(FbSpool fbSpool) {
 	return jdbcTemplate.queryForObject("SELECT * FROM fb_spool WHERE ID=?", fbSpoolMapper, fbSpool.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<FbSpool> getAllFbSpools(){
 	return jdbcTemplate.query("SELECT * FROM fb_spool", fbSpoolMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(FbSpool fbSpool) {
 	jdbcTemplate.update("INSERT INTO fb_spool (id, spl_a_createdby, spl_a_createddate) VALUES(?,?,?)", fbSpool.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbSpool);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(FbSpool fbSpool) {
 	jdbcTemplate.update("DELETE FROM fb_spool WHERE ID=?", fbSpool.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(FbSpool fbSpool) {
 	jdbcTemplate.update("UPDATE fb_spool SET spl_a_modifiedby=?, spl_a_modifieddate=?, " + 
 	"ktn=?, kco=?, iso_num=?, spl_num=? WHERE id=?",
@@ -252,28 +252,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************FB_PIPEDIAM***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public FbPipediam findById(FbPipediam fbPipediam) {
 	return jdbcTemplate.queryForObject("SELECT * FROM fb_pipediam WHERE ID=?", fbPipediamMapper, fbPipediam.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<FbPipediam> getAllFbPipediams(){
 	return jdbcTemplate.query("SELECT * FROM fb_pipediam", fbPipediamMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(FbPipediam fbPipediam) {
 	jdbcTemplate.update("INSERT INTO fb_pipediam (id, pdr_a_createdby, pdr_a_createddate) VALUES(?,?,?)", fbPipediam.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbPipediam);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(FbPipediam fbPipediam) {
 	jdbcTemplate.update("DELETE FROM fb_pipediam WHERE ID=?", fbPipediam.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(FbPipediam fbPipediam) {
 	jdbcTemplate.update("UPDATE fb_pipediam SET pdr_a_modifiedby=?, pdr_a_modifieddate=?, " + 
 	"ktn=?, pdr_size=?, pdr_desc=?, pdr_nb=? WHERE id=?",
@@ -282,28 +282,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************FB_FITTING***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public FbFitting findById(FbFitting fbFitting) {
 	return jdbcTemplate.queryForObject("SELECT * FROM fb_fitting WHERE ID=?", fbFittingMapper, fbFitting.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<FbFitting> getAllFbFittings(){
 	return jdbcTemplate.query("SELECT * FROM fb_fitting", fbFittingMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(FbFitting fbFitting) {
 	jdbcTemplate.update("INSERT INTO fb_fitting (id, fit_a_createdby, fit_a_createddate) VALUES(?,?,?)", fbFitting.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbFitting);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(FbFitting fbFitting) {
 	jdbcTemplate.update("DELETE FROM fb_fitting WHERE ID=?", fbFitting.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(FbFitting fbFitting) {
 	jdbcTemplate.update("UPDATE fb_fitting SET fit_a_modifiedby=?, fit_a_modifieddate=?, " + 
 	"ktn=?, fit_code=?, fit_name=? WHERE id=?",
@@ -312,28 +312,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************CJ_CONTRACT***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public CjContract findById(CjContract cjContract) {
 	return jdbcTemplate.queryForObject("SELECT * FROM cj_contract WHERE ID=?", cjContractMapper, cjContract.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<CjContract> getAllCjContracts(){
 	return jdbcTemplate.query("SELECT * FROM cj_contract", cjContractMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(CjContract cjContract) {
 	jdbcTemplate.update("INSERT INTO cj_contract (id, con_a_createdby, con_a_createddate) VALUES(?,?,?)", cjContract.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(cjContract);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(CjContract cjContract) {
 	jdbcTemplate.update("DELETE FROM cj_contract WHERE ID=?", cjContract.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(CjContract cjContract) {
 	jdbcTemplate.update("UPDATE cj_contract SET con_a_modifiedby=?, con_a_modifieddate=?, " + 
 	"ktn=?, kco=?, con_num=?, con_name=? WHERE id=?",
@@ -342,28 +342,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************CJ_JOB***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public CjJob findById(CjJob cjJob) {
 	return jdbcTemplate.queryForObject("SELECT * FROM cj_job WHERE ID=?", cjJobMapper, cjJob.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<CjJob> getAllCjJobs(){
 	return jdbcTemplate.query("SELECT * FROM cj_job", cjJobMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(CjJob cjJob) {
 	jdbcTemplate.update("INSERT INTO cj_job (id, job_a_createdby, job_a_createddate) VALUES(?,?,?)", cjJob.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(cjJob);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(CjJob cjJob) {
 	jdbcTemplate.update("DELETE FROM cj_job WHERE ID=?", cjJob.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(CjJob cjJob) {
 	jdbcTemplate.update("UPDATE cj_job SET job_a_modifiedby=?, job_a_modifieddate=?, " + 
 	"ktn=?, kco=?, con_num=?, job_num=?, job_name=? WHERE id=?",
@@ -372,28 +372,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************TN_TENANT***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public TnTenant findById(TnTenant tnTenant) {
 	return jdbcTemplate.queryForObject("SELECT * FROM tn_tenant WHERE ID=?", tnTenantMapper, tnTenant.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<TnTenant> getAllTnTenants(){
 	return jdbcTemplate.query("SELECT * FROM tn_tenant", tnTenantMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(TnTenant tnTenant) {
 	jdbcTemplate.update("INSERT INTO tn_tenant (id, tnt_a_createdby, tnt_a_createddate) VALUES(?,?,?)", tnTenant.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(tnTenant);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(TnTenant tnTenant) {
 	jdbcTemplate.update("DELETE FROM tn_tenant WHERE ID=?", tnTenant.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(TnTenant tnTenant) {
 	jdbcTemplate.update("UPDATE tn_tenant SET tnt_a_modifiedby=?, tnt_a_modifieddate=?, " + 
 	"ktn=?, tnt_name=? WHERE id=?",
@@ -402,28 +402,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************TN_COMPANY***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public TnCompany findById(TnCompany tnCompany) {
 	return jdbcTemplate.queryForObject("SELECT * FROM tn_company WHERE ID=?", tnCompanyMapper, tnCompany.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<TnCompany> getAllTnCompanys(){
 	return jdbcTemplate.query("SELECT * FROM tn_company", tnCompanyMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(TnCompany tnCompany) {
 	jdbcTemplate.update("INSERT INTO tn_company (id, tco_a_createdby, tco_a_createddate) VALUES(?,?,?)", tnCompany.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(tnCompany);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(TnCompany tnCompany) {
 	jdbcTemplate.update("DELETE FROM tn_company WHERE ID=?", tnCompany.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(TnCompany tnCompany) {
 	jdbcTemplate.update("UPDATE tn_company SET tco_a_modifiedby=?, tco_a_modifieddate=?, " + 
 	"ktn=?, kco=?, tco_name=? WHERE id=?",
@@ -432,28 +432,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************SY_SECFIELD***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public SySecfield findById(SySecfield sySecfield) {
 	return jdbcTemplate.queryForObject("SELECT * FROM sy_secfield WHERE ID=?", sySecfieldMapper, sySecfield.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<SySecfield> getAllSySecfields(){
 	return jdbcTemplate.query("SELECT * FROM sy_secfield", sySecfieldMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(SySecfield sySecfield) {
 	jdbcTemplate.update("INSERT INTO sy_secfield (id, sfd_a_createdby, sfd_a_createddate) VALUES(?,?,?)", sySecfield.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(sySecfield);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(SySecfield sySecfield) {
 	jdbcTemplate.update("DELETE FROM sy_secfield WHERE ID=?", sySecfield.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(SySecfield sySecfield) {
 	jdbcTemplate.update("UPDATE sy_secfield SET sfd_a_modifiedby=?, sfd_a_modifieddate=?, " + 
 	"stn_code=?, sfd_wrap=?, sfd_width=?, sfd_visible=?, sfd_value=?, sfd_valid=?, sfd_update=?, sfd_tooltip=?, sfd_tab=?, sfd_src=?, sfd_sort=?, sfd_seq=?, sfd_rows=?, sfd_required=?, sfd_readonly=?, sfd_range_step=?, sfd_range_num=?, sfd_range_min=?, sfd_range_max=?, sfd_progress_value=?, sfd_progress_max=?, sfd_placeholder=?, sfd_param=?, sfd_options=?, sfd_onok=?, sfd_onchange=?, sfd_onblur=?, sfd_name=?, sfd_maxlength=?, sfd_lspan=?, sfd_lclass=?, sfd_label=?, sfd_input_type=?, sfd_img_src=?, sfd_id=?, sfd_hide=?, sfd_height=?, sfd_generate=?, sfd_format=?, sfd_form=?, sfd_disabled=?, sfd_default=?, sfd_column=?, sfd_code=?, sfd_class=?, sfd_calc=?, sfd_build=?, sfd_autofocus=?, sfd_autocomplete=?, sfd_append=?, sfd_align=?, sfd_addblank=?, sfd_add=?, mf_function=?, ktn=?, sfd_size=? WHERE id=?",
@@ -462,28 +462,28 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************SY_SECTION***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public SySection findById(SySection sySection) {
 	return jdbcTemplate.queryForObject("SELECT * FROM sy_section WHERE ID=?", sySectionMapper, sySection.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<SySection> getAllSySections(){
 	return jdbcTemplate.query("SELECT * FROM sy_section", sySectionMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(SySection sySection) {
 	jdbcTemplate.update("INSERT INTO sy_section (id, stn_a_createdby, stn_a_createddate) VALUES(?,?,?)", sySection.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(sySection);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(SySection sySection) {
 	jdbcTemplate.update("DELETE FROM sy_section WHERE ID=?", sySection.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(SySection sySection) {
 	jdbcTemplate.update("UPDATE sy_section SET stn_a_modifiedby=?, stn_a_modifieddate=?, " + 
 	"stn_code=?, mf_function=?, stn_hservice=?, stn_bservice=?, stn_brows=?, stn_btitle=?, stn_form=?, stn_form_method=?, stn_script=?, ktn=?, stn_form_action=? WHERE id=?",
@@ -492,153 +492,154 @@ public class JdbcDataRepository implements DataRepository {
 
 
 	/***************************SY_USERS***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public SyUsers findById(SyUsers syUsers) {
 	return jdbcTemplate.queryForObject("SELECT * FROM sy_users WHERE ID=?", syUsersMapper, syUsers.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<SyUsers> getAllSyUserss(){
 	return jdbcTemplate.query("SELECT * FROM sy_users", syUsersMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(SyUsers syUsers) {
-	jdbcTemplate.update("INSERT INTO sy_users (id, usr_a_createdby, usr_a_createddate) VALUES(?,?,?)", syUsers.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO sy_users (id, sus_a_createdby, sus_a_createddate) VALUES(?,?,?)", syUsers.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(syUsers);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(SyUsers syUsers) {
 	jdbcTemplate.update("DELETE FROM sy_users WHERE ID=?", syUsers.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(SyUsers syUsers) {
-	jdbcTemplate.update("UPDATE sy_users SET usr_a_modifiedby=?, usr_a_modifieddate=?, " + 
-	"username=?, password=?, enabled=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syUsers.getUsername(), syUsers.getPassword(), syUsers.getEnabled(), syUsers.getId());
+	jdbcTemplate.update("UPDATE sy_users SET sus_a_modifiedby=?, sus_a_modifieddate=?, " + 
+	"sur_login=?, sur_password=?, sur_enabled=?, ktn=?, kco_prime=?, kco_list=?, sur_name=? WHERE id=?",
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syUsers.getSur_login(), syUsers.getSur_password(), syUsers.isSur_enabled(), syUsers.getKtn(), syUsers.getKco_prime(), syUsers.getKco_list(), syUsers.getSur_name(), syUsers.getId());
 	}
 
 
 	/***************************SY_AUTHORITIES***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public SyAuthorities findById(SyAuthorities syAuthorities) {
 	return jdbcTemplate.queryForObject("SELECT * FROM sy_authorities WHERE ID=?", syAuthoritiesMapper, syAuthorities.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<SyAuthorities> getAllSyAuthoritiess(){
 	return jdbcTemplate.query("SELECT * FROM sy_authorities", syAuthoritiesMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(SyAuthorities syAuthorities) {
-	jdbcTemplate.update("INSERT INTO sy_authorities (id, aut_a_createdby, aut_a_createddate) VALUES(?,?,?)", syAuthorities.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO sy_authorities (id, sau_a_createdby, sau_a_createddate) VALUES(?,?,?)", syAuthorities.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(syAuthorities);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(SyAuthorities syAuthorities) {
 	jdbcTemplate.update("DELETE FROM sy_authorities WHERE ID=?", syAuthorities.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(SyAuthorities syAuthorities) {
-	jdbcTemplate.update("UPDATE sy_authorities SET aut_a_modifiedby=?, aut_a_modifieddate=?, " + 
-	"username=?, authority=?, user_id=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syAuthorities.getUsername(), syAuthorities.getAuthority(), syAuthorities.getUser_id(), syAuthorities.getId());
+	jdbcTemplate.update("UPDATE sy_authorities SET sau_a_modifiedby=?, sau_a_modifieddate=?, " + 
+	"sur_login=?, sau_authority=? WHERE id=?",
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syAuthorities.getSur_login(), syAuthorities.getSau_authority(), syAuthorities.getId());
 	}
 
 
 	/***************************SY_GROUPS***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public SyGroups findById(SyGroups syGroups) {
 	return jdbcTemplate.queryForObject("SELECT * FROM sy_groups WHERE ID=?", syGroupsMapper, syGroups.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<SyGroups> getAllSyGroupss(){
 	return jdbcTemplate.query("SELECT * FROM sy_groups", syGroupsMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(SyGroups syGroups) {
-	jdbcTemplate.update("INSERT INTO sy_groups (id, grp_a_createdby, grp_a_createddate) VALUES(?,?,?)", syGroups.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO sy_groups (id, sgr_a_createdby, sgr_a_createddate) VALUES(?,?,?)", syGroups.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(syGroups);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(SyGroups syGroups) {
 	jdbcTemplate.update("DELETE FROM sy_groups WHERE ID=?", syGroups.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(SyGroups syGroups) {
-	jdbcTemplate.update("UPDATE sy_groups SET grp_a_modifiedby=?, grp_a_modifieddate=?, " + 
-	"group_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroups.getGroup_name(), syGroups.getId());
+	jdbcTemplate.update("UPDATE sy_groups SET sgr_a_modifiedby=?, sgr_a_modifieddate=?, " + 
+	"sgr_group_name=? WHERE id=?",
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroups.getSgr_group_name(), syGroups.getId());
 	}
 
 
 	/***************************SY_GROUP_AUTHORITIES***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public SyGroupAuthorities findById(SyGroupAuthorities syGroupAuthorities) {
 	return jdbcTemplate.queryForObject("SELECT * FROM sy_group_authorities WHERE ID=?", syGroupAuthoritiesMapper, syGroupAuthorities.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<SyGroupAuthorities> getAllSyGroupAuthoritiess(){
 	return jdbcTemplate.query("SELECT * FROM sy_group_authorities", syGroupAuthoritiesMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(SyGroupAuthorities syGroupAuthorities) {
-	jdbcTemplate.update("INSERT INTO sy_group_authorities (id, gra_a_createdby, gra_a_createddate) VALUES(?,?,?)", syGroupAuthorities.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO sy_group_authorities (id, sga_a_createdby, sga_a_createddate) VALUES(?,?,?)", syGroupAuthorities.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(syGroupAuthorities);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(SyGroupAuthorities syGroupAuthorities) {
 	jdbcTemplate.update("DELETE FROM sy_group_authorities WHERE ID=?", syGroupAuthorities.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(SyGroupAuthorities syGroupAuthorities) {
-	jdbcTemplate.update("UPDATE sy_group_authorities SET gra_a_modifiedby=?, gra_a_modifieddate=?, " + 
-	"group_id=?, authority=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroupAuthorities.getGroup_id(), syGroupAuthorities.getAuthority(), syGroupAuthorities.getId());
+	jdbcTemplate.update("UPDATE sy_group_authorities SET sga_a_modifiedby=?, sga_a_modifieddate=?, " + 
+	"sgr_group_name=?, sga_authority=? WHERE id=?",
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroupAuthorities.getSgr_group_name(), syGroupAuthorities.getSga_authority(), syGroupAuthorities.getId());
 	}
 
 
 	/***************************SY_GROUP_MEMBERS***************************/
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public SyGroupMembers findById(SyGroupMembers syGroupMembers) {
 	return jdbcTemplate.queryForObject("SELECT * FROM sy_group_members WHERE ID=?", syGroupMembersMapper, syGroupMembers.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_READ"})
 	public List<SyGroupMembers> getAllSyGroupMemberss(){
 	return jdbcTemplate.query("SELECT * FROM sy_group_members", syGroupMembersMapper);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_CREATE"})
 	public void add(SyGroupMembers syGroupMembers) {
-	jdbcTemplate.update("INSERT INTO sy_group_members (id, grm_a_createdby, grm_a_createddate) VALUES(?,?,?)", syGroupMembers.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO sy_group_members (id, sgm_a_createdby, sgm_a_createddate) VALUES(?,?,?)", syGroupMembers.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(syGroupMembers);
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_DELETE"})
 	public void delete(SyGroupMembers syGroupMembers) {
 	jdbcTemplate.update("DELETE FROM sy_group_members WHERE ID=?", syGroupMembers.getId());
 	}
 
-@Secured({"ROLE_USER", "ROLE_GUEST"})
+@Secured({"ROLE_UPDATE"})
 	public void update(SyGroupMembers syGroupMembers) {
-	jdbcTemplate.update("UPDATE sy_group_members SET grm_a_modifiedby=?, grm_a_modifieddate=?, " + 
-	"username=?, group_id=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroupMembers.getUsername(), syGroupMembers.getGroup_id(), syGroupMembers.getId());
+	jdbcTemplate.update("UPDATE sy_group_members SET sgm_a_modifiedby=?, sgm_a_modifieddate=?, " + 
+	"sur_login=?, sgr_group_name=? WHERE id=?",
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroupMembers.getSur_login(), syGroupMembers.getSgr_group_name(), syGroupMembers.getId());
 	}
+
 
 }
 
@@ -926,13 +927,17 @@ class SyUsersMapper implements RowMapper<SyUsers> {
 public SyUsers mapRow(ResultSet rs, int rowNum) throws SQLException {
 SyUsers syUsers = new SyUsers();
 syUsers.setId(rs.getString("id"));
-syUsers.setUsr_a_createdby(rs.getString("usr_a_createdby"));
-syUsers.setUsr_a_createddate(rs.getDate("usr_a_createddate"));
-syUsers.setUsr_a_modifiedby(rs.getString("usr_a_modifiedby"));
-syUsers.setUsr_a_modifieddate(rs.getDate("usr_a_modifieddate"));
-syUsers.setUsername(rs.getString("username"));
-syUsers.setPassword(rs.getString("password"));
-syUsers.setEnabled(rs.getBoolean("enabled"));
+syUsers.setSus_a_createdby(rs.getString("sus_a_createdby"));
+syUsers.setSus_a_createddate(rs.getDate("sus_a_createddate"));
+syUsers.setSus_a_modifiedby(rs.getString("sus_a_modifiedby"));
+syUsers.setSus_a_modifieddate(rs.getDate("sus_a_modifieddate"));
+syUsers.setSur_login(rs.getString("sur_login"));
+syUsers.setSur_password(rs.getString("sur_password"));
+syUsers.setSur_enabled(rs.getBoolean("sur_enabled"));
+syUsers.setKtn(rs.getInt ("ktn"));
+syUsers.setKco_prime(rs.getInt ("kco_prime"));
+syUsers.setKco_list(rs.getString("kco_list"));
+syUsers.setSur_name(rs.getString("sur_name"));
 return syUsers;
 }
 }
@@ -941,13 +946,12 @@ class SyAuthoritiesMapper implements RowMapper<SyAuthorities> {
 public SyAuthorities mapRow(ResultSet rs, int rowNum) throws SQLException {
 SyAuthorities syAuthorities = new SyAuthorities();
 syAuthorities.setId(rs.getString("id"));
-syAuthorities.setAut_a_createdby(rs.getString("aut_a_createdby"));
-syAuthorities.setAut_a_createddate(rs.getDate("aut_a_createddate"));
-syAuthorities.setAut_a_modifiedby(rs.getString("aut_a_modifiedby"));
-syAuthorities.setAut_a_modifieddate(rs.getDate("aut_a_modifieddate"));
-syAuthorities.setUsername(rs.getString("username"));
-syAuthorities.setAuthority(rs.getString("authority"));
-syAuthorities.setUser_id(rs.getInt ("user_id"));
+syAuthorities.setSau_a_createdby(rs.getString("sau_a_createdby"));
+syAuthorities.setSau_a_createddate(rs.getDate("sau_a_createddate"));
+syAuthorities.setSau_a_modifiedby(rs.getString("sau_a_modifiedby"));
+syAuthorities.setSau_a_modifieddate(rs.getDate("sau_a_modifieddate"));
+syAuthorities.setSur_login(rs.getString("sur_login"));
+syAuthorities.setSau_authority(rs.getString("sau_authority"));
 return syAuthorities;
 }
 }
@@ -956,11 +960,11 @@ class SyGroupsMapper implements RowMapper<SyGroups> {
 public SyGroups mapRow(ResultSet rs, int rowNum) throws SQLException {
 SyGroups syGroups = new SyGroups();
 syGroups.setId(rs.getString("id"));
-syGroups.setGrp_a_createdby(rs.getString("grp_a_createdby"));
-syGroups.setGrp_a_createddate(rs.getDate("grp_a_createddate"));
-syGroups.setGrp_a_modifiedby(rs.getString("grp_a_modifiedby"));
-syGroups.setGrp_a_modifieddate(rs.getDate("grp_a_modifieddate"));
-syGroups.setGroup_name(rs.getString("group_name"));
+syGroups.setSgr_a_createdby(rs.getString("sgr_a_createdby"));
+syGroups.setSgr_a_createddate(rs.getDate("sgr_a_createddate"));
+syGroups.setSgr_a_modifiedby(rs.getString("sgr_a_modifiedby"));
+syGroups.setSgr_a_modifieddate(rs.getDate("sgr_a_modifieddate"));
+syGroups.setSgr_group_name(rs.getString("sgr_group_name"));
 return syGroups;
 }
 }
@@ -969,12 +973,12 @@ class SyGroupAuthoritiesMapper implements RowMapper<SyGroupAuthorities> {
 public SyGroupAuthorities mapRow(ResultSet rs, int rowNum) throws SQLException {
 SyGroupAuthorities syGroupAuthorities = new SyGroupAuthorities();
 syGroupAuthorities.setId(rs.getString("id"));
-syGroupAuthorities.setGra_a_createdby(rs.getString("gra_a_createdby"));
-syGroupAuthorities.setGra_a_createddate(rs.getDate("gra_a_createddate"));
-syGroupAuthorities.setGra_a_modifiedby(rs.getString("gra_a_modifiedby"));
-syGroupAuthorities.setGra_a_modifieddate(rs.getDate("gra_a_modifieddate"));
-syGroupAuthorities.setGroup_id(rs.getInt ("group_id"));
-syGroupAuthorities.setAuthority(rs.getString("authority"));
+syGroupAuthorities.setSga_a_createdby(rs.getString("sga_a_createdby"));
+syGroupAuthorities.setSga_a_createddate(rs.getDate("sga_a_createddate"));
+syGroupAuthorities.setSga_a_modifiedby(rs.getString("sga_a_modifiedby"));
+syGroupAuthorities.setSga_a_modifieddate(rs.getDate("sga_a_modifieddate"));
+syGroupAuthorities.setSgr_group_name(rs.getString("sgr_group_name"));
+syGroupAuthorities.setSga_authority(rs.getString("sga_authority"));
 return syGroupAuthorities;
 }
 }
@@ -983,12 +987,12 @@ class SyGroupMembersMapper implements RowMapper<SyGroupMembers> {
 public SyGroupMembers mapRow(ResultSet rs, int rowNum) throws SQLException {
 SyGroupMembers syGroupMembers = new SyGroupMembers();
 syGroupMembers.setId(rs.getString("id"));
-syGroupMembers.setGrm_a_createdby(rs.getString("grm_a_createdby"));
-syGroupMembers.setGrm_a_createddate(rs.getDate("grm_a_createddate"));
-syGroupMembers.setGrm_a_modifiedby(rs.getString("grm_a_modifiedby"));
-syGroupMembers.setGrm_a_modifieddate(rs.getDate("grm_a_modifieddate"));
-syGroupMembers.setUsername(rs.getString("username"));
-syGroupMembers.setGroup_id(rs.getInt ("group_id"));
+syGroupMembers.setSgm_a_createdby(rs.getString("sgm_a_createdby"));
+syGroupMembers.setSgm_a_createddate(rs.getDate("sgm_a_createddate"));
+syGroupMembers.setSgm_a_modifiedby(rs.getString("sgm_a_modifiedby"));
+syGroupMembers.setSgm_a_modifieddate(rs.getDate("sgm_a_modifieddate"));
+syGroupMembers.setSur_login(rs.getString("sur_login"));
+syGroupMembers.setSgr_group_name(rs.getString("sgr_group_name"));
 return syGroupMembers;
 }
 }

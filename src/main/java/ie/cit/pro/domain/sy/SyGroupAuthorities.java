@@ -6,12 +6,12 @@ import java.util.UUID;
 public class SyGroupAuthorities {
 
 	private String id;
-	private String gra_a_createdby;
-	private Date  gra_a_createddate;
-	private String  gra_a_modifiedby;
-	private Date  gra_a_modifieddate;
-	private Integer group_id;
-	private String authority;
+	private String sga_a_createdby;
+	private Date  sga_a_createddate;
+	private String  sga_a_modifiedby;
+	private Date  sga_a_modifieddate;
+	private String sgr_group_name;
+	private String sga_authority;
 
 	public SyGroupAuthorities(){
 		id = UUID.randomUUID().toString();
@@ -25,52 +25,51 @@ public class SyGroupAuthorities {
 		this.id = id;
 	}
 
-	public String getGra_a_createdby() {
-		return gra_a_createdby;
+	public String getSga_a_createdby() {
+		return sga_a_createdby;
 	}
 
-	public void setGra_a_createdby(String gra_a_createdby) {
-		this.gra_a_createdby = gra_a_createdby;
+	public void setSga_a_createdby(String sga_a_createdby) {
+		this.sga_a_createdby = sga_a_createdby;
 	}
 
-	public Date getGra_a_createddate() {
-		return gra_a_createddate;
+	public Date getSga_a_createddate() {
+		return sga_a_createddate;
 	}
 
-	public void setGra_a_createddate(Date gra_a_createddate) {
-		this.gra_a_createddate = gra_a_createddate;
+	public void setSga_a_createddate(Date sga_a_createddate) {
+		this.sga_a_createddate = sga_a_createddate;
 	}
 
-	public String getGra_a_modifiedby() {
-		return gra_a_modifiedby;
+	public String getSga_a_modifiedby() {
+		return sga_a_modifiedby;
 	}
 
-	public void setGra_a_modifiedby(String gra_a_modifiedby) {
-		this.gra_a_modifiedby = gra_a_modifiedby;
+	public void setSga_a_modifiedby(String sga_a_modifiedby) {
+		this.sga_a_modifiedby = sga_a_modifiedby;
 	}
 
-	public Date getGra_a_modifieddate() {
-		return gra_a_modifieddate;
+	public Date getSga_a_modifieddate() {
+		return sga_a_modifieddate;
 	}
 
-	public void setGra_a_modifieddate(Date gra_a_modifieddate) {
-		this.gra_a_modifieddate = gra_a_modifieddate;
+	public void setSga_a_modifieddate(Date sga_a_modifieddate) {
+		this.sga_a_modifieddate = sga_a_modifieddate;
 	}
 
-	public Integer getGroup_id() {
-		return group_id;
+	public String getSgr_group_name() {
+		return sgr_group_name;
 	}
 
-	public void setGroup_id(Integer group_id) {
-		this.group_id = group_id;
+	public void setSgr_group_name(String sgr_group_name) {
+		this.sgr_group_name = sgr_group_name;
 	}
 
-	public String getAuthority() {
-		return authority;
+	public String getSga_authority() {
+		return sga_authority;
 	}
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public void setSga_authority(String sga_authority) {
+		this.sga_authority = sga_authority;
 	}
-	
 }

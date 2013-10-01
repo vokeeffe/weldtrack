@@ -159,7 +159,5 @@ public interface DataRepository {
 	void delete(SyGroupMembers syGroupMembers);
 	void update(SyGroupMembers syGroupMembers);
 
-
-
 }
 

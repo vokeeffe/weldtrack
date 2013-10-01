@@ -6,13 +6,17 @@ import java.util.UUID;
 public class SyUsers {
 
 	private String id;
-	private String usr_a_createdby;
-	private Date  usr_a_createddate;
-	private String  usr_a_modifiedby;
-	private Date  usr_a_modifieddate;
-	private String username;
-	private String password;
-	private boolean enabled;
+	private String sus_a_createdby;
+	private Date  sus_a_createddate;
+	private String  sus_a_modifiedby;
+	private Date  sus_a_modifieddate;
+	private String sur_login;
+	private String sur_password;
+	private boolean sur_enabled;
+	private Integer ktn;
+	private Integer kco_prime;
+	private String kco_list;
+	private String sur_name;
 
 	public SyUsers(){
 		id = UUID.randomUUID().toString();
@@ -26,60 +30,91 @@ public class SyUsers {
 		this.id = id;
 	}
 
-	public String getUsr_a_createdby() {
-		return usr_a_createdby;
+	public String getSus_a_createdby() {
+		return sus_a_createdby;
 	}
 
-	public void setUsr_a_createdby(String usr_a_createdby) {
-		this.usr_a_createdby = usr_a_createdby;
+	public void setSus_a_createdby(String sus_a_createdby) {
+		this.sus_a_createdby = sus_a_createdby;
 	}
 
-	public Date getUsr_a_createddate() {
-		return usr_a_createddate;
+	public Date getSus_a_createddate() {
+		return sus_a_createddate;
 	}
 
-	public void setUsr_a_createddate(Date usr_a_createddate) {
-		this.usr_a_createddate = usr_a_createddate;
+	public void setSus_a_createddate(Date sus_a_createddate) {
+		this.sus_a_createddate = sus_a_createddate;
 	}
 
-	public String getUsr_a_modifiedby() {
-		return usr_a_modifiedby;
+	public String getSus_a_modifiedby() {
+		return sus_a_modifiedby;
 	}
 
-	public void setUsr_a_modifiedby(String usr_a_modifiedby) {
-		this.usr_a_modifiedby = usr_a_modifiedby;
+	public void setSus_a_modifiedby(String sus_a_modifiedby) {
+		this.sus_a_modifiedby = sus_a_modifiedby;
 	}
 
-	public Date getUsr_a_modifieddate() {
-		return usr_a_modifieddate;
+	public Date getSus_a_modifieddate() {
+		return sus_a_modifieddate;
 	}
 
-	public void setUsr_a_modifieddate(Date usr_a_modifieddate) {
-		this.usr_a_modifieddate = usr_a_modifieddate;
+	public void setSus_a_modifieddate(Date sus_a_modifieddate) {
+		this.sus_a_modifieddate = sus_a_modifieddate;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getSur_login() {
+		return sur_login;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setSur_login(String sur_login) {
+		this.sur_login = sur_login;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getSur_password() {
+		return sur_password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setSur_password(String sur_password) {
+		this.sur_password = sur_password;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
+	public boolean isSur_enabled() {
+		return sur_enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setSur_enabled(boolean sur_enabled) {
+		this.sur_enabled = sur_enabled;
 	}
-	
+
+	public Integer getKtn() {
+		return ktn;
+	}
+
+	public void setKtn(Integer ktn) {
+		this.ktn = ktn;
+	}
+
+	public Integer getKco_prime() {
+		return kco_prime;
+	}
+
+	public void setKco_prime(Integer kco_prime) {
+		this.kco_prime = kco_prime;
+	}
+
+	public String getKco_list() {
+		return kco_list;
+	}
+
+	public void setKco_list(String kco_list) {
+		this.kco_list = kco_list;
+	}
+
+	public String getSur_name() {
+		return sur_name;
+	}
+
+	public void setSur_name(String sur_name) {
+		this.sur_name = sur_name;
+	}
 }

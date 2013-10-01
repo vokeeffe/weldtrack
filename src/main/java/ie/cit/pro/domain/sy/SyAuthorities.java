@@ -6,12 +6,12 @@ import java.util.UUID;
 public class SyAuthorities {
 
 	private String id;
-	private String aut_a_createdby;
-	private Date  aut_a_createddate;
-	private String  aut_a_modifiedby;
-	private Date  aut_a_modifieddate;
-	private String username;
-	private String authority;
+	private String sau_a_createdby;
+	private Date  sau_a_createddate;
+	private String  sau_a_modifiedby;
+	private Date  sau_a_modifieddate;
+	private String sur_login;
+	private String sau_authority;
 
 	public SyAuthorities(){
 		id = UUID.randomUUID().toString();
@@ -25,52 +25,51 @@ public class SyAuthorities {
 		this.id = id;
 	}
 
-	public String getAut_a_createdby() {
-		return aut_a_createdby;
+	public String getSau_a_createdby() {
+		return sau_a_createdby;
 	}
 
-	public void setAut_a_createdby(String aut_a_createdby) {
-		this.aut_a_createdby = aut_a_createdby;
+	public void setSau_a_createdby(String sau_a_createdby) {
+		this.sau_a_createdby = sau_a_createdby;
 	}
 
-	public Date getAut_a_createddate() {
-		return aut_a_createddate;
+	public Date getSau_a_createddate() {
+		return sau_a_createddate;
 	}
 
-	public void setAut_a_createddate(Date aut_a_createddate) {
-		this.aut_a_createddate = aut_a_createddate;
+	public void setSau_a_createddate(Date sau_a_createddate) {
+		this.sau_a_createddate = sau_a_createddate;
 	}
 
-	public String getAut_a_modifiedby() {
-		return aut_a_modifiedby;
+	public String getSau_a_modifiedby() {
+		return sau_a_modifiedby;
 	}
 
-	public void setAut_a_modifiedby(String aut_a_modifiedby) {
-		this.aut_a_modifiedby = aut_a_modifiedby;
+	public void setSau_a_modifiedby(String sau_a_modifiedby) {
+		this.sau_a_modifiedby = sau_a_modifiedby;
 	}
 
-	public Date getAut_a_modifieddate() {
-		return aut_a_modifieddate;
+	public Date getSau_a_modifieddate() {
+		return sau_a_modifieddate;
 	}
 
-	public void setAut_a_modifieddate(Date aut_a_modifieddate) {
-		this.aut_a_modifieddate = aut_a_modifieddate;
+	public void setSau_a_modifieddate(Date sau_a_modifieddate) {
+		this.sau_a_modifieddate = sau_a_modifieddate;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getSur_login() {
+		return sur_login;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setSur_login(String sur_login) {
+		this.sur_login = sur_login;
 	}
 
-	public String getAuthority() {
-		return authority;
+	public String getSau_authority() {
+		return sau_authority;
 	}
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public void setSau_authority(String sau_authority) {
+		this.sau_authority = sau_authority;
 	}
-	
 }
