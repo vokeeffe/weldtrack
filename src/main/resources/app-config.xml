@@ -24,7 +24,7 @@
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
 
-	<bean class="ie.cit.pro.services.SyServiceImpl">
+	<bean id="syServiceImpl" class="ie.cit.pro.services.SyServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
 
@@ -34,6 +34,10 @@
 
 	<bean class="ie.cit.pro.services.CjServiceImpl">
 		<constructor-arg ref="jdbcWeldRepository" />
+	</bean>
+
+	<bean id="userPreferences" class="ie.cit.pro.session.UserProfile" scope="session">
+		<constructor-arg ref="syServiceImpl"/>
 	</bean>
 
 	<aop:aspectj-autoproxy />
@@ -56,9 +60,9 @@
 			<security:password-encoder hash="md5" />
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
-				users-by-username-query="SELECT sur_login AS username, sur_password AS password, sur_enabled AS enabled FROM sy_users WHERE sur_login = ?"
-				authorities-by-username-query="SELECT usr.sur_login AS username, aut.sau_authority AS authority FROM sy_users usr, sy_authorities aut WHERE usr.sur_login = aut.sur_login AND usr.sur_login = ?"
-				group-authorities-by-username-query="SELECT grp.sgr_group_name AS id, grp.sgr_group_name AS group_name, gra.sga_authority AS authority FROM sy_groups grp, sy_group_members grm, sy_group_authorities gra WHERE grm.sur_login = ? AND grp.sgr_group_name = gra.sgr_group_name AND grp.sgr_group_name = grm.sgr_group_name" />
+				users-by-username-query="SELECT sur_login AS username, sur_password AS password, sur_enabled AS enabled FROM sy_user WHERE sur_login = ?"
+				authorities-by-username-query="SELECT usr.sur_login AS username, aut.sau_authority AS authority FROM sy_user usr, sy_authority aut WHERE usr.sur_login = aut.sur_login AND usr.sur_login = ?"
+				group-authorities-by-username-query="SELECT grp.sgr_group_name AS id, grp.sgr_group_name AS group_name, gra.sga_authority AS authority FROM sy_group grp, sy_group_member grm, sy_group_authority gra WHERE grm.sur_login = ? AND grp.sgr_group_name = gra.sgr_group_name AND grp.sgr_group_name = grm.sgr_group_name" />
 		</security:authentication-provider>
 
 	</security:authentication-manager>
@@ -73,12 +77,10 @@
 			destroy-method="stop" depends-on="dataSource">
 			<constructor-arg value="-web,-webPort,8082" />
 		</bean>
-
 	</beans>
 
 	<beans profile="cloud">
 		<cloud:data-source id="dataSource" service-name="weldtrackdb" />
-
 	</beans>
 
 </beans>

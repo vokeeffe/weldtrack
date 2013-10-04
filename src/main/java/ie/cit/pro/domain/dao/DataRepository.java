@@ -9,13 +9,13 @@ import ie.cit.pro.domain.fb.FbSpool;
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
-import ie.cit.pro.domain.sy.SyAuthorities;
-import ie.cit.pro.domain.sy.SyGroupAuthorities;
-import ie.cit.pro.domain.sy.SyGroupMembers;
-import ie.cit.pro.domain.sy.SyGroups;
+import ie.cit.pro.domain.sy.SyAuthority;
+import ie.cit.pro.domain.sy.SyGroupAuthority;
+import ie.cit.pro.domain.sy.SyGroupMember;
+import ie.cit.pro.domain.sy.SyGroup;
 import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
-import ie.cit.pro.domain.sy.SyUsers;
+import ie.cit.pro.domain.sy.SyUser;
 import ie.cit.pro.domain.tn.TnCompany;
 import ie.cit.pro.domain.tn.TnTenant;
 
@@ -30,6 +30,9 @@ public interface DataRepository {
 	
 	/***************************SY_SECTION***************************/
 	List<SySection> getSySectionsByCode(List<SySection> sySections);
+	
+	/***************************SY_USERS***************************/
+	List<SyUser> getSyUsersByLogin(List<SyUser> syUsers);
 	
 	/*##########################GENERIC##########################*/
 	
@@ -124,40 +127,40 @@ public interface DataRepository {
 	void delete(SySection sySection);
 	void update(SySection sySection);
 
-	/***************************SY_USERS***************************/
-	SyUsers findById(SyUsers syUsers);
-	List<SyUsers> getAllSyUserss();
-	void add(SyUsers syUsers);
-	void delete(SyUsers syUsers);
-	void update(SyUsers syUsers);
+	/***************************SY_USER***************************/
+	SyUser findById(SyUser syUser);
+	List<SyUser> getAllSyUsers();
+	void add(SyUser syUser);
+	void delete(SyUser syUser);
+	void update(SyUser syUser);
 
-	/***************************SY_AUTHORITIES***************************/
-	SyAuthorities findById(SyAuthorities syAuthorities);
-	List<SyAuthorities> getAllSyAuthoritiess();
-	void add(SyAuthorities syAuthorities);
-	void delete(SyAuthorities syAuthorities);
-	void update(SyAuthorities syAuthorities);
+	/***************************SY_AUTHORITY***************************/
+	SyAuthority findById(SyAuthority syAuthority);
+	List<SyAuthority> getAllSyAuthoritys();
+	void add(SyAuthority syAuthority);
+	void delete(SyAuthority syAuthority);
+	void update(SyAuthority syAuthority);
 
-	/***************************SY_GROUPS***************************/
-	SyGroups findById(SyGroups syGroups);
-	List<SyGroups> getAllSyGroupss();
-	void add(SyGroups syGroups);
-	void delete(SyGroups syGroups);
-	void update(SyGroups syGroups);
+	/***************************SY_GROUP***************************/
+	SyGroup findById(SyGroup syGroup);
+	List<SyGroup> getAllSyGroups();
+	void add(SyGroup syGroup);
+	void delete(SyGroup syGroup);
+	void update(SyGroup syGroup);
 
-	/***************************SY_GROUP_AUTHORITIES***************************/
-	SyGroupAuthorities findById(SyGroupAuthorities syGroupAuthorities);
-	List<SyGroupAuthorities> getAllSyGroupAuthoritiess();
-	void add(SyGroupAuthorities syGroupAuthorities);
-	void delete(SyGroupAuthorities syGroupAuthorities);
-	void update(SyGroupAuthorities syGroupAuthorities);
+	/***************************SY_GROUP_AUTHORITY***************************/
+	SyGroupAuthority findById(SyGroupAuthority syGroupAuthority);
+	List<SyGroupAuthority> getAllSyGroupAuthoritys();
+	void add(SyGroupAuthority syGroupAuthority);
+	void delete(SyGroupAuthority syGroupAuthority);
+	void update(SyGroupAuthority syGroupAuthority);
 
-	/***************************SY_GROUP_MEMBERS***************************/
-	SyGroupMembers findById(SyGroupMembers syGroupMembers);
-	List<SyGroupMembers> getAllSyGroupMemberss();
-	void add(SyGroupMembers syGroupMembers);
-	void delete(SyGroupMembers syGroupMembers);
-	void update(SyGroupMembers syGroupMembers);
+	/***************************SY_GROUP_MEMBER***************************/
+	SyGroupMember findById(SyGroupMember syGroupMember);
+	List<SyGroupMember> getAllSyGroupMembers();
+	void add(SyGroupMember syGroupMember);
+	void delete(SyGroupMember syGroupMember);
+	void update(SyGroupMember syGroupMember);
 
 }
 

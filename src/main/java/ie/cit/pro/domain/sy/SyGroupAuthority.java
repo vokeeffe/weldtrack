@@ -3,7 +3,7 @@ package ie.cit.pro.domain.sy;
 import java.util.Date;
 import java.util.UUID;
 
-public class SyGroupAuthorities {
+public class SyGroupAuthority {
 
 	private String id;
 	private String sga_a_createdby;
@@ -13,7 +13,7 @@ public class SyGroupAuthorities {
 	private String sgr_group_name;
 	private String sga_authority;
 
-	public SyGroupAuthorities(){
+	public SyGroupAuthority(){
 		id = UUID.randomUUID().toString();
 		}
 

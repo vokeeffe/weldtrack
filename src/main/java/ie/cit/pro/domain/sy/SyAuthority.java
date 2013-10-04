@@ -3,7 +3,7 @@ package ie.cit.pro.domain.sy;
 import java.util.Date;
 import java.util.UUID;
 
-public class SyAuthorities {
+public class SyAuthority {
 
 	private String id;
 	private String sau_a_createdby;
@@ -13,7 +13,7 @@ public class SyAuthorities {
 	private String sur_login;
 	private String sau_authority;
 
-	public SyAuthorities(){
+	public SyAuthority(){
 		id = UUID.randomUUID().toString();
 		}
 

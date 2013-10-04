@@ -9,13 +9,13 @@ import ie.cit.pro.domain.fb.FbSpool;
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
-import ie.cit.pro.domain.sy.SyAuthorities;
-import ie.cit.pro.domain.sy.SyGroupAuthorities;
-import ie.cit.pro.domain.sy.SyGroupMembers;
-import ie.cit.pro.domain.sy.SyGroups;
+import ie.cit.pro.domain.sy.SyAuthority;
+import ie.cit.pro.domain.sy.SyGroupAuthority;
+import ie.cit.pro.domain.sy.SyGroupMember;
+import ie.cit.pro.domain.sy.SyGroup;
 import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
-import ie.cit.pro.domain.sy.SyUsers;
+import ie.cit.pro.domain.sy.SyUser;
 import ie.cit.pro.domain.tn.TnCompany;
 import ie.cit.pro.domain.tn.TnTenant;
 
@@ -51,18 +51,22 @@ public class JdbcDataRepository implements DataRepository {
 	private TnCompanyMapper tnCompanyMapper = new TnCompanyMapper();
 	private SySecfieldMapper sySecfieldMapper = new SySecfieldMapper();
 	private SySectionMapper sySectionMapper = new SySectionMapper();
-	private SyUsersMapper syUsersMapper = new SyUsersMapper();
-	private SyAuthoritiesMapper syAuthoritiesMapper = new SyAuthoritiesMapper();
-	private SyGroupsMapper syGroupsMapper = new SyGroupsMapper();
-	private SyGroupAuthoritiesMapper syGroupAuthoritiesMapper = new SyGroupAuthoritiesMapper();
-	private SyGroupMembersMapper syGroupMembersMapper = new SyGroupMembersMapper();
-
+	private SyUserMapper syUserMapper = new SyUserMapper();
+	private SyAuthorityMapper syAuthorityMapper = new SyAuthorityMapper();
+	private SyGroupMapper syGroupMapper = new SyGroupMapper();
+	private SyGroupAuthorityMapper syGroupAuthorityMapper = new SyGroupAuthorityMapper();
+	private SyGroupMemberMapper syGroupMemberMapper = new SyGroupMemberMapper();
+	
 	public JdbcDataRepository(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
 	private String getCurrentUser() {
 		return SecurityContextHolder.getContext().getAuthentication().getName();
+	}
+	
+	private String getCurrentUserKtn() {
+		return null; //SecurityContextHolder.getContext().getAuthentication().ge;
 	}
 	
 	/***************************SY_SECFIELD***************************/
@@ -97,6 +101,23 @@ public class JdbcDataRepository implements DataRepository {
 		}
 
 		return sySectionsList;
+	}
+	
+	/***************************SY_USERS***************************/
+	public List<SyUser> getSyUsersByLogin(List<SyUser> syUsers) {
+
+		List<SyUser> syUsersList = new ArrayList<SyUser>(); 
+
+		for (SyUser syUser: syUsers)
+		{
+			if (syUser.getSur_login() != null)
+			{
+				syUsersList.addAll(jdbcTemplate.query("SELECT * FROM sy_user WHERE sur_login=?", syUserMapper, syUser.getSur_login()));
+			}	    
+		}
+
+		return syUsersList;
+
 	}
 	
 	/*##########################GENERIC##########################*/
@@ -491,155 +512,154 @@ public class JdbcDataRepository implements DataRepository {
 	}
 
 
-	/***************************SY_USERS***************************/
+	/***************************SY_USER***************************/
 @Secured({"ROLE_READ"})
-	public SyUsers findById(SyUsers syUsers) {
-	return jdbcTemplate.queryForObject("SELECT * FROM sy_users WHERE ID=?", syUsersMapper, syUsers.getId());
+	public SyUser findById(SyUser syUser) {
+	return jdbcTemplate.queryForObject("SELECT * FROM sy_user WHERE ID=?", syUserMapper, syUser.getId());
 	}
 
 @Secured({"ROLE_READ"})
-	public List<SyUsers> getAllSyUserss(){
-	return jdbcTemplate.query("SELECT * FROM sy_users", syUsersMapper);
+	public List<SyUser> getAllSyUsers(){
+	return jdbcTemplate.query("SELECT * FROM sy_user", syUserMapper);
 	}
 
 @Secured({"ROLE_CREATE"})
-	public void add(SyUsers syUsers) {
-	jdbcTemplate.update("INSERT INTO sy_users (id, sus_a_createdby, sus_a_createddate) VALUES(?,?,?)", syUsers.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
-	this.update(syUsers);
+	public void add(SyUser syUser) {
+	jdbcTemplate.update("INSERT INTO sy_user (id, sus_a_createdby, sus_a_createddate) VALUES(?,?,?)", syUser.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	this.update(syUser);
 	}
 
 @Secured({"ROLE_DELETE"})
-	public void delete(SyUsers syUsers) {
-	jdbcTemplate.update("DELETE FROM sy_users WHERE ID=?", syUsers.getId());
+	public void delete(SyUser syUser) {
+	jdbcTemplate.update("DELETE FROM sy_user WHERE ID=?", syUser.getId());
 	}
 
 @Secured({"ROLE_UPDATE"})
-	public void update(SyUsers syUsers) {
-	jdbcTemplate.update("UPDATE sy_users SET sus_a_modifiedby=?, sus_a_modifieddate=?, " + 
+	public void update(SyUser syUser) {
+	jdbcTemplate.update("UPDATE sy_user SET sus_a_modifiedby=?, sus_a_modifieddate=?, " + 
 	"sur_login=?, sur_password=?, sur_enabled=?, ktn=?, kco_prime=?, kco_list=?, sur_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syUsers.getSur_login(), syUsers.getSur_password(), syUsers.isSur_enabled(), syUsers.getKtn(), syUsers.getKco_prime(), syUsers.getKco_list(), syUsers.getSur_name(), syUsers.getId());
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syUser.getSur_login(), syUser.getSur_password(), syUser.isSur_enabled(), syUser.getKtn(), syUser.getKco_prime(), syUser.getKco_list(), syUser.getSur_name(), syUser.getId());
 	}
 
 
-	/***************************SY_AUTHORITIES***************************/
+	/***************************SY_AUTHORITY***************************/
 @Secured({"ROLE_READ"})
-	public SyAuthorities findById(SyAuthorities syAuthorities) {
-	return jdbcTemplate.queryForObject("SELECT * FROM sy_authorities WHERE ID=?", syAuthoritiesMapper, syAuthorities.getId());
+	public SyAuthority findById(SyAuthority syAuthority) {
+	return jdbcTemplate.queryForObject("SELECT * FROM sy_authority WHERE ID=?", syAuthorityMapper, syAuthority.getId());
 	}
 
 @Secured({"ROLE_READ"})
-	public List<SyAuthorities> getAllSyAuthoritiess(){
-	return jdbcTemplate.query("SELECT * FROM sy_authorities", syAuthoritiesMapper);
+	public List<SyAuthority> getAllSyAuthoritys(){
+	return jdbcTemplate.query("SELECT * FROM sy_authority", syAuthorityMapper);
 	}
 
 @Secured({"ROLE_CREATE"})
-	public void add(SyAuthorities syAuthorities) {
-	jdbcTemplate.update("INSERT INTO sy_authorities (id, sau_a_createdby, sau_a_createddate) VALUES(?,?,?)", syAuthorities.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
-	this.update(syAuthorities);
+	public void add(SyAuthority syAuthority) {
+	jdbcTemplate.update("INSERT INTO sy_authority (id, sau_a_createdby, sau_a_createddate) VALUES(?,?,?)", syAuthority.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	this.update(syAuthority);
 	}
 
 @Secured({"ROLE_DELETE"})
-	public void delete(SyAuthorities syAuthorities) {
-	jdbcTemplate.update("DELETE FROM sy_authorities WHERE ID=?", syAuthorities.getId());
+	public void delete(SyAuthority syAuthority) {
+	jdbcTemplate.update("DELETE FROM sy_authority WHERE ID=?", syAuthority.getId());
 	}
 
 @Secured({"ROLE_UPDATE"})
-	public void update(SyAuthorities syAuthorities) {
-	jdbcTemplate.update("UPDATE sy_authorities SET sau_a_modifiedby=?, sau_a_modifieddate=?, " + 
+	public void update(SyAuthority syAuthority) {
+	jdbcTemplate.update("UPDATE sy_authority SET sau_a_modifiedby=?, sau_a_modifieddate=?, " + 
 	"sur_login=?, sau_authority=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syAuthorities.getSur_login(), syAuthorities.getSau_authority(), syAuthorities.getId());
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syAuthority.getSur_login(), syAuthority.getSau_authority(), syAuthority.getId());
 	}
 
 
-	/***************************SY_GROUPS***************************/
+	/***************************SY_GROUP***************************/
 @Secured({"ROLE_READ"})
-	public SyGroups findById(SyGroups syGroups) {
-	return jdbcTemplate.queryForObject("SELECT * FROM sy_groups WHERE ID=?", syGroupsMapper, syGroups.getId());
+	public SyGroup findById(SyGroup syGroup) {
+	return jdbcTemplate.queryForObject("SELECT * FROM sy_group WHERE ID=?", syGroupMapper, syGroup.getId());
 	}
 
 @Secured({"ROLE_READ"})
-	public List<SyGroups> getAllSyGroupss(){
-	return jdbcTemplate.query("SELECT * FROM sy_groups", syGroupsMapper);
+	public List<SyGroup> getAllSyGroups(){
+	return jdbcTemplate.query("SELECT * FROM sy_group", syGroupMapper);
 	}
 
 @Secured({"ROLE_CREATE"})
-	public void add(SyGroups syGroups) {
-	jdbcTemplate.update("INSERT INTO sy_groups (id, sgr_a_createdby, sgr_a_createddate) VALUES(?,?,?)", syGroups.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
-	this.update(syGroups);
+	public void add(SyGroup syGroup) {
+	jdbcTemplate.update("INSERT INTO sy_group (id, sgr_a_createdby, sgr_a_createddate) VALUES(?,?,?)", syGroup.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	this.update(syGroup);
 	}
 
 @Secured({"ROLE_DELETE"})
-	public void delete(SyGroups syGroups) {
-	jdbcTemplate.update("DELETE FROM sy_groups WHERE ID=?", syGroups.getId());
+	public void delete(SyGroup syGroup) {
+	jdbcTemplate.update("DELETE FROM sy_group WHERE ID=?", syGroup.getId());
 	}
 
 @Secured({"ROLE_UPDATE"})
-	public void update(SyGroups syGroups) {
-	jdbcTemplate.update("UPDATE sy_groups SET sgr_a_modifiedby=?, sgr_a_modifieddate=?, " + 
+	public void update(SyGroup syGroup) {
+	jdbcTemplate.update("UPDATE sy_group SET sgr_a_modifiedby=?, sgr_a_modifieddate=?, " + 
 	"sgr_group_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroups.getSgr_group_name(), syGroups.getId());
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroup.getSgr_group_name(), syGroup.getId());
 	}
 
 
-	/***************************SY_GROUP_AUTHORITIES***************************/
+	/***************************SY_GROUP_AUTHORITY***************************/
 @Secured({"ROLE_READ"})
-	public SyGroupAuthorities findById(SyGroupAuthorities syGroupAuthorities) {
-	return jdbcTemplate.queryForObject("SELECT * FROM sy_group_authorities WHERE ID=?", syGroupAuthoritiesMapper, syGroupAuthorities.getId());
+	public SyGroupAuthority findById(SyGroupAuthority syGroupAuthority) {
+	return jdbcTemplate.queryForObject("SELECT * FROM sy_group_authority WHERE ID=?", syGroupAuthorityMapper, syGroupAuthority.getId());
 	}
 
 @Secured({"ROLE_READ"})
-	public List<SyGroupAuthorities> getAllSyGroupAuthoritiess(){
-	return jdbcTemplate.query("SELECT * FROM sy_group_authorities", syGroupAuthoritiesMapper);
+	public List<SyGroupAuthority> getAllSyGroupAuthoritys(){
+	return jdbcTemplate.query("SELECT * FROM sy_group_authority", syGroupAuthorityMapper);
 	}
 
 @Secured({"ROLE_CREATE"})
-	public void add(SyGroupAuthorities syGroupAuthorities) {
-	jdbcTemplate.update("INSERT INTO sy_group_authorities (id, sga_a_createdby, sga_a_createddate) VALUES(?,?,?)", syGroupAuthorities.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
-	this.update(syGroupAuthorities);
+	public void add(SyGroupAuthority syGroupAuthority) {
+	jdbcTemplate.update("INSERT INTO sy_group_authority (id, sga_a_createdby, sga_a_createddate) VALUES(?,?,?)", syGroupAuthority.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	this.update(syGroupAuthority);
 	}
 
 @Secured({"ROLE_DELETE"})
-	public void delete(SyGroupAuthorities syGroupAuthorities) {
-	jdbcTemplate.update("DELETE FROM sy_group_authorities WHERE ID=?", syGroupAuthorities.getId());
+	public void delete(SyGroupAuthority syGroupAuthority) {
+	jdbcTemplate.update("DELETE FROM sy_group_authority WHERE ID=?", syGroupAuthority.getId());
 	}
 
 @Secured({"ROLE_UPDATE"})
-	public void update(SyGroupAuthorities syGroupAuthorities) {
-	jdbcTemplate.update("UPDATE sy_group_authorities SET sga_a_modifiedby=?, sga_a_modifieddate=?, " + 
+	public void update(SyGroupAuthority syGroupAuthority) {
+	jdbcTemplate.update("UPDATE sy_group_authority SET sga_a_modifiedby=?, sga_a_modifieddate=?, " + 
 	"sgr_group_name=?, sga_authority=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroupAuthorities.getSgr_group_name(), syGroupAuthorities.getSga_authority(), syGroupAuthorities.getId());
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroupAuthority.getSgr_group_name(), syGroupAuthority.getSga_authority(), syGroupAuthority.getId());
 	}
 
 
-	/***************************SY_GROUP_MEMBERS***************************/
+	/***************************SY_GROUP_MEMBER***************************/
 @Secured({"ROLE_READ"})
-	public SyGroupMembers findById(SyGroupMembers syGroupMembers) {
-	return jdbcTemplate.queryForObject("SELECT * FROM sy_group_members WHERE ID=?", syGroupMembersMapper, syGroupMembers.getId());
+	public SyGroupMember findById(SyGroupMember syGroupMember) {
+	return jdbcTemplate.queryForObject("SELECT * FROM sy_group_member WHERE ID=?", syGroupMemberMapper, syGroupMember.getId());
 	}
 
 @Secured({"ROLE_READ"})
-	public List<SyGroupMembers> getAllSyGroupMemberss(){
-	return jdbcTemplate.query("SELECT * FROM sy_group_members", syGroupMembersMapper);
+	public List<SyGroupMember> getAllSyGroupMembers(){
+	return jdbcTemplate.query("SELECT * FROM sy_group_member", syGroupMemberMapper);
 	}
 
 @Secured({"ROLE_CREATE"})
-	public void add(SyGroupMembers syGroupMembers) {
-	jdbcTemplate.update("INSERT INTO sy_group_members (id, sgm_a_createdby, sgm_a_createddate) VALUES(?,?,?)", syGroupMembers.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
-	this.update(syGroupMembers);
+	public void add(SyGroupMember syGroupMember) {
+	jdbcTemplate.update("INSERT INTO sy_group_member (id, sgm_a_createdby, sgm_a_createddate) VALUES(?,?,?)", syGroupMember.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	this.update(syGroupMember);
 	}
 
 @Secured({"ROLE_DELETE"})
-	public void delete(SyGroupMembers syGroupMembers) {
-	jdbcTemplate.update("DELETE FROM sy_group_members WHERE ID=?", syGroupMembers.getId());
+	public void delete(SyGroupMember syGroupMember) {
+	jdbcTemplate.update("DELETE FROM sy_group_member WHERE ID=?", syGroupMember.getId());
 	}
 
 @Secured({"ROLE_UPDATE"})
-	public void update(SyGroupMembers syGroupMembers) {
-	jdbcTemplate.update("UPDATE sy_group_members SET sgm_a_modifiedby=?, sgm_a_modifieddate=?, " + 
+	public void update(SyGroupMember syGroupMember) {
+	jdbcTemplate.update("UPDATE sy_group_member SET sgm_a_modifiedby=?, sgm_a_modifieddate=?, " + 
 	"sur_login=?, sgr_group_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroupMembers.getSur_login(), syGroupMembers.getSgr_group_name(), syGroupMembers.getId());
+	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), syGroupMember.getSur_login(), syGroupMember.getSgr_group_name(), syGroupMember.getId());
 	}
-
 
 }
 
@@ -922,77 +942,77 @@ sySection.setStn_form_action(rs.getString("stn_form_action"));
 return sySection;
 }
 }
-/***************************SY_USERS***************************/
-class SyUsersMapper implements RowMapper<SyUsers> {
-public SyUsers mapRow(ResultSet rs, int rowNum) throws SQLException {
-SyUsers syUsers = new SyUsers();
-syUsers.setId(rs.getString("id"));
-syUsers.setSus_a_createdby(rs.getString("sus_a_createdby"));
-syUsers.setSus_a_createddate(rs.getDate("sus_a_createddate"));
-syUsers.setSus_a_modifiedby(rs.getString("sus_a_modifiedby"));
-syUsers.setSus_a_modifieddate(rs.getDate("sus_a_modifieddate"));
-syUsers.setSur_login(rs.getString("sur_login"));
-syUsers.setSur_password(rs.getString("sur_password"));
-syUsers.setSur_enabled(rs.getBoolean("sur_enabled"));
-syUsers.setKtn(rs.getInt ("ktn"));
-syUsers.setKco_prime(rs.getInt ("kco_prime"));
-syUsers.setKco_list(rs.getString("kco_list"));
-syUsers.setSur_name(rs.getString("sur_name"));
-return syUsers;
+/***************************SY_USER***************************/
+class SyUserMapper implements RowMapper<SyUser> {
+public SyUser mapRow(ResultSet rs, int rowNum) throws SQLException {
+SyUser syUser = new SyUser();
+syUser.setId(rs.getString("id"));
+syUser.setSus_a_createdby(rs.getString("sus_a_createdby"));
+syUser.setSus_a_createddate(rs.getDate("sus_a_createddate"));
+syUser.setSus_a_modifiedby(rs.getString("sus_a_modifiedby"));
+syUser.setSus_a_modifieddate(rs.getDate("sus_a_modifieddate"));
+syUser.setSur_login(rs.getString("sur_login"));
+syUser.setSur_password(rs.getString("sur_password"));
+syUser.setSur_enabled(rs.getBoolean("sur_enabled"));
+syUser.setKtn(rs.getInt ("ktn"));
+syUser.setKco_prime(rs.getInt ("kco_prime"));
+syUser.setKco_list(rs.getString("kco_list"));
+syUser.setSur_name(rs.getString("sur_name"));
+return syUser;
 }
 }
-/***************************SY_AUTHORITIES***************************/
-class SyAuthoritiesMapper implements RowMapper<SyAuthorities> {
-public SyAuthorities mapRow(ResultSet rs, int rowNum) throws SQLException {
-SyAuthorities syAuthorities = new SyAuthorities();
-syAuthorities.setId(rs.getString("id"));
-syAuthorities.setSau_a_createdby(rs.getString("sau_a_createdby"));
-syAuthorities.setSau_a_createddate(rs.getDate("sau_a_createddate"));
-syAuthorities.setSau_a_modifiedby(rs.getString("sau_a_modifiedby"));
-syAuthorities.setSau_a_modifieddate(rs.getDate("sau_a_modifieddate"));
-syAuthorities.setSur_login(rs.getString("sur_login"));
-syAuthorities.setSau_authority(rs.getString("sau_authority"));
-return syAuthorities;
+/***************************SY_AUTHORITY***************************/
+class SyAuthorityMapper implements RowMapper<SyAuthority> {
+public SyAuthority mapRow(ResultSet rs, int rowNum) throws SQLException {
+SyAuthority syAuthority = new SyAuthority();
+syAuthority.setId(rs.getString("id"));
+syAuthority.setSau_a_createdby(rs.getString("sau_a_createdby"));
+syAuthority.setSau_a_createddate(rs.getDate("sau_a_createddate"));
+syAuthority.setSau_a_modifiedby(rs.getString("sau_a_modifiedby"));
+syAuthority.setSau_a_modifieddate(rs.getDate("sau_a_modifieddate"));
+syAuthority.setSur_login(rs.getString("sur_login"));
+syAuthority.setSau_authority(rs.getString("sau_authority"));
+return syAuthority;
 }
 }
-/***************************SY_GROUPS***************************/
-class SyGroupsMapper implements RowMapper<SyGroups> {
-public SyGroups mapRow(ResultSet rs, int rowNum) throws SQLException {
-SyGroups syGroups = new SyGroups();
-syGroups.setId(rs.getString("id"));
-syGroups.setSgr_a_createdby(rs.getString("sgr_a_createdby"));
-syGroups.setSgr_a_createddate(rs.getDate("sgr_a_createddate"));
-syGroups.setSgr_a_modifiedby(rs.getString("sgr_a_modifiedby"));
-syGroups.setSgr_a_modifieddate(rs.getDate("sgr_a_modifieddate"));
-syGroups.setSgr_group_name(rs.getString("sgr_group_name"));
-return syGroups;
+/***************************SY_GROUP***************************/
+class SyGroupMapper implements RowMapper<SyGroup> {
+public SyGroup mapRow(ResultSet rs, int rowNum) throws SQLException {
+SyGroup syGroup = new SyGroup();
+syGroup.setId(rs.getString("id"));
+syGroup.setSgr_a_createdby(rs.getString("sgr_a_createdby"));
+syGroup.setSgr_a_createddate(rs.getDate("sgr_a_createddate"));
+syGroup.setSgr_a_modifiedby(rs.getString("sgr_a_modifiedby"));
+syGroup.setSgr_a_modifieddate(rs.getDate("sgr_a_modifieddate"));
+syGroup.setSgr_group_name(rs.getString("sgr_group_name"));
+return syGroup;
 }
 }
-/***************************SY_GROUP_AUTHORITIES***************************/
-class SyGroupAuthoritiesMapper implements RowMapper<SyGroupAuthorities> {
-public SyGroupAuthorities mapRow(ResultSet rs, int rowNum) throws SQLException {
-SyGroupAuthorities syGroupAuthorities = new SyGroupAuthorities();
-syGroupAuthorities.setId(rs.getString("id"));
-syGroupAuthorities.setSga_a_createdby(rs.getString("sga_a_createdby"));
-syGroupAuthorities.setSga_a_createddate(rs.getDate("sga_a_createddate"));
-syGroupAuthorities.setSga_a_modifiedby(rs.getString("sga_a_modifiedby"));
-syGroupAuthorities.setSga_a_modifieddate(rs.getDate("sga_a_modifieddate"));
-syGroupAuthorities.setSgr_group_name(rs.getString("sgr_group_name"));
-syGroupAuthorities.setSga_authority(rs.getString("sga_authority"));
-return syGroupAuthorities;
+/***************************SY_GROUP_AUTHORITY***************************/
+class SyGroupAuthorityMapper implements RowMapper<SyGroupAuthority> {
+public SyGroupAuthority mapRow(ResultSet rs, int rowNum) throws SQLException {
+SyGroupAuthority syGroupAuthority = new SyGroupAuthority();
+syGroupAuthority.setId(rs.getString("id"));
+syGroupAuthority.setSga_a_createdby(rs.getString("sga_a_createdby"));
+syGroupAuthority.setSga_a_createddate(rs.getDate("sga_a_createddate"));
+syGroupAuthority.setSga_a_modifiedby(rs.getString("sga_a_modifiedby"));
+syGroupAuthority.setSga_a_modifieddate(rs.getDate("sga_a_modifieddate"));
+syGroupAuthority.setSgr_group_name(rs.getString("sgr_group_name"));
+syGroupAuthority.setSga_authority(rs.getString("sga_authority"));
+return syGroupAuthority;
 }
 }
-/***************************SY_GROUP_MEMBERS***************************/
-class SyGroupMembersMapper implements RowMapper<SyGroupMembers> {
-public SyGroupMembers mapRow(ResultSet rs, int rowNum) throws SQLException {
-SyGroupMembers syGroupMembers = new SyGroupMembers();
-syGroupMembers.setId(rs.getString("id"));
-syGroupMembers.setSgm_a_createdby(rs.getString("sgm_a_createdby"));
-syGroupMembers.setSgm_a_createddate(rs.getDate("sgm_a_createddate"));
-syGroupMembers.setSgm_a_modifiedby(rs.getString("sgm_a_modifiedby"));
-syGroupMembers.setSgm_a_modifieddate(rs.getDate("sgm_a_modifieddate"));
-syGroupMembers.setSur_login(rs.getString("sur_login"));
-syGroupMembers.setSgr_group_name(rs.getString("sgr_group_name"));
-return syGroupMembers;
+/***************************SY_GROUP_MEMBER***************************/
+class SyGroupMemberMapper implements RowMapper<SyGroupMember> {
+public SyGroupMember mapRow(ResultSet rs, int rowNum) throws SQLException {
+SyGroupMember syGroupMember = new SyGroupMember();
+syGroupMember.setId(rs.getString("id"));
+syGroupMember.setSgm_a_createdby(rs.getString("sgm_a_createdby"));
+syGroupMember.setSgm_a_createddate(rs.getDate("sgm_a_createddate"));
+syGroupMember.setSgm_a_modifiedby(rs.getString("sgm_a_modifiedby"));
+syGroupMember.setSgm_a_modifieddate(rs.getDate("sgm_a_modifieddate"));
+syGroupMember.setSur_login(rs.getString("sur_login"));
+syGroupMember.setSgr_group_name(rs.getString("sgr_group_name"));
+return syGroupMember;
 }
 }
