@@ -485,8 +485,14 @@ public class JdbcDataRepository implements DataRepository {
 	/***************************SY_SECTION***************************/
 @Secured({"ROLE_READ"})
 	public SySection findById(SySection sySection) {
-	return jdbcTemplate.queryForObject("SELECT * FROM sy_section WHERE ID=?", sySectionMapper, sySection.getId());
+	SySection result;
+	result = jdbcTemplate.queryForObject("SELECT * FROM sy_section WHERE ID=? AND ktn=?", sySectionMapper, sySection.getId(), this.getCurrentUserKtn());
+	if(result != null)
+	{
+		return result;
 	}
+	return jdbcTemplate.queryForObject("SELECT * FROM sy_section WHERE ID=?", sySectionMapper, sySection.getId());	
+}
 
 @Secured({"ROLE_READ"})
 	public List<SySection> getAllSySections(){
