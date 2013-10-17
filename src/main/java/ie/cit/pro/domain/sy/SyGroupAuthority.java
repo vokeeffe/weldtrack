@@ -10,12 +10,21 @@ public class SyGroupAuthority {
 	private Date  sga_a_createddate;
 	private String  sga_a_modifiedby;
 	private Date  sga_a_modifieddate;
+	private Integer  ktn;
 	private String sgr_group_name;
 	private String sga_authority;
 
 	public SyGroupAuthority(){
 		id = UUID.randomUUID().toString();
 		}
+	
+	public Integer getKtn() {
+		return ktn;
+	}
+
+	public void setKtn(Integer ktn) {
+		this.ktn = ktn;
+	}
 
 	public String getId() {
 		return id;

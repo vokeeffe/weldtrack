@@ -10,11 +10,20 @@ public class SyGroup {
 	private Date  sgr_a_createddate;
 	private String  sgr_a_modifiedby;
 	private Date  sgr_a_modifieddate;
+	private Integer  ktn;
 	private String sgr_group_name;
 
 	public SyGroup(){
 		id = UUID.randomUUID().toString();
 		}
+
+	public Integer getKtn() {
+		return ktn;
+	}
+
+	public void setKtn(Integer ktn) {
+		this.ktn = ktn;
+	}
 
 	public String getId() {
 		return id;

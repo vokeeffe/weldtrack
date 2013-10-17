@@ -49,7 +49,7 @@
 	<bean class="ie.cit.pro.aspects.TracingAspect" />
  
 	<!-- declare the SQL logger class as a bean -->
-	<bean id="sqlLogger" class="ie.cit.pro.aspects.SqlLogger" />
+	<bean id="sqlLogger" class="ie.cit.pro.aspects.SqlLoggerAspect" />
 
 	<security:http auto-config="true" />
 	<security:global-method-security
@@ -72,9 +72,7 @@
 		<jdbc:embedded-database id="dataSource" type="H2">
 			<jdbc:script location="classpath:db-schema.sql" />
 		</jdbc:embedded-database>
-		<jdbc:embedded-database id="sysDataSource" type="H2">
-			<jdbc:script location="classpath:sys-schema.sql" />
-		</jdbc:embedded-database>
+
 
 		<bean id="org.h2.tools.Server-WebServer" class="org.h2.tools.Server"
 			factory-method="createWebServer" init-method="start" lazy-init="false"

@@ -12,9 +12,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 @Aspect
-public class SqlLogger {
+public class SqlLoggerAspect {
 
-	private static final Log log = LogFactory.getLog(SqlLogger.class);
+	private static final Log log = LogFactory.getLog(SqlLoggerAspect.class);
 	@SuppressWarnings("unused")
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
 	@SuppressWarnings("unused")

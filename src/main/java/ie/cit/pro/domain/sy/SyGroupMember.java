@@ -10,6 +10,7 @@ public class SyGroupMember {
 	private Date  sgm_a_createddate;
 	private String  sgm_a_modifiedby;
 	private Date  sgm_a_modifieddate;
+	private Integer  ktn;
 	private String sur_login;
 	private String sgr_group_name;
 
@@ -57,6 +58,14 @@ public class SyGroupMember {
 		this.sgm_a_modifieddate = sgm_a_modifieddate;
 	}
 
+	public Integer getKtn() {
+		return ktn;
+	}
+
+	public void setKtn(Integer ktn) {
+		this.ktn = ktn;
+	}
+
 	public String getSur_login() {
 		return sur_login;
 	}
@@ -72,4 +81,6 @@ public class SyGroupMember {
 	public void setSgr_group_name(String sgr_group_name) {
 		this.sgr_group_name = sgr_group_name;
 	}
+
+
 }

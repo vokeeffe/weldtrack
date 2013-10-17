@@ -10,12 +10,21 @@ public class SyAuthority {
 	private Date  sau_a_createddate;
 	private String  sau_a_modifiedby;
 	private Date  sau_a_modifieddate;
+	private Integer  ktn;
 	private String sur_login;
 	private String sau_authority;
 
 	public SyAuthority(){
 		id = UUID.randomUUID().toString();
 		}
+
+	public Integer getKtn() {
+		return ktn;
+	}
+
+	public void setKtn(Integer ktn) {
+		this.ktn = ktn;
+	}
 
 	public String getId() {
 		return id;
