@@ -1,5 +1,10 @@
 package ie.cit.pro.domain.dao;
 
+import ie.cit.pro.domain.au.AuAuthority;
+import ie.cit.pro.domain.au.AuGroup;
+import ie.cit.pro.domain.au.AuGroupAuthority;
+import ie.cit.pro.domain.au.AuGroupMember;
+import ie.cit.pro.domain.au.AuUser;
 import ie.cit.pro.domain.cj.CjContract;
 import ie.cit.pro.domain.cj.CjJob;
 import ie.cit.pro.domain.fb.FbFitting;
@@ -9,13 +14,8 @@ import ie.cit.pro.domain.fb.FbSpool;
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
-import ie.cit.pro.domain.sy.SyAuthority;
-import ie.cit.pro.domain.sy.SyGroupAuthority;
-import ie.cit.pro.domain.sy.SyGroupMember;
-import ie.cit.pro.domain.sy.SyGroup;
 import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
-import ie.cit.pro.domain.sy.SyUser;
 import ie.cit.pro.domain.tn.TnCompany;
 import ie.cit.pro.domain.tn.TnTenant;
 
@@ -41,12 +41,11 @@ public class InMemoryDataRepository implements DataRepository {
 	private Map<String, TnCompany> tnCompanyMap = new HashMap<String, TnCompany>();
 	private Map<String, SySecfield> sySecfieldMap = new HashMap<String, SySecfield>();
 	private Map<String, SySection> sySectionMap = new HashMap<String, SySection>();
-	private Map<String, SyUser> syUserMap = new HashMap<String, SyUser>();
-	private Map<String, SyAuthority> syAuthorityMap = new HashMap<String, SyAuthority>();
-	private Map<String, SyGroup> syGroupMap = new HashMap<String, SyGroup>();
-	private Map<String, SyGroupAuthority> syGroupAuthorityMap = new HashMap<String, SyGroupAuthority>();
-	private Map<String, SyGroupMember> syGroupMemberMap = new HashMap<String, SyGroupMember>();
-	
+	private Map<String, AuUser> auUserMap = new HashMap<String, AuUser>();
+	private Map<String, AuAuthority> auAuthorityMap = new HashMap<String, AuAuthority>();
+	private Map<String, AuGroup> auGroupMap = new HashMap<String, AuGroup>();
+	private Map<String, AuGroupAuthority> auGroupAuthorityMap = new HashMap<String, AuGroupAuthority>();
+	private Map<String, AuGroupMember> auGroupMemberMap = new HashMap<String, AuGroupMember>();	
 	/***************************SY_SECFIELD***************************/
 	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields){
 
@@ -60,7 +59,7 @@ public class InMemoryDataRepository implements DataRepository {
 	}
 	
 	/***************************SY_USERS***************************/
-	public List<SyUser> getSyUsersByLogin(List<SyUser> syUsers) {
+	public List<AuUser> getAuUsersByLogin(List<AuUser> auUsers) {
 	return null;
 	}
 	
@@ -326,104 +325,104 @@ public class InMemoryDataRepository implements DataRepository {
 	public void update(SySection sySection) {
 	sySectionMap.put(sySection.getId(), sySection);
 	}
-	/***************************SY_USER***************************/
-	public SyUser findById(SyUser syUser) {
-	return syUserMap.get(syUser.getId());
+	/***************************AU_USER***************************/
+	public AuUser findById(AuUser auUser) {
+	return auUserMap.get(auUser.getId());
 	}
 
-	public List<SyUser> getAllSyUsers() {
-	return new ArrayList<SyUser>(syUserMap.values());
+	public List<AuUser> getAllAuUsers() {
+	return new ArrayList<AuUser>(auUserMap.values());
 	}
 
-	public void add(SyUser syUser) {
-	syUserMap.put(syUser.getId(), syUser);
+	public void add(AuUser auUser) {
+	auUserMap.put(auUser.getId(), auUser);
 	}
 
-	public void delete(SyUser syUser) {
-	syUserMap.remove(syUser.getId());
+	public void delete(AuUser auUser) {
+	auUserMap.remove(auUser.getId());
 	}
 
-	public void update(SyUser syUser) {
-	syUserMap.put(syUser.getId(), syUser);
+	public void update(AuUser auUser) {
+	auUserMap.put(auUser.getId(), auUser);
 	}
-	/***************************SY_AUTHORITY***************************/
-	public SyAuthority findById(SyAuthority syAuthority) {
-	return syAuthorityMap.get(syAuthority.getId());
-	}
-
-	public List<SyAuthority> getAllSyAuthoritys() {
-	return new ArrayList<SyAuthority>(syAuthorityMap.values());
+	/***************************AU_AUTHORITY***************************/
+	public AuAuthority findById(AuAuthority auAuthority) {
+	return auAuthorityMap.get(auAuthority.getId());
 	}
 
-	public void add(SyAuthority syAuthority) {
-	syAuthorityMap.put(syAuthority.getId(), syAuthority);
+	public List<AuAuthority> getAllAuAuthoritys() {
+	return new ArrayList<AuAuthority>(auAuthorityMap.values());
 	}
 
-	public void delete(SyAuthority syAuthority) {
-	syAuthorityMap.remove(syAuthority.getId());
+	public void add(AuAuthority auAuthority) {
+	auAuthorityMap.put(auAuthority.getId(), auAuthority);
 	}
 
-	public void update(SyAuthority syAuthority) {
-	syAuthorityMap.put(syAuthority.getId(), syAuthority);
-	}
-	/***************************SY_GROUP***************************/
-	public SyGroup findById(SyGroup syGroup) {
-	return syGroupMap.get(syGroup.getId());
+	public void delete(AuAuthority auAuthority) {
+	auAuthorityMap.remove(auAuthority.getId());
 	}
 
-	public List<SyGroup> getAllSyGroups() {
-	return new ArrayList<SyGroup>(syGroupMap.values());
+	public void update(AuAuthority auAuthority) {
+	auAuthorityMap.put(auAuthority.getId(), auAuthority);
+	}
+	/***************************AU_GROUP***************************/
+	public AuGroup findById(AuGroup auGroup) {
+	return auGroupMap.get(auGroup.getId());
 	}
 
-	public void add(SyGroup syGroup) {
-	syGroupMap.put(syGroup.getId(), syGroup);
+	public List<AuGroup> getAllAuGroups() {
+	return new ArrayList<AuGroup>(auGroupMap.values());
 	}
 
-	public void delete(SyGroup syGroup) {
-	syGroupMap.remove(syGroup.getId());
+	public void add(AuGroup auGroup) {
+	auGroupMap.put(auGroup.getId(), auGroup);
 	}
 
-	public void update(SyGroup syGroup) {
-	syGroupMap.put(syGroup.getId(), syGroup);
-	}
-	/***************************SY_GROUP_AUTHORITY***************************/
-	public SyGroupAuthority findById(SyGroupAuthority syGroupAuthority) {
-	return syGroupAuthorityMap.get(syGroupAuthority.getId());
+	public void delete(AuGroup auGroup) {
+	auGroupMap.remove(auGroup.getId());
 	}
 
-	public List<SyGroupAuthority> getAllSyGroupAuthoritys() {
-	return new ArrayList<SyGroupAuthority>(syGroupAuthorityMap.values());
+	public void update(AuGroup auGroup) {
+	auGroupMap.put(auGroup.getId(), auGroup);
+	}
+	/***************************AU_GROUP_AUTHORITY***************************/
+	public AuGroupAuthority findById(AuGroupAuthority auGroupAuthority) {
+	return auGroupAuthorityMap.get(auGroupAuthority.getId());
 	}
 
-	public void add(SyGroupAuthority syGroupAuthority) {
-	syGroupAuthorityMap.put(syGroupAuthority.getId(), syGroupAuthority);
+	public List<AuGroupAuthority> getAllAuGroupAuthoritys() {
+	return new ArrayList<AuGroupAuthority>(auGroupAuthorityMap.values());
 	}
 
-	public void delete(SyGroupAuthority syGroupAuthority) {
-	syGroupAuthorityMap.remove(syGroupAuthority.getId());
+	public void add(AuGroupAuthority auGroupAuthority) {
+	auGroupAuthorityMap.put(auGroupAuthority.getId(), auGroupAuthority);
 	}
 
-	public void update(SyGroupAuthority syGroupAuthority) {
-	syGroupAuthorityMap.put(syGroupAuthority.getId(), syGroupAuthority);
-	}
-	/***************************SY_GROUP_MEMBER***************************/
-	public SyGroupMember findById(SyGroupMember syGroupMember) {
-	return syGroupMemberMap.get(syGroupMember.getId());
+	public void delete(AuGroupAuthority auGroupAuthority) {
+	auGroupAuthorityMap.remove(auGroupAuthority.getId());
 	}
 
-	public List<SyGroupMember> getAllSyGroupMembers() {
-	return new ArrayList<SyGroupMember>(syGroupMemberMap.values());
+	public void update(AuGroupAuthority auGroupAuthority) {
+	auGroupAuthorityMap.put(auGroupAuthority.getId(), auGroupAuthority);
+	}
+	/***************************AU_GROUP_MEMBER***************************/
+	public AuGroupMember findById(AuGroupMember auGroupMember) {
+	return auGroupMemberMap.get(auGroupMember.getId());
 	}
 
-	public void add(SyGroupMember syGroupMember) {
-	syGroupMemberMap.put(syGroupMember.getId(), syGroupMember);
+	public List<AuGroupMember> getAllAuGroupMembers() {
+	return new ArrayList<AuGroupMember>(auGroupMemberMap.values());
 	}
 
-	public void delete(SyGroupMember syGroupMember) {
-	syGroupMemberMap.remove(syGroupMember.getId());
+	public void add(AuGroupMember auGroupMember) {
+	auGroupMemberMap.put(auGroupMember.getId(), auGroupMember);
 	}
 
-	public void update(SyGroupMember syGroupMember) {
-	syGroupMemberMap.put(syGroupMember.getId(), syGroupMember);
+	public void delete(AuGroupMember auGroupMember) {
+	auGroupMemberMap.remove(auGroupMember.getId());
+	}
+
+	public void update(AuGroupMember auGroupMember) {
+	auGroupMemberMap.put(auGroupMember.getId(), auGroupMember);
 	}
 }

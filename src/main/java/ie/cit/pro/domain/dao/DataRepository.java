@@ -1,5 +1,10 @@
 package ie.cit.pro.domain.dao;
 
+import ie.cit.pro.domain.au.AuAuthority;
+import ie.cit.pro.domain.au.AuGroup;
+import ie.cit.pro.domain.au.AuGroupAuthority;
+import ie.cit.pro.domain.au.AuGroupMember;
+import ie.cit.pro.domain.au.AuUser;
 import ie.cit.pro.domain.cj.CjContract;
 import ie.cit.pro.domain.cj.CjJob;
 import ie.cit.pro.domain.fb.FbFitting;
@@ -9,13 +14,8 @@ import ie.cit.pro.domain.fb.FbSpool;
 import ie.cit.pro.domain.fb.FbWeld;
 import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
-import ie.cit.pro.domain.sy.SyAuthority;
-import ie.cit.pro.domain.sy.SyGroupAuthority;
-import ie.cit.pro.domain.sy.SyGroupMember;
-import ie.cit.pro.domain.sy.SyGroup;
 import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
-import ie.cit.pro.domain.sy.SyUser;
 import ie.cit.pro.domain.tn.TnCompany;
 import ie.cit.pro.domain.tn.TnTenant;
 
@@ -32,7 +32,7 @@ public interface DataRepository {
 	List<SySection> getSySectionsByCode(List<SySection> sySections);
 	
 	/***************************SY_USERS***************************/
-	List<SyUser> getSyUsersByLogin(List<SyUser> syUsers);
+	List<AuUser> getAuUsersByLogin(List<AuUser> auUsers);
 	
 	/*##########################GENERIC##########################*/
 	
@@ -127,40 +127,41 @@ public interface DataRepository {
 	void delete(SySection sySection);
 	void update(SySection sySection);
 
-	/***************************SY_USER***************************/
-	SyUser findById(SyUser syUser);
-	List<SyUser> getAllSyUsers();
-	void add(SyUser syUser);
-	void delete(SyUser syUser);
-	void update(SyUser syUser);
+	/***************************AU_USER***************************/
+	AuUser findById(AuUser auUser);
+	List<AuUser> getAllAuUsers();
+	void add(AuUser auUser);
+	void delete(AuUser auUser);
+	void update(AuUser auUser);
 
-	/***************************SY_AUTHORITY***************************/
-	SyAuthority findById(SyAuthority syAuthority);
-	List<SyAuthority> getAllSyAuthoritys();
-	void add(SyAuthority syAuthority);
-	void delete(SyAuthority syAuthority);
-	void update(SyAuthority syAuthority);
+	/***************************AU_AUTHORITY***************************/
+	AuAuthority findById(AuAuthority auAuthority);
+	List<AuAuthority> getAllAuAuthoritys();
+	void add(AuAuthority auAuthority);
+	void delete(AuAuthority auAuthority);
+	void update(AuAuthority auAuthority);
 
-	/***************************SY_GROUP***************************/
-	SyGroup findById(SyGroup syGroup);
-	List<SyGroup> getAllSyGroups();
-	void add(SyGroup syGroup);
-	void delete(SyGroup syGroup);
-	void update(SyGroup syGroup);
+	/***************************AU_GROUP***************************/
+	AuGroup findById(AuGroup auGroup);
+	List<AuGroup> getAllAuGroups();
+	void add(AuGroup auGroup);
+	void delete(AuGroup auGroup);
+	void update(AuGroup auGroup);
 
-	/***************************SY_GROUP_AUTHORITY***************************/
-	SyGroupAuthority findById(SyGroupAuthority syGroupAuthority);
-	List<SyGroupAuthority> getAllSyGroupAuthoritys();
-	void add(SyGroupAuthority syGroupAuthority);
-	void delete(SyGroupAuthority syGroupAuthority);
-	void update(SyGroupAuthority syGroupAuthority);
+	/***************************AU_GROUP_AUTHORITY***************************/
+	AuGroupAuthority findById(AuGroupAuthority auGroupAuthority);
+	List<AuGroupAuthority> getAllAuGroupAuthoritys();
+	void add(AuGroupAuthority auGroupAuthority);
+	void delete(AuGroupAuthority auGroupAuthority);
+	void update(AuGroupAuthority auGroupAuthority);
 
-	/***************************SY_GROUP_MEMBER***************************/
-	SyGroupMember findById(SyGroupMember syGroupMember);
-	List<SyGroupMember> getAllSyGroupMembers();
-	void add(SyGroupMember syGroupMember);
-	void delete(SyGroupMember syGroupMember);
-	void update(SyGroupMember syGroupMember);
+	/***************************AU_GROUP_MEMBER***************************/
+	AuGroupMember findById(AuGroupMember auGroupMember);
+	List<AuGroupMember> getAllAuGroupMembers();
+	void add(AuGroupMember auGroupMember);
+	void delete(AuGroupMember auGroupMember);
+	void update(AuGroupMember auGroupMember);
+
 
 }
 

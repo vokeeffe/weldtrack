@@ -6,6 +6,16 @@ import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
 
 public interface SyService {
+	
+	/*##########################CUSTOM##########################*/
+	
+	/***************************SY_SECFIELD***************************/
+	List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields);
+	
+	/***************************SY_SECTION***************************/
+	List<SySection> getSySectionsByCode(List<SySection> sySections);
+	
+	/*##########################GENERIC##########################*/
 
 	/***************************SY_SECFIELD***************************/
 	SySecfield getSySecfield(String id);
@@ -13,7 +23,7 @@ public interface SyService {
 	SySecfield createSySecfield(SySecfield sySecfield);
 	void deleteSySecfield(String id);
 	void updateSySecfield(SySecfield sySecfield);
-	List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields);
+	
 	
 	/***************************SY_SECTION***************************/
 	SySection getSySection(String id);
@@ -21,6 +31,6 @@ public interface SyService {
 	SySection createSySection(SySection sySection);
 	void deleteSySection(String id);
 	void updateSySection(SySection sySection);
-	List<SySection> getSySectionsByCode(List<SySection> sySections);
+
 	
 }

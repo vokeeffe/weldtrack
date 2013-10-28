@@ -17,6 +17,25 @@ public class SyServiceImpl implements SyService {
 		this.repo = repo;
 	}
 	
+	/*##########################CUSTOM##########################*/
+	
+	/***************************SY_SECFIELD***************************/
+	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields)
+	{
+		
+		return repo.getSySecfieldsByCode(sySecfields);
+		
+	}
+	
+	/***************************SY_SECTION***************************/
+	public List<SySection> getSySectionsByCode(List<SySection> sySections){
+		
+		return repo.getSySectionsByCode(sySections);
+		
+	}
+	
+	/*##########################GENERIC##########################*/
+	
 	/***************************SY_SECFIELD***************************/
 	public SySecfield getSySecfield(String id) {
 	SySecfield sySecfield = new SySecfield();
@@ -50,14 +69,6 @@ public class SyServiceImpl implements SyService {
 	}
 	}
 	
-	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields)
-	{
-		
-		return repo.getSySecfieldsByCode(sySecfields);
-		
-	}
-
-
 	/***************************SY_SECTION***************************/
 	public SySection getSySection(String id) {
 	SySection sySection = new SySection();
@@ -92,12 +103,4 @@ public class SyServiceImpl implements SyService {
 		}
 	}
 	
-	public List<SySection> getSySectionsByCode(List<SySection> sySections){
-		
-		return repo.getSySectionsByCode(sySections);
-		
-	}
-
-
-
 }
