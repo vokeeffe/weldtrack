@@ -18,6 +18,7 @@ import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
 import ie.cit.pro.domain.tn.TnCompany;
 import ie.cit.pro.domain.tn.TnTenant;
+import ie.cit.pro.session.CustomUser;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -61,13 +62,21 @@ public class JdbcDataRepository implements DataRepository {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	private String getCurrentUser() {
+	private String getCurrentUserName() {
 		
 		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 	
-	private String getCurrentUserKtn() {
-		return null; //SecurityContextHolder.getContext().getAuthentication().ge;
+	private int getCurrentUserKtn() {
+
+		List<AuUser> auUsers = new ArrayList<AuUser>();
+		AuUser auUser = new AuUser();
+		auUser.setAus_login(SecurityContextHolder.getContext().getAuthentication().getName());
+		auUsers.add(auUser);
+		
+		CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return customUser.getKtn();
+		
 	}
 	
 	/***************************SY_SECFIELD***************************/
@@ -136,7 +145,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbWeldType fbWeldType) {
-	jdbcTemplate.update("INSERT INTO fb_weldtype (id, wty_a_createdby, wty_a_createddate, ktn) VALUES(?,?,?,?)", fbWeldType.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_weldtype (id, wty_a_createdby, wty_a_createddate, ktn) VALUES(?,?,?,?)", fbWeldType.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbWeldType);
 	}
 
@@ -149,7 +158,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(FbWeldType fbWeldType) {
 	jdbcTemplate.update("UPDATE fb_weldtype SET wty_a_modifiedby=?, wty_a_modifieddate=?, " + 
 	"wty_code=?, wty_name=?, wty_sort=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), fbWeldType.getWty_code(), fbWeldType.getWty_name(), fbWeldType.getWty_sort(), fbWeldType.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), fbWeldType.getWty_code(), fbWeldType.getWty_name(), fbWeldType.getWty_sort(), fbWeldType.getId());
 	}
 
 
@@ -166,7 +175,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbWeld fbWeld) {
-	jdbcTemplate.update("INSERT INTO fb_weld (id, wld_a_createdby, wld_a_createddate, ktn) VALUES(?,?,?,?)", fbWeld.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_weld (id, wld_a_createdby, wld_a_createddate, ktn) VALUES(?,?,?,?)", fbWeld.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), this.getCurrentUserKtn());
 	this.update(fbWeld);
 	}
 
@@ -179,7 +188,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(FbWeld fbWeld) {
 	jdbcTemplate.update("UPDATE fb_weld SET wld_a_modifiedby=?, wld_a_modifieddate=?, " + 
 	"kco=?, wty_code=?, wld_num=?, spl_num=?, iso_num=?, pdr_size=?, wld_fw=?, wdr_num=?, wld_wdate=?, fit_fitting1=?, fit_fitting2=?, wld_heat1=?, wld_heat2=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), fbWeld.getKco(), fbWeld.getWty_code(), fbWeld.getWld_num(), fbWeld.getSpl_num(), fbWeld.getIso_num(), fbWeld.getPdr_size(), fbWeld.isWld_fw(), fbWeld.getWdr_num(), fbWeld.getWld_wdate(), fbWeld.getFit_fitting1(), fbWeld.getFit_fitting2(), fbWeld.getWld_heat1(), fbWeld.getWld_heat2(), fbWeld.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), fbWeld.getKco(), fbWeld.getWty_code(), fbWeld.getWld_num(), fbWeld.getSpl_num(), fbWeld.getIso_num(), fbWeld.getPdr_size(), fbWeld.isWld_fw(), fbWeld.getWdr_num(), fbWeld.getWld_wdate(), fbWeld.getFit_fitting1(), fbWeld.getFit_fitting2(), fbWeld.getWld_heat1(), fbWeld.getWld_heat2(), fbWeld.getId());
 	}
 
 
@@ -196,7 +205,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbWelder fbWelder) {
-	jdbcTemplate.update("INSERT INTO fb_welder (id, wdr_a_createdby, wdr_a_createddate, ktn) VALUES(?,?,?,?)", fbWelder.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_welder (id, wdr_a_createdby, wdr_a_createddate, ktn) VALUES(?,?,?,?)", fbWelder.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbWelder);
 	}
 
@@ -209,7 +218,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(FbWelder fbWelder) {
 	jdbcTemplate.update("UPDATE fb_welder SET wdr_a_modifiedby=?, wdr_a_modifieddate=?, " + 
 	"kco=?, wdr_num=?, wdr_name=?, wdr_status=?, wdr_active=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), fbWelder.getKco(), fbWelder.getWdr_num(), fbWelder.getWdr_name(), fbWelder.getWdr_status(), fbWelder.isWdr_active(), fbWelder.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), fbWelder.getKco(), fbWelder.getWdr_num(), fbWelder.getWdr_name(), fbWelder.getWdr_status(), fbWelder.isWdr_active(), fbWelder.getId());
 	}
 
 
@@ -226,7 +235,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbIsometric fbIsometric) {
-	jdbcTemplate.update("INSERT INTO fb_isometric (id, iso_a_createdby, iso_a_createddate, ktn) VALUES(?,?,?,?)", fbIsometric.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_isometric (id, iso_a_createdby, iso_a_createddate, ktn) VALUES(?,?,?,?)", fbIsometric.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbIsometric);
 	}
 
@@ -239,7 +248,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(FbIsometric fbIsometric) {
 	jdbcTemplate.update("UPDATE fb_isometric SET iso_a_modifiedby=?, iso_a_modifieddate=?, " + 
 	"kco=?, con_num=?, job_num=?, iso_num=?, iso_revno=?, iso_revcode=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), fbIsometric.getKco(), fbIsometric.getCon_num(), fbIsometric.getJob_num(), fbIsometric.getIso_num(), fbIsometric.getIso_revno(), fbIsometric.getIso_revcode(), fbIsometric.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), fbIsometric.getKco(), fbIsometric.getCon_num(), fbIsometric.getJob_num(), fbIsometric.getIso_num(), fbIsometric.getIso_revno(), fbIsometric.getIso_revcode(), fbIsometric.getId());
 	}
 
 
@@ -256,7 +265,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbSpool fbSpool) {
-	jdbcTemplate.update("INSERT INTO fb_spool (id, spl_a_createdby, spl_a_createddate, ktn) VALUES(?,?,?,?)", fbSpool.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_spool (id, spl_a_createdby, spl_a_createddate, ktn) VALUES(?,?,?,?)", fbSpool.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbSpool);
 	}
 
@@ -269,7 +278,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(FbSpool fbSpool) {
 	jdbcTemplate.update("UPDATE fb_spool SET spl_a_modifiedby=?, spl_a_modifieddate=?, " + 
 	"kco=?, iso_num=?, spl_num=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), fbSpool.getKco(), fbSpool.getIso_num(), fbSpool.getSpl_num(), fbSpool.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), fbSpool.getKco(), fbSpool.getIso_num(), fbSpool.getSpl_num(), fbSpool.getId());
 	}
 
 
@@ -286,7 +295,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbPipediam fbPipediam) {
-	jdbcTemplate.update("INSERT INTO fb_pipediam (id, pdr_a_createdby, pdr_a_createddate, ktn) VALUES(?,?,?,?)", fbPipediam.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_pipediam (id, pdr_a_createdby, pdr_a_createddate, ktn) VALUES(?,?,?,?)", fbPipediam.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbPipediam);
 	}
 
@@ -299,7 +308,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(FbPipediam fbPipediam) {
 	jdbcTemplate.update("UPDATE fb_pipediam SET pdr_a_modifiedby=?, pdr_a_modifieddate=?, " + 
 	"pdr_size=?, pdr_desc=?, pdr_nb=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), fbPipediam.getPdr_size(), fbPipediam.getPdr_desc(), fbPipediam.getPdr_nb(), fbPipediam.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), fbPipediam.getPdr_size(), fbPipediam.getPdr_desc(), fbPipediam.getPdr_nb(), fbPipediam.getId());
 	}
 
 
@@ -316,7 +325,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbFitting fbFitting) {
-	jdbcTemplate.update("INSERT INTO fb_fitting (id, fit_a_createdby, fit_a_createddate, ktn) VALUES(?,?,?,?)", fbFitting.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_fitting (id, fit_a_createdby, fit_a_createddate, ktn) VALUES(?,?,?,?)", fbFitting.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbFitting);
 	}
 
@@ -329,7 +338,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(FbFitting fbFitting) {
 	jdbcTemplate.update("UPDATE fb_fitting SET fit_a_modifiedby=?, fit_a_modifieddate=?, " + 
 	"fit_code=?, fit_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), fbFitting.getFit_code(), fbFitting.getFit_name(), fbFitting.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), fbFitting.getFit_code(), fbFitting.getFit_name(), fbFitting.getId());
 	}
 
 
@@ -346,7 +355,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(CjContract cjContract) {
-	jdbcTemplate.update("INSERT INTO cj_contract (id, con_a_createdby, con_a_createddate, ktn) VALUES(?,?,?,?)", cjContract.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO cj_contract (id, con_a_createdby, con_a_createddate, ktn) VALUES(?,?,?,?)", cjContract.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(cjContract);
 	}
 
@@ -359,7 +368,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(CjContract cjContract) {
 	jdbcTemplate.update("UPDATE cj_contract SET con_a_modifiedby=?, con_a_modifieddate=?, " + 
 	"kco=?, con_num=?, con_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), cjContract.getKco(), cjContract.getCon_num(), cjContract.getCon_name(), cjContract.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), cjContract.getKco(), cjContract.getCon_num(), cjContract.getCon_name(), cjContract.getId());
 	}
 
 
@@ -376,7 +385,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(CjJob cjJob) {
-	jdbcTemplate.update("INSERT INTO cj_job (id, job_a_createdby, job_a_createddate, ktn) VALUES(?,?,?,?)", cjJob.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO cj_job (id, job_a_createdby, job_a_createddate, ktn) VALUES(?,?,?,?)", cjJob.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(cjJob);
 	}
 
@@ -389,7 +398,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(CjJob cjJob) {
 	jdbcTemplate.update("UPDATE cj_job SET job_a_modifiedby=?, job_a_modifieddate=?, " + 
 	"kco=?, con_num=?, job_num=?, job_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), cjJob.getKco(), cjJob.getCon_num(), cjJob.getJob_num(), cjJob.getJob_name(), cjJob.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), cjJob.getKco(), cjJob.getCon_num(), cjJob.getJob_num(), cjJob.getJob_name(), cjJob.getId());
 	}
 
 
@@ -406,7 +415,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(TnTenant tnTenant) {
-	jdbcTemplate.update("INSERT INTO tn_tenant (id, tnt_a_createdby, tnt_a_createddate, ktn) VALUES(?,?,?,?)", tnTenant.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO tn_tenant (id, tnt_a_createdby, tnt_a_createddate, ktn) VALUES(?,?,?,?)", tnTenant.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(tnTenant);
 	}
 
@@ -419,7 +428,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(TnTenant tnTenant) {
 	jdbcTemplate.update("UPDATE tn_tenant SET tnt_a_modifiedby=?, tnt_a_modifieddate=?, " + 
 	"tnt_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), tnTenant.getTnt_name(), tnTenant.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), tnTenant.getTnt_name(), tnTenant.getId());
 	}
 
 
@@ -436,7 +445,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(TnCompany tnCompany) {
-	jdbcTemplate.update("INSERT INTO tn_company (id, tco_a_createdby, tco_a_createddate, ktn) VALUES(?,?,?,?)", tnCompany.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO tn_company (id, tco_a_createdby, tco_a_createddate, ktn) VALUES(?,?,?,?)", tnCompany.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(tnCompany);
 	}
 
@@ -449,7 +458,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(TnCompany tnCompany) {
 	jdbcTemplate.update("UPDATE tn_company SET tco_a_modifiedby=?, tco_a_modifieddate=?, " + 
 	"kco=?, tco_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), tnCompany.getKco(), tnCompany.getTco_name(), tnCompany.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), tnCompany.getKco(), tnCompany.getTco_name(), tnCompany.getId());
 	}
 
 
@@ -466,7 +475,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(SySecfield sySecfield) {
-	jdbcTemplate.update("INSERT INTO sy_secfield (id, sfd_a_createdby, sfd_a_createddate, ktn) VALUES(?,?,?,?)", sySecfield.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO sy_secfield (id, sfd_a_createdby, sfd_a_createddate, ktn) VALUES(?,?,?,?)", sySecfield.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(sySecfield);
 	}
 
@@ -479,7 +488,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(SySecfield sySecfield) {
 	jdbcTemplate.update("UPDATE sy_secfield SET sfd_a_modifiedby=?, sfd_a_modifieddate=?, " + 
 	"stn_code=?, sfd_wrap=?, sfd_width=?, sfd_visible=?, sfd_value=?, sfd_valid=?, sfd_update=?, sfd_tooltip=?, sfd_tab=?, sfd_src=?, sfd_sort=?, sfd_seq=?, sfd_rows=?, sfd_required=?, sfd_readonly=?, sfd_range_step=?, sfd_range_num=?, sfd_range_min=?, sfd_range_max=?, sfd_progress_value=?, sfd_progress_max=?, sfd_placeholder=?, sfd_param=?, sfd_options=?, sfd_onok=?, sfd_onchange=?, sfd_onblur=?, sfd_name=?, sfd_maxlength=?, sfd_lspan=?, sfd_lclass=?, sfd_label=?, sfd_input_type=?, sfd_img_src=?, sfd_id=?, sfd_hide=?, sfd_height=?, sfd_generate=?, sfd_format=?, sfd_form=?, sfd_disabled=?, sfd_default=?, sfd_column=?, sfd_code=?, sfd_class=?, sfd_calc=?, sfd_build=?, sfd_autofocus=?, sfd_autocomplete=?, sfd_append=?, sfd_align=?, sfd_addblank=?, sfd_add=?, mf_function=?, sfd_size=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), sySecfield.getStn_code(), sySecfield.getSfd_wrap(), sySecfield.getSfd_width(), sySecfield.isSfd_visible(), sySecfield.getSfd_value(), sySecfield.getSfd_valid(), sySecfield.isSfd_update(), sySecfield.getSfd_tooltip(), sySecfield.getSfd_tab(), sySecfield.getSfd_src(), sySecfield.getSfd_sort(), sySecfield.getSfd_seq(), sySecfield.getSfd_rows(), sySecfield.getSfd_required(), sySecfield.getSfd_readonly(), sySecfield.getSfd_range_step(), sySecfield.getSfd_range_num(), sySecfield.getSfd_range_min(), sySecfield.getSfd_range_max(), sySecfield.getSfd_progress_value(), sySecfield.getSfd_progress_max(), sySecfield.getSfd_placeholder(), sySecfield.getSfd_param(), sySecfield.getSfd_options(), sySecfield.getSfd_onok(), sySecfield.getSfd_onchange(), sySecfield.getSfd_onblur(), sySecfield.getSfd_name(), sySecfield.getSfd_maxlength(), sySecfield.getSfd_lspan(), sySecfield.getSfd_lclass(), sySecfield.getSfd_label(), sySecfield.getSfd_input_type(), sySecfield.getSfd_img_src(), sySecfield.getSfd_id(), sySecfield.isSfd_hide(), sySecfield.getSfd_height(), sySecfield.getSfd_generate(), sySecfield.getSfd_format(), sySecfield.getSfd_form(), sySecfield.getSfd_disabled(), sySecfield.getSfd_default(), sySecfield.getSfd_column(), sySecfield.getSfd_code(), sySecfield.getSfd_class(), sySecfield.getSfd_calc(), sySecfield.getSfd_build(), sySecfield.getSfd_autofocus(), sySecfield.getSfd_autocomplete(), sySecfield.getSfd_append(), sySecfield.getSfd_align(), sySecfield.isSfd_addblank(), sySecfield.isSfd_add(), sySecfield.getMf_function(), sySecfield.getSfd_size(), sySecfield.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), sySecfield.getStn_code(), sySecfield.getSfd_wrap(), sySecfield.getSfd_width(), sySecfield.isSfd_visible(), sySecfield.getSfd_value(), sySecfield.getSfd_valid(), sySecfield.isSfd_update(), sySecfield.getSfd_tooltip(), sySecfield.getSfd_tab(), sySecfield.getSfd_src(), sySecfield.getSfd_sort(), sySecfield.getSfd_seq(), sySecfield.getSfd_rows(), sySecfield.getSfd_required(), sySecfield.getSfd_readonly(), sySecfield.getSfd_range_step(), sySecfield.getSfd_range_num(), sySecfield.getSfd_range_min(), sySecfield.getSfd_range_max(), sySecfield.getSfd_progress_value(), sySecfield.getSfd_progress_max(), sySecfield.getSfd_placeholder(), sySecfield.getSfd_param(), sySecfield.getSfd_options(), sySecfield.getSfd_onok(), sySecfield.getSfd_onchange(), sySecfield.getSfd_onblur(), sySecfield.getSfd_name(), sySecfield.getSfd_maxlength(), sySecfield.getSfd_lspan(), sySecfield.getSfd_lclass(), sySecfield.getSfd_label(), sySecfield.getSfd_input_type(), sySecfield.getSfd_img_src(), sySecfield.getSfd_id(), sySecfield.isSfd_hide(), sySecfield.getSfd_height(), sySecfield.getSfd_generate(), sySecfield.getSfd_format(), sySecfield.getSfd_form(), sySecfield.getSfd_disabled(), sySecfield.getSfd_default(), sySecfield.getSfd_column(), sySecfield.getSfd_code(), sySecfield.getSfd_class(), sySecfield.getSfd_calc(), sySecfield.getSfd_build(), sySecfield.getSfd_autofocus(), sySecfield.getSfd_autocomplete(), sySecfield.getSfd_append(), sySecfield.getSfd_align(), sySecfield.isSfd_addblank(), sySecfield.isSfd_add(), sySecfield.getMf_function(), sySecfield.getSfd_size(), sySecfield.getId());
 	}
 
 
@@ -496,7 +505,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(SySection sySection) {
-	jdbcTemplate.update("INSERT INTO sy_section (id, stn_a_createdby, stn_a_createddate, ktn) VALUES(?,?,?,?)", sySection.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO sy_section (id, stn_a_createdby, stn_a_createddate, ktn) VALUES(?,?,?,?)", sySection.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(sySection);
 	}
 
@@ -509,7 +518,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(SySection sySection) {
 	jdbcTemplate.update("UPDATE sy_section SET stn_a_modifiedby=?, stn_a_modifieddate=?, " + 
 	"stn_code=?, mf_function=?, stn_hservice=?, stn_bservice=?, stn_brows=?, stn_btitle=?, stn_form=?, stn_form_method=?, stn_script=?, stn_form_action=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), sySection.getStn_code(), sySection.getMf_function(), sySection.getStn_hservice(), sySection.getStn_bservice(), sySection.getStn_brows(), sySection.getStn_btitle(), sySection.getStn_form(), sySection.getStn_form_method(), sySection.getStn_script(), sySection.getStn_form_action(), sySection.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), sySection.getStn_code(), sySection.getMf_function(), sySection.getStn_hservice(), sySection.getStn_bservice(), sySection.getStn_brows(), sySection.getStn_btitle(), sySection.getStn_form(), sySection.getStn_form_method(), sySection.getStn_script(), sySection.getStn_form_action(), sySection.getId());
 	}
 
 
@@ -526,7 +535,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(AuUser auUser) {
-	jdbcTemplate.update("INSERT INTO au_user (id, aus_a_createdby, aus_a_createddate, ktn) VALUES(?,?,?,?)", auUser.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO au_user (id, aus_a_createdby, aus_a_createddate, ktn) VALUES(?,?,?,?)", auUser.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(auUser);
 	}
 
@@ -539,7 +548,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(AuUser auUser) {
 	jdbcTemplate.update("UPDATE au_user SET aus_a_modifiedby=?, aus_a_modifieddate=?, " + 
 	"aus_login=?, aus_password=?, aus_enabled=?, kco_prime=?, kco_list=?, aus_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), auUser.getAus_login(), auUser.getAus_password(), auUser.isAus_enabled(), auUser.getKco_prime(), auUser.getKco_list(), auUser.getAus_name(), auUser.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), auUser.getAus_login(), auUser.getAus_password(), auUser.isAus_enabled(), auUser.getKco_prime(), auUser.getKco_list(), auUser.getAus_name(), auUser.getId());
 	}
 
 
@@ -556,7 +565,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(AuAuthority auAuthority) {
-	jdbcTemplate.update("INSERT INTO au_authority (id, aau_a_createdby, aau_a_createddate, ktn) VALUES(?,?,?,?)", auAuthority.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO au_authority (id, aau_a_createdby, aau_a_createddate, ktn) VALUES(?,?,?,?)", auAuthority.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(auAuthority);
 	}
 
@@ -569,7 +578,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(AuAuthority auAuthority) {
 	jdbcTemplate.update("UPDATE au_authority SET aau_a_modifiedby=?, aau_a_modifieddate=?, " + 
 	"aus_login=?, aau_authority=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), auAuthority.getAus_login(), auAuthority.getAau_authority(), auAuthority.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), auAuthority.getAus_login(), auAuthority.getAau_authority(), auAuthority.getId());
 	}
 
 
@@ -586,7 +595,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(AuGroup auGroup) {
-	jdbcTemplate.update("INSERT INTO au_group (id, agr_a_createdby, agr_a_createddate, ktn) VALUES(?,?,?,?)", auGroup.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO au_group (id, agr_a_createdby, agr_a_createddate, ktn) VALUES(?,?,?,?)", auGroup.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(auGroup);
 	}
 
@@ -599,7 +608,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(AuGroup auGroup) {
 	jdbcTemplate.update("UPDATE au_group SET agr_a_modifiedby=?, agr_a_modifieddate=?, " + 
 	"agr_group_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), auGroup.getAgr_group_name(), auGroup.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), auGroup.getAgr_group_name(), auGroup.getId());
 	}
 
 
@@ -616,7 +625,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(AuGroupAuthority auGroupAuthority) {
-	jdbcTemplate.update("INSERT INTO au_group_authority (id, aga_a_createdby, aga_a_createddate, ktn) VALUES(?,?,?,?)", auGroupAuthority.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO au_group_authority (id, aga_a_createdby, aga_a_createddate, ktn) VALUES(?,?,?,?)", auGroupAuthority.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(auGroupAuthority);
 	}
 
@@ -629,7 +638,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(AuGroupAuthority auGroupAuthority) {
 	jdbcTemplate.update("UPDATE au_group_authority SET aga_a_modifiedby=?, aga_a_modifieddate=?, " + 
 	"agr_group_name=?, aga_authority=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), auGroupAuthority.getAgr_group_name(), auGroupAuthority.getAga_authority(), auGroupAuthority.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), auGroupAuthority.getAgr_group_name(), auGroupAuthority.getAga_authority(), auGroupAuthority.getId());
 	}
 
 
@@ -646,7 +655,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(AuGroupMember auGroupMember) {
-	jdbcTemplate.update("INSERT INTO au_group_member (id, agm_a_createdby, agm_a_createddate, ktn) VALUES(?,?,?,?)", auGroupMember.getId(), this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO au_group_member (id, agm_a_createdby, agm_a_createddate, ktn) VALUES(?,?,?,?)", auGroupMember.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(auGroupMember);
 	}
 
@@ -659,7 +668,7 @@ public class JdbcDataRepository implements DataRepository {
 	public void update(AuGroupMember auGroupMember) {
 	jdbcTemplate.update("UPDATE au_group_member SET agm_a_modifiedby=?, agm_a_modifieddate=?, " + 
 	"aus_login=?, agr_group_name=? WHERE id=?",
-	this.getCurrentUser(), new java.sql.Timestamp(new java.util.Date().getTime()), auGroupMember.getAus_login(), auGroupMember.getAgr_group_name(), auGroupMember.getId());
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), auGroupMember.getAus_login(), auGroupMember.getAgr_group_name(), auGroupMember.getId());
 	}
 
 

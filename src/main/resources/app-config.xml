@@ -34,9 +34,16 @@
 		<constructor-arg ref="jdbcWeldRepository" />
 	</bean>
 
-	<bean id="userPreferences" class="ie.cit.pro.session.UserProfile" scope="session">
-		<constructor-arg ref="syServiceImpl"/>
+	<bean id="customJdbcDaoImpl" class="ie.cit.pro.session.CustomJdbcDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+		<property name="authoritiesByUsernameQuery"
+			value="SELECT usr.aus_login AS username, aut.aau_authority AS authority FROM au_user usr, au_authority aut WHERE usr.aus_login = aut.aus_login AND usr.aus_login = ?" />
+		<property name="usersByUsernameQuery"
+			value="SELECT aus_login AS username, aus_password AS password, aus_enabled AS enabled, ktn AS ktn FROM au_user WHERE aus_login = ?" />
+		<property name="groupAuthoritiesByUsernameQuery"
+			value="SELECT grp.agr_group_name AS id, grp.agr_group_name AS group_name, gra.aga_authority AS authority FROM au_group grp, au_group_member grm, au_group_authority gra WHERE grm.aus_login = ? AND grp.agr_group_name = gra.agr_group_name AND grp.agr_group_name = grm.agr_group_name" />
 	</bean>
+
 
 	<aop:aspectj-autoproxy />
 
@@ -47,23 +54,23 @@
 	</bean>
 
 	<bean class="ie.cit.pro.aspects.TracingAspect" />
- 
+
 	<!-- declare the SQL logger class as a bean -->
 	<bean id="sqlLogger" class="ie.cit.pro.aspects.SqlLoggerAspect" />
 
-	<security:http auto-config="true" />
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/spring_security_login*"
+			access="IS_AUTHENTICATED_ANONYMOUSLY" />
+		<security:intercept-url pattern="/*" access="ROLE_USER" />
+	</security:http>
+
 	<security:global-method-security
 		secured-annotations="enabled" />
 
-	<security:authentication-manager>
-
-		<security:authentication-provider>
+	<security:authentication-manager alias="authenticationManager">
+	
+		<security:authentication-provider user-service-ref="customJdbcDaoImpl">
 			<security:password-encoder hash="md5" />
-			<security:jdbc-user-service
-				data-source-ref="dataSource"
-				users-by-username-query="SELECT aus_login AS username, aus_password AS password, aus_enabled AS enabled FROM au_user WHERE aus_login = ?"
-				authorities-by-username-query="SELECT usr.aus_login AS username, aut.aau_authority AS authority FROM au_user usr, au_authority aut WHERE usr.aus_login = aut.aus_login AND usr.aus_login = ?"
-				group-authorities-by-username-query="SELECT grp.agr_group_name AS id, grp.agr_group_name AS group_name, gra.aga_authority AS authority FROM au_group grp, au_group_member grm, au_group_authority gra WHERE grm.aus_login = ? AND grp.agr_group_name = gra.agr_group_name AND grp.agr_group_name = grm.agr_group_name" />
 		</security:authentication-provider>
 
 	</security:authentication-manager>

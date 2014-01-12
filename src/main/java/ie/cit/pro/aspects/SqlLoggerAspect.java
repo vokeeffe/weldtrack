@@ -25,7 +25,6 @@ public class SqlLoggerAspect {
 		Object[] methodArgs = jp.getArgs(), sqlArgs = null;
 		// get the SQL statement
 		String statement = methodArgs[0].toString();
-
 		// find the SQL arguments (parameters)
 		for (int i = 1, n = methodArgs.length; i < n; i++) {
 			Object arg = methodArgs[i];
