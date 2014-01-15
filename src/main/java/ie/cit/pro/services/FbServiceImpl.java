@@ -16,10 +16,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class FbServiceImpl implements FbService {
 
 	private DataRepository repo;
+	private String  fbDomainObject;
 
 	// Constructor
 	public FbServiceImpl(DataRepository repo) {
 		this.repo = repo;
+	}
+	
+	public Object getFbDomainObject(String id) {
+		
+		if(fbDomainObject == "FB_WELDTYPE")
+		{
+			return getFbWeldType(id);
+		}
+		
+		return null;
 	}
 	
 	/***************************FB_WELDTYPE***************************/

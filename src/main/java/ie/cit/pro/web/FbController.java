@@ -66,7 +66,7 @@ public class FbController {
 		sySecfields.add(sySecfield);
 		
 		sySection = syService.getSySectionsByCode(sySections).get(0);
-		
+		sySection.getStn_bservice();
 		JSONObject sySectionJSONstr = JSONObject.fromObject( sySection ); 
 		System.out.println(sySectionJSONstr);
 		model.addAttribute("sy_section_jsonstr", sySectionJSONstr);
