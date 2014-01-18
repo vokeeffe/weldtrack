@@ -10,6 +10,7 @@ public class SySection {
 	private Date  stn_a_createddate;
 	private String  stn_a_modifiedby;
 	private Date  stn_a_modifieddate;
+	private Integer  ktn;
 	private String stn_code;
 	private String mf_function;
 	private String stn_hservice;
@@ -19,9 +20,10 @@ public class SySection {
 	private String stn_form;
 	private String stn_form_method;
 	private String stn_script;
-	private Integer ktn;
 	private String stn_form_action;
-	
+	private String stn_htable;
+	private String stn_btable;
+
 	public SySection(){
 		id = UUID.randomUUID().toString();
 		}
@@ -121,6 +123,22 @@ public class SySection {
 	}
 	public void setStn_form_action(String stn_form_action) {
 		this.stn_form_action = stn_form_action;
+	}
+
+	public String getStn_htable() {
+		return stn_htable;
+	}
+
+	public void setStn_htable(String stn_htable) {
+		this.stn_htable = stn_htable;
+	}
+
+	public String getStn_btable() {
+		return stn_btable;
+	}
+
+	public void setStn_btable(String stn_btable) {
+		this.stn_btable = stn_btable;
 	}
 
 }

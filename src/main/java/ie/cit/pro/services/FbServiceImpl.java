@@ -29,8 +29,22 @@ public class FbServiceImpl implements FbService {
 		{
 			return getFbWeldType(id);
 		}
+		else
+		{
+			return null;
+		}
+	}
+	
+	public List<Object> getAllFbDomainObjects() {
 		
-		return null;
+		if(fbDomainObject == "FB_WELDTYPE")
+		{
+			return repo.getAllFbWeldTypes();
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	/***************************FB_WELDTYPE***************************/
@@ -38,6 +52,12 @@ public class FbServiceImpl implements FbService {
 	FbWeldType fbWeldType = new FbWeldType();
 	fbWeldType.setId(id);
 	return repo.findById(fbWeldType);
+	}
+	
+	List<FbWeld> getFbObjects(List<FbWeld> fbWelds){
+		
+		return 
+		
 	}
 
 	public List<FbWeldType> getAllFbWeldTypes() {

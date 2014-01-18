@@ -52,6 +52,19 @@ var modelSySection = JSON.parse('${sy_section_jsonstr}');
 		</td>
 	</form>
 	</tr>
+	<tr id="findrecord">
+	<form action="find.html" method="post" onsubmit="submitFindRecord()">
+	<td>0</td>
+		<c:forEach items="${sy_secfields}" var="sy_secfield">
+		<c:set var="property" value="${sy_secfield.sfd_name}"/>	
+			<td><input type="${sy_secfield.sfd_input_type}" id="important" name="${sy_secfield.sfd_name}" value=""
+				size="${sy_secfield.sfd_size}px" required></td>	
+		</c:forEach>
+		<td>
+		<input type="submit" value="Find"  accesskey="s">
+		</td>
+	</form>
+	</tr>
 	<c:forEach items="${fb_welds}" var="fb_weld" varStatus="row">
 		<tr id="body">
 		<form action="update.html" method="post" id = "${fb_weld.id}">

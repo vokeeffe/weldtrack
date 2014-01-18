@@ -21,6 +21,7 @@ public interface FbService {
 	/***************************FB_WELD***************************/
 	FbWeld getFbWeld(String id);
 	List<FbWeld> getAllFbWelds();
+	List<FbWeld> getFbObjects(List<FbWeld> fbWelds);
 	FbWeld createFbWeld(FbWeld fbWeld);
 	void deleteFbWeld(String id);
 	void updateFbWeld(FbWeld fbWeld);

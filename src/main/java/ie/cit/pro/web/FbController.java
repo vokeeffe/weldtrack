@@ -52,7 +52,7 @@ public class FbController {
 	@RequestMapping(value = "system", params = {"MainArea","SideArea"})
 	public String weldtrack(Model model, @RequestParam(value = "MainArea", required = false) String MainArea)
 	{
-		System.out.println(MainArea);
+		System.out.println("Entering: " + MainArea);
 		//Retrieve the section information
 		List<SySection> sySections = new ArrayList<SySection>();
 		SySection sySection = new SySection();
@@ -71,13 +71,22 @@ public class FbController {
 		System.out.println(sySectionJSONstr);
 		model.addAttribute("sy_section_jsonstr", sySectionJSONstr);
 		model.addAttribute("sy_secfields", syService.getSySecfieldsByCode(sySecfields));
-		
+		sySection.getStn_bservice();
+		sySection.getStn_btable();
+		System.out.println("Adding Attribute: " + MainArea);
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "welds.jsp";
 	}
 
 	@RequestMapping("create")
 	public String create(@ModelAttribute ("fb_welds") FbWeld fbWeld, Model model){
+		fbService.createFbWeld(fbWeld);
+		model.addAttribute("fb_welds", fbService.getAllFbWelds());
+		return "welds.jsp";
+	}
+	
+	@RequestMapping("find")
+	public String find(@ModelAttribute ("fb_welds") FbWeld fbWeld, Model model){
 		fbService.createFbWeld(fbWeld);
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "welds.jsp";

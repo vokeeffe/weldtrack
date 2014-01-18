@@ -66,6 +66,23 @@ function submitNewRecord()
 	newform.style.display = "none";
 }
 
+function findRecord()
+{
+	
+	var findform = document.getElementById("findrecord");
+	findform.style.visibility = "visible";
+	findform.style.display = "block";
+	findform.focus();
+}
+
+function submitFindRecord()
+{
+	
+	var findform = document.getElementById("findrecord");
+	findform.style.visibility = "hidden";
+	findform.style.display = "none";
+}
+
 
 function errorhandler(msg, url, ln) {
 	alert("Error: " + msg + "\nln File: " + url + "\nAt Line: " + ln);

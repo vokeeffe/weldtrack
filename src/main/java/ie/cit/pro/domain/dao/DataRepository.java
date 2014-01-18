@@ -34,6 +34,9 @@ public interface DataRepository {
 	/***************************SY_USERS***************************/
 	List<AuUser> getAuUsersByLogin(List<AuUser> auUsers);
 	
+	/***************************FB_WELD***************************/
+	List<FbWeld> getFbObjects(List<FbWeld> fbWelds);
+	
 	/*##########################GENERIC##########################*/
 	
 	/***************************FB_WELDTYPE***************************/
@@ -161,7 +164,5 @@ public interface DataRepository {
 	void add(AuGroupMember auGroupMember);
 	void delete(AuGroupMember auGroupMember);
 	void update(AuGroupMember auGroupMember);
-
-
 }
 

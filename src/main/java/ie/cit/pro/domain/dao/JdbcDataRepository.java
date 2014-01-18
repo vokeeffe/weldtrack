@@ -129,6 +129,12 @@ public class JdbcDataRepository implements DataRepository {
 		return auUsersList;
 
 	}
+
+	/***************************FB_WELD***************************/
+	@Secured({"ROLE_READ"})
+	public List<FbWeld> getFbObjects(List<FbWeld> fbWelds){
+	return jdbcTemplate.query("SELECT * FROM fb_weld WHERE ", fbWeldMapper);
+	}
 	
 	/*##########################GENERIC##########################*/
 
@@ -175,7 +181,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbWeld fbWeld) {
-	jdbcTemplate.update("INSERT INTO fb_weld (id, wld_a_createdby, wld_a_createddate, ktn) VALUES(?,?,?,?)", fbWeld.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), this.getCurrentUserKtn());
+	jdbcTemplate.update("INSERT INTO fb_weld (id, wld_a_createdby, wld_a_createddate, ktn) VALUES(?,?,?,?)", fbWeld.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
 	this.update(fbWeld);
 	}
 
@@ -517,8 +523,8 @@ public class JdbcDataRepository implements DataRepository {
 @Secured({"ROLE_UPDATE"})
 	public void update(SySection sySection) {
 	jdbcTemplate.update("UPDATE sy_section SET stn_a_modifiedby=?, stn_a_modifieddate=?, " + 
-	"stn_code=?, mf_function=?, stn_hservice=?, stn_bservice=?, stn_brows=?, stn_btitle=?, stn_form=?, stn_form_method=?, stn_script=?, stn_form_action=? WHERE id=?",
-	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), sySection.getStn_code(), sySection.getMf_function(), sySection.getStn_hservice(), sySection.getStn_bservice(), sySection.getStn_brows(), sySection.getStn_btitle(), sySection.getStn_form(), sySection.getStn_form_method(), sySection.getStn_script(), sySection.getStn_form_action(), sySection.getId());
+	"stn_code=?, mf_function=?, stn_hservice=?, stn_bservice=?, stn_brows=?, stn_btitle=?, stn_form=?, stn_form_method=?, stn_script=?, stn_form_action=?, stn_htable=?, stn_btable=? WHERE id=?",
+	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), sySection.getStn_code(), sySection.getMf_function(), sySection.getStn_hservice(), sySection.getStn_bservice(), sySection.getStn_brows(), sySection.getStn_btitle(), sySection.getStn_form(), sySection.getStn_form_method(), sySection.getStn_script(), sySection.getStn_form_action(), sySection.getStn_htable(), sySection.getStn_btable(), sySection.getId());
 	}
 
 
@@ -670,7 +676,6 @@ public class JdbcDataRepository implements DataRepository {
 	"aus_login=?, agr_group_name=? WHERE id=?",
 	this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), auGroupMember.getAus_login(), auGroupMember.getAgr_group_name(), auGroupMember.getId());
 	}
-
 
 }
 
@@ -950,6 +955,8 @@ sySection.setStn_form(rs.getString("stn_form"));
 sySection.setStn_form_method(rs.getString("stn_form_method"));
 sySection.setStn_script(rs.getString("stn_script"));
 sySection.setStn_form_action(rs.getString("stn_form_action"));
+sySection.setStn_htable(rs.getString("stn_htable"));
+sySection.setStn_btable(rs.getString("stn_btable"));
 return sySection;
 }
 }
