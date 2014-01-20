@@ -3,7 +3,7 @@ package ie.cit.pro.domain.fb;
 import java.util.Date;
 import java.util.UUID;
 
-public class FbSpool {
+public class FbSpool  extends FbDomainObject{
 
 	private String id;
 	private String spl_a_createdby;

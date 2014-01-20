@@ -3,7 +3,7 @@ package ie.cit.pro.domain.fb;
 import java.util.Date;
 import java.util.UUID;
 
-public class FbWelder {
+public class FbWelder  extends FbDomainObject{
 
 	private String id;
 	private String wdr_a_createdby;

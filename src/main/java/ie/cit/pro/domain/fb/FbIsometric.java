@@ -3,7 +3,7 @@ package ie.cit.pro.domain.fb;
 import java.util.Date;
 import java.util.UUID;
 
-public class FbIsometric {
+public class FbIsometric  extends FbDomainObject{
 	
 	private String id;
 	private String iso_a_createdby;

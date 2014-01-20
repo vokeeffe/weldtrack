@@ -5,7 +5,7 @@ import java.util.UUID;
 //import javax.xml.bind.annotation.XmlRootElement;
 
 //@XmlRootElement(name = "weld")
-public class FbWeld {
+public class FbWeld  extends FbDomainObject{
 	
 	private String id;
 	private String wld_a_createdby;

@@ -3,7 +3,7 @@ package ie.cit.pro.domain.fb;
 import java.util.Date;
 import java.util.UUID;
 
-public class FbFitting {
+public class FbFitting extends FbDomainObject{
 
 	private String id;
 	private String fit_a_createdby;

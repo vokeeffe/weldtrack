@@ -33,6 +33,10 @@ function keypressResponse(e) {
 	{
 		newRecord();
 	}
+	else if(keynum === 102)//fn+F
+	{
+		//newRecord();
+	}
 
 }
 

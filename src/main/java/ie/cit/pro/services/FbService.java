@@ -2,6 +2,7 @@ package ie.cit.pro.services;
 
 import java.util.List;
 
+import ie.cit.pro.domain.fb.FbDomainObject;
 import ie.cit.pro.domain.fb.FbFitting;
 import ie.cit.pro.domain.fb.FbIsometric;
 import ie.cit.pro.domain.fb.FbPipediam;
@@ -11,6 +12,17 @@ import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
 
 public interface FbService {
+	
+	/***************************FB_DOMAINOBJECT***************************/
+	List<? extends FbDomainObject> getAllFbDomainObjects();
+	/*FbDomainObject getFbDomainObject(String id);	
+	setSuperClassList(List<? extends Superclass>)
+	List<? extends FbDomainObject>  getFbDomainObjects(List<? extends FbDomainObject> fbDomainObjects);
+	FbWeldType createFbWeldType(FbWeldType fbWeldType);
+	void deleteFbWeldType(String id);
+	void updateFbWeldType(FbWeldType fbWeldType);*/
+	String getFbDomainObject();
+	void setFbDomainObject(String fbDomainObject);
 
 	/***************************FB_WELDTYPE***************************/
 	FbWeldType getFbWeldType(String id);
@@ -21,7 +33,7 @@ public interface FbService {
 	/***************************FB_WELD***************************/
 	FbWeld getFbWeld(String id);
 	List<FbWeld> getAllFbWelds();
-	List<FbWeld> getFbObjects(List<FbWeld> fbWelds);
+	//List<FbWeld> getFbObjects(List<FbWeld> fbWelds);
 	FbWeld createFbWeld(FbWeld fbWeld);
 	void deleteFbWeld(String id);
 	void updateFbWeld(FbWeld fbWeld);

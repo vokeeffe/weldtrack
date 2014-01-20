@@ -65,13 +65,13 @@ var modelSySection = JSON.parse('${sy_section_jsonstr}');
 		</td>
 	</form>
 	</tr>
-	<c:forEach items="${fb_welds}" var="fb_weld" varStatus="row">
+	<c:forEach items="${btable}" var="btable" varStatus="row">
 		<tr id="body">
-		<form action="update.html" method="post" id = "${fb_weld.id}">
+		<form action="update.html" method="post" id = "${btable.id}">
 		<td>${row.count}</td>
 		<c:forEach items="${sy_secfields}" var="sy_secfield">
 		<c:set var="property" value="${sy_secfield.sfd_name}"/>	
-			<td><input type="${sy_secfield.sfd_input_type}" id="important" name="${sy_secfield.sfd_name}" value="${fb_weld[property]}"
+			<td><input type="${sy_secfield.sfd_input_type}" id="important" name="${sy_secfield.sfd_name}" value="${btable[property]}"
 				size="${sy_secfield.sfd_size}px" required></td>	
 		</c:forEach>
 		<td>

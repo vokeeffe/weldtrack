@@ -1,6 +1,7 @@
 package ie.cit.pro.services;
 
 import ie.cit.pro.domain.dao.DataRepository;
+import ie.cit.pro.domain.fb.FbDomainObject;
 import ie.cit.pro.domain.fb.FbFitting;
 import ie.cit.pro.domain.fb.FbIsometric;
 import ie.cit.pro.domain.fb.FbPipediam;
@@ -18,12 +19,47 @@ public class FbServiceImpl implements FbService {
 	private DataRepository repo;
 	private String  fbDomainObject;
 
+	public String getFbDomainObject() {
+		return fbDomainObject;
+	}
+
+	public void setFbDomainObject(String fbDomainObject) {
+		this.fbDomainObject = fbDomainObject;
+	}
+
 	// Constructor
 	public FbServiceImpl(DataRepository repo) {
 		this.repo = repo;
 	}
 	
-	public Object getFbDomainObject(String id) {
+	public List<? extends FbDomainObject> getAllFbDomainObjects(){
+		
+		if(fbDomainObject=="fb_weldtype"){
+			return getAllFbWeldTypes();
+		}
+		else if(fbDomainObject=="fb_weld"){
+			return getAllFbWelds();
+		}
+		else if(fbDomainObject=="fb_welder"){
+			return getAllFbWelders();
+		}
+		else if(fbDomainObject=="fb_isometric"){
+			return getAllFbIsometrics();
+		}
+		else if(fbDomainObject=="fb_spool"){
+			return getAllFbSpools();
+		}
+		else if(fbDomainObject=="fb_pipediam"){
+			return getAllFbPipediams();
+		}
+		else if(fbDomainObject=="fb_fittings"){
+			return getAllFbFittings();
+		}
+		
+		return null;
+		
+	}
+	/*public Object getFbDomainObject(String id) {
 		
 		if(fbDomainObject == "FB_WELDTYPE")
 		{
@@ -45,7 +81,7 @@ public class FbServiceImpl implements FbService {
 		{
 			return null;
 		}
-	}
+	}*/
 	
 	/***************************FB_WELDTYPE***************************/
 	public FbWeldType getFbWeldType(String id) {
@@ -54,11 +90,11 @@ public class FbServiceImpl implements FbService {
 	return repo.findById(fbWeldType);
 	}
 	
-	List<FbWeld> getFbObjects(List<FbWeld> fbWelds){
+	/*List<FbWeld> getFbObjects(List<FbWeld> fbWelds){
 		
 		return 
 		
-	}
+	}*/
 
 	public List<FbWeldType> getAllFbWeldTypes() {
 	return repo.getAllFbWeldTypes();

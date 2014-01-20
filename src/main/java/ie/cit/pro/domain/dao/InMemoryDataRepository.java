@@ -63,6 +63,11 @@ public class InMemoryDataRepository implements DataRepository {
 	return null;
 	}
 	
+	/***************************FB_WELD***************************/
+	public List<FbWeld> getFbObjects(List<FbWeld> fbWelds){
+		return null;
+	}
+	
 	/*##########################GENERIC##########################*/
 
 	/***************************FB_WELDTYPE***************************/

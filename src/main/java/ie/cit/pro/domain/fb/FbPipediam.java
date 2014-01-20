@@ -3,7 +3,7 @@ package ie.cit.pro.domain.fb;
 import java.util.Date;
 import java.util.UUID;
 
-public class FbPipediam {
+public class FbPipediam  extends FbDomainObject{
 
 	private String id;
 	private String pdr_a_createdby;

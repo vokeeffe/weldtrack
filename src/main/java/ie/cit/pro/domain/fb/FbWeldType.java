@@ -3,7 +3,7 @@ package ie.cit.pro.domain.fb;
 import java.util.Date;
 import java.util.UUID;
 
-public class FbWeldType {
+public class FbWeldType  extends FbDomainObject{
 
 	private String id;
 	private String wty_a_createdby;
