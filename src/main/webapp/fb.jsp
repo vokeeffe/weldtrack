@@ -25,7 +25,7 @@ var modelSySection = JSON.parse('${sy_section_jsonstr}');
 	<i>Weld List</i> is:
 	<br />
 	<div id = "debuginfo">
-	
+	body table is ${stn_btable}
 	</div>
 	<div id = "panel">
 
@@ -40,7 +40,7 @@ var modelSySection = JSON.parse('${sy_section_jsonstr}');
 	</c:forEach>
 	</tr>
 	<tr id="newrecord">
-	<form action="create.html" method="post" onsubmit="submitNewRecord()">
+	<form action="create/${stn_btable}.html" method="post" onsubmit="submitNewRecord()">
 	<td>0</td>
 		<c:forEach items="${sy_secfields}" var="sy_secfield">
 		<c:set var="property" value="${sy_secfield.sfd_name}"/>	
@@ -48,7 +48,7 @@ var modelSySection = JSON.parse('${sy_section_jsonstr}');
 				size="${sy_secfield.sfd_size}px" required></td>	
 		</c:forEach>
 		<td>
-		<input type="submit" value="New"  accesskey="s">
+		<input type="submit" value="create/${stn_btable}.html"  accesskey="s">
 		</td>
 	</form>
 	</tr>

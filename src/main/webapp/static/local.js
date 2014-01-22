@@ -35,7 +35,7 @@ function keypressResponse(e) {
 	}
 	else if(keynum === 102)//fn+F
 	{
-		//newRecord();
+		findRecord();
 	}
 
 }

@@ -151,7 +151,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbWeldType fbWeldType) {
-	jdbcTemplate.update("INSERT INTO fb_weldtype (id, wty_a_createdby, wty_a_createddate, ktn) VALUES(?,?,?,?)", fbWeldType.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_weldtype (id, wty_a_createdby, wty_a_createddate, ktn) VALUES(?,?,?,?)", fbWeldType.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), this.getCurrentUserKtn());
 	this.update(fbWeldType);
 	}
 
@@ -181,7 +181,8 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbWeld fbWeld) {
-	jdbcTemplate.update("INSERT INTO fb_weld (id, wld_a_createdby, wld_a_createddate, ktn) VALUES(?,?,?,?)", fbWeld.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	System.out.println("Adding Attribute: " + fbWeld.getId() + ", " +  this.getCurrentUserName() + ", " + new java.sql.Timestamp(new java.util.Date().getTime()) +", " + this.getCurrentUserKtn());
+	jdbcTemplate.update("INSERT INTO fb_weld (id, wld_a_createdby, wld_a_createddate, ktn) VALUES(?,?,?,?)", fbWeld.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), this.getCurrentUserKtn());
 	this.update(fbWeld);
 	}
 

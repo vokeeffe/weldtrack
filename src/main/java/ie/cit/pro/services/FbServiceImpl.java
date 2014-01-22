@@ -11,6 +11,7 @@ import ie.cit.pro.domain.fb.FbWeldType;
 import ie.cit.pro.domain.fb.FbWelder;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -135,6 +136,8 @@ public class FbServiceImpl implements FbService {
 	}
 
 	public FbWeld createFbWeld(FbWeld fbWeld) {
+	if(fbWeld.getId()==null){fbWeld.setId(UUID.randomUUID().toString());}
+	System.out.println("*%%%%%%****&&&&^^^fbWeld.setId(UUID.randomUUID().toString()); " + fbWeld.getId());
 	repo.add(fbWeld);
 	return fbWeld;
 	}

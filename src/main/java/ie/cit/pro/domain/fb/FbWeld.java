@@ -28,7 +28,9 @@ public class FbWeld  extends FbDomainObject{
 	private String wld_heat2;
 	
 	public FbWeld(){
+		
 		id = UUID.randomUUID().toString();
+		System.out.println("*********&&&&^^^FbWeld() id = UUID.randomUUID().toString(): " + id);
 	}
 	
 	public String getId() {

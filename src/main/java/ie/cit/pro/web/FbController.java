@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,7 @@ public class FbController {
 	@RequestMapping("index")
 	public String index(Model model){
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
-		return "fbservice.jsp";
+		return "fb.jsp";
 	}
 	    
 	@RequestMapping(value = "system", params = {"MainArea","SideArea"})
@@ -73,9 +74,10 @@ public class FbController {
 		sySecfields.add(sySecfield);
 		
 		sySection = syService.getSySectionsByCode(sySections).get(0);
-		sySection.getStn_bservice();
 		JSONObject sySectionJSONstr = JSONObject.fromObject( sySection ); 
 		System.out.println(sySectionJSONstr);
+		
+		model.addAttribute("stn_btable", sySection.getStn_btable());
 		model.addAttribute("sy_section_jsonstr", sySectionJSONstr);
 		model.addAttribute("sy_secfields", syService.getSySecfieldsByCode(sySecfields));
 		
@@ -85,22 +87,45 @@ public class FbController {
 		//model.addAttribute("btable", fbService.getAllFbDomainObjects());
 		model.addAttribute("btable", fbService.getAllFbWelds());
 		
-		return "welds.jsp";
+		return "fb.jsp";
 	}
 
 	@RequestMapping("create/fbweld")
 	public String create(@ModelAttribute ("btable") FbWeld fbWeld, Model model){
+		fbWeld.setId(UUID.randomUUID().toString());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getFbDomainObjectName(): " + fbWeld.getFbDomainObjectName());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getId(): " + fbWeld.getId());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getFit_fitting1(): " + fbWeld.getFit_fitting1());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getFit_fitting2(): " + fbWeld.getFit_fitting2());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getIso_num(): " + fbWeld.getIso_num());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getPdr_size(): " + fbWeld.getPdr_size());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getSpl_num(): " + fbWeld.getSpl_num());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWdr_num(): " + fbWeld.getWdr_num());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_a_createdby(): " + fbWeld.getWld_a_createdby());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_a_modifiedby(): " + fbWeld.getWld_a_modifiedby());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_heat1(): " + fbWeld.getWld_heat1());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_heat2(): " + fbWeld.getWld_heat2());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_num(): " + fbWeld.getWld_num());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWty_code(): " + fbWeld.getWty_code());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getKco(): " + fbWeld.getKco());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getKtn(): " + fbWeld.getKtn());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_a_createddate(): " + fbWeld.getWld_a_createddate());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_a_modifieddate(): " + fbWeld.getWld_a_modifieddate());
+		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_wdate(): " + fbWeld.getWld_wdate());
 
+
+		
 		fbService.createFbWeld(fbWeld);
-		model.addAttribute("fb_welds", fbService.getAllFbWelds());
-		return "fbservice.jsp";
+		model.addAttribute("btable", fbService.getAllFbWelds());
+		return "weldtrack/fb.jsp";
 	}
+
 	
 	@RequestMapping("find")
 	public String find(@ModelAttribute ("fb_welds") FbWeld fbWeld, Model model){
 		fbService.createFbWeld(fbWeld);
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
-		return "fbservice.jsp";
+		return "fb.jsp";
 	}
 	
 	@RequestMapping("update")
@@ -108,7 +133,7 @@ public class FbController {
 		fbWeld.setId(weldId);
 		fbService.updateFbWeld(fbWeld);
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
-		return "fbservice.jsp";
+		return "fb.jsp";
 	}
 	
 	@RequestMapping("static")
