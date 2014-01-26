@@ -12,6 +12,8 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
+
+
 	<bean id="weldRepository" class="ie.cit.pro.domain.dao.InMemoryDataRepository" />
 
 	<bean id="jdbcWeldRepository" class="ie.cit.pro.domain.dao.JdbcDataRepository">

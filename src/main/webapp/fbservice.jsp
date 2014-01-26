@@ -11,7 +11,7 @@
 //var modelSySection = eval('('+'${sy_section_jsonstr}'+')'); //Security risk using eval()
 var modelSySection = JSON.parse('${sy_section_jsonstr}');
 </script>
-<script type = "text/javascript" src = "static/local.js"></script>
+<script type = "text/javascript" src = "static/javascript.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Weld Track Application</title>
 </head>
@@ -40,7 +40,7 @@ var modelSySection = JSON.parse('${sy_section_jsonstr}');
 	</c:forEach>
 	</tr>
 	<tr id="newrecord">
-	<form action="create/${stn_btable}.html" method="post" onsubmit="submitNewRecord()">
+	<form action="create-${stn_btable}?MainArea=-WFBWLD101" method="post" onsubmit="submitNewRecord()">
 	<td>0</td>
 		<c:forEach items="${sy_secfields}" var="sy_secfield">
 		<c:set var="property" value="${sy_secfield.sfd_name}"/>	
@@ -48,7 +48,7 @@ var modelSySection = JSON.parse('${sy_section_jsonstr}');
 				size="${sy_secfield.sfd_size}px" required></td>	
 		</c:forEach>
 		<td>
-		<input type="submit" value="create/${stn_btable}.html"  accesskey="s">
+		<input type="submit" value="create-${stn_btable}.html"  accesskey="s">
 		</td>
 	</form>
 	</tr>

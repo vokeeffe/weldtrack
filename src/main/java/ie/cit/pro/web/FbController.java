@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+
 public class FbController {
 	
 	@Autowired
@@ -50,74 +51,74 @@ public class FbController {
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
-	@RequestMapping("index")
+/*	@RequestMapping("index")
 	public String index(Model model){
-		model.addAttribute("fb_welds", fbService.getAllFbWelds());
 		return "fb.jsp";
-	}
+	}*/
 	    
-	@RequestMapping(value = "system", params = {"MainArea","SideArea"})
+	@RequestMapping(value = "index", params = {"MainArea"})
 	public String weldtrack(Model model, HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "MainArea", required = false) String MainArea)
 	{
 		
-		System.out.println("Entering: " + MainArea);
+		System.out.println("MainArea: " + MainArea);
+		System.out.println("system request.getRequestURI(): " + request.getRequestURI());
+		System.out.println("system request.getContextPath(): " + request.getContextPath());
+		System.out.println("system request.getParameter(MainArea): " + request.getParameter("MainArea"));
+		System.out.println("system getPathTranslated(): " + request.getPathTranslated());
+		System.out.println("system response: " + response.toString());
 		//Retrieve the section information
 		List<SySection> sySections = new ArrayList<SySection>();
 		SySection sySection = new SySection();
-		sySection.setStn_code(MainArea);
+		sySection.setStn_code(request.getParameter("MainArea"));
 		sySections.add(sySection);
-		
+		//SELECT * FROM sy_section WHERE stn_code=?
 		//Retrieve the section information
 		List<SySecfield> sySecfields = new ArrayList<SySecfield>();
 		SySecfield sySecfield = new SySecfield();
-		sySecfield.setStn_code(MainArea);
+		sySecfield.setStn_code(request.getParameter("MainArea"));
 		sySecfields.add(sySecfield);
 		
 		sySection = syService.getSySectionsByCode(sySections).get(0);
 		JSONObject sySectionJSONstr = JSONObject.fromObject( sySection ); 
-		System.out.println(sySectionJSONstr);
+		System.out.println("sySectionJSONstr: " + sySectionJSONstr);
 		
 		model.addAttribute("stn_btable", sySection.getStn_btable());
 		model.addAttribute("sy_section_jsonstr", sySectionJSONstr);
 		model.addAttribute("sy_secfields", syService.getSySecfieldsByCode(sySecfields));
 		
+		//Set the superclass type to that of the bodytable
 		fbService.setFbDomainObject(sySection.getStn_btable());
 		
-		System.out.println("Adding Attribute: " + MainArea);
+		System.out.println("sySection.getStn_btable(): " + sySection.getStn_btable());
 		//model.addAttribute("btable", fbService.getAllFbDomainObjects());
 		model.addAttribute("btable", fbService.getAllFbWelds());
 		
-		return "fb.jsp";
+		return "fbservice.jsp";
 	}
-
-	@RequestMapping("create/fbweld")
-	public String create(@ModelAttribute ("btable") FbWeld fbWeld, Model model){
+	//create-fbweld?MainArea=%25WFBWLD101
+	//index?MainArea=%25WFBWLD101
+	//@RequestMapping(value = "index", params = {"MainArea"})
+	//create-fbweld?MainArea=-WFBWLD101
+	
+	//create-fbweld?MainArea=-WFBWLD101
+  //@RequestMapping(value = "create-fbweld", params = {"MainArea"})
+	@RequestMapping(value = "create-fbweld", params = {"MainArea"})
+	public String create(@ModelAttribute ("btable") FbWeld fbWeld, Model model, HttpServletRequest request, HttpServletResponse response){
 		fbWeld.setId(UUID.randomUUID().toString());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getFbDomainObjectName(): " + fbWeld.getFbDomainObjectName());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getId(): " + fbWeld.getId());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getFit_fitting1(): " + fbWeld.getFit_fitting1());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getFit_fitting2(): " + fbWeld.getFit_fitting2());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getIso_num(): " + fbWeld.getIso_num());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getPdr_size(): " + fbWeld.getPdr_size());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getSpl_num(): " + fbWeld.getSpl_num());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWdr_num(): " + fbWeld.getWdr_num());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_a_createdby(): " + fbWeld.getWld_a_createdby());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_a_modifiedby(): " + fbWeld.getWld_a_modifiedby());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_heat1(): " + fbWeld.getWld_heat1());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_heat2(): " + fbWeld.getWld_heat2());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_num(): " + fbWeld.getWld_num());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWty_code(): " + fbWeld.getWty_code());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getKco(): " + fbWeld.getKco());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getKtn(): " + fbWeld.getKtn());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_a_createddate(): " + fbWeld.getWld_a_createddate());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_a_modifieddate(): " + fbWeld.getWld_a_modifieddate());
-		System.out.println("$$$$££££££££@@@@@ fbWeld.getWld_wdate(): " + fbWeld.getWld_wdate());
-
-
-		
+		System.out.println("Create fbWeld: " + fbWeld.toString());
+		System.out.println("Create getRequestURI(): " + request.getRequestURI());
+		System.out.println("Create getContextPath(): " + request.getContextPath());
+		System.out.println("Create getPathTranslated(): " + request.getPathTranslated());
+		System.out.println("Create getParameter(MainArea): " + request.getParameter("MainArea"));
+		//System.out.println("Create response: " + response.set//);
 		fbService.createFbWeld(fbWeld);
 		model.addAttribute("btable", fbService.getAllFbWelds());
-		return "weldtrack/fb.jsp";
+
+		//return "fb.jsp";
+		System.out.println("return index?MainArea="+request.getParameter("MainArea"));
+		//index?MainArea=%25WFBWLD101
+		//index?MainArea=%WFBWLD101
+		return "index?MainArea="+request.getParameter("MainArea");
 	}
 
 	
