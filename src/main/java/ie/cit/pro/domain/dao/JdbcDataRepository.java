@@ -39,6 +39,14 @@ public class JdbcDataRepository implements DataRepository {
 
 	private JdbcTemplate jdbcTemplate;
 
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
+	}
+
+	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
+
 	private FbWeldTypeMapper fbWeldTypeMapper = new FbWeldTypeMapper();
 	private FbWeldMapper fbWeldMapper = new FbWeldMapper();
 	private FbWelderMapper fbWelderMapper = new FbWelderMapper();
@@ -60,6 +68,11 @@ public class JdbcDataRepository implements DataRepository {
 	
 	public JdbcDataRepository(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
+		//this.jdbcTemplate = jdbcTemplate;
+	}
+	
+	public JdbcDataRepository() {
+		System.out.println("exectuting: JdbcDataRepository()");
 	}
 
 	private String getCurrentUserName() {
@@ -171,13 +184,19 @@ public class JdbcDataRepository implements DataRepository {
 	/***************************FB_WELD***************************/
 @Secured({"ROLE_READ"})
 	public FbWeld findById(FbWeld fbWeld) {
-	return jdbcTemplate.queryForObject("SELECT * FROM fb_weld WHERE ID=? AND ktn=?", fbWeldMapper, fbWeld.getId(), this.getCurrentUserKtn());
+	return jdbcTemplate.queryForObject("SELECT * FROM (SELECT * FROM fb_weld WHERE ID=?) AS domain_object WHERE ktn = ? OR ktn = NULL", fbWeldMapper, fbWeld.getId(), this.getCurrentUserKtn());
+	//return jdbcTemplate.queryForObject("SELECT * FROM fb_weld WHERE ID=? AND ktn=?", fbWeldMapper, fbWeld.getId(), this.getCurrentUserKtn());
 	}
+;
 
 @Secured({"ROLE_READ"})
 	public List<FbWeld> getAllFbWelds(){
-	return jdbcTemplate.query("SELECT * FROM fb_weld", fbWeldMapper);
+	System.out.println("SqlLoggerAspectSqlLoggerAspectSqlLoggerAspectSqlLoggerAspect");
+	return jdbcTemplate.query("SELECT * FROM (SELECT * FROM fb_weld) AS domain_object WHERE ktn = ? OR ktn = NULL", fbWeldMapper, this.getCurrentUserKtn());
+	//return jdbcTemplate.query("SELECT * FROM fb_weld", fbWeldMapper);
 	}
+
+
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbWeld fbWeld) {

@@ -20,10 +20,13 @@ public class SqlLoggerAspect {
 	@SuppressWarnings("unused")
 	private static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
+
+	//@Before("execution(* org.springframework.jdbc.core.JdbcTemplate.*.*(String, ..))")
 	@Before("execution(* org.springframework.jdbc.core.JdbcOperations.*(String, ..))")
 	public void log(JoinPoint jp) throws Throwable {
 		Object[] methodArgs = jp.getArgs(), sqlArgs = null;
 		// get the SQL statement
+		System.out.println("SqlLoggerAspectSqlLoggerAspectSqlLoggerAspectSqlLoggerAspect");
 		String statement = methodArgs[0].toString();
 		// find the SQL arguments (parameters)
 		for (int i = 1, n = methodArgs.length; i < n; i++) {

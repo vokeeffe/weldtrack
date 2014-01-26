@@ -21,8 +21,9 @@ import ie.cit.pro.domain.tn.TnTenant;
 
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 public interface DataRepository {
-	
 	
 	
 	/***************************SY_SECFIELD***************************/

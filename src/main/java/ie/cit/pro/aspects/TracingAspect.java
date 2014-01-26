@@ -11,11 +11,12 @@ public class TracingAspect {
 	Log log = LogFactory.getLog(TracingAspect.class);
 
 	//Before an method call in any class in 'ie.cit.adf.domain.dao' package
-	@Before("execution(* ie.cit.adf.domain.dao..*.*(..))")
+	@Before("execution(* ie.cit.pro.domain.dao..*.*(..))")
 	public void trace(JoinPoint jp){
 	
 		String className = jp.getTarget().getClass().getName();
 		String methodName = jp.getSignature().getName();
 		log.debug("Method Invoked: "+ className  + "." + methodName);
+		System.out.println("Method Invoked: "+ className  + "." + methodName);
 	}
 }
