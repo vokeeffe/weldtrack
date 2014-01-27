@@ -17,6 +17,18 @@ public class CjServiceImpl implements CjService {
 		this.repo = repo;
 	}
 	
+	public CjServiceImpl() {
+
+	}
+	
+	public DataRepository getRepo() {
+		return repo;
+	}
+
+	public void setRepo(DataRepository repo) {
+		this.repo = repo;
+	}
+
 	/***************************CJ_CONTRACT***************************/
 	public CjContract getCjContract(String id) {
 	CjContract cjContract = new CjContract();

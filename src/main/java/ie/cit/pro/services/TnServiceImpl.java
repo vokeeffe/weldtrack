@@ -17,6 +17,18 @@ public class TnServiceImpl implements TnService {
 		this.repo = repo;
 	}
 	
+	public TnServiceImpl() {
+		
+	}
+	
+	public DataRepository getRepo() {
+		return repo;
+	}
+
+	public void setRepo(DataRepository repo) {
+		this.repo = repo;
+	}
+
 	/***************************TN_TENANT***************************/
 	public TnTenant getTnTenant(String id) {
 	TnTenant tnTenant = new TnTenant();

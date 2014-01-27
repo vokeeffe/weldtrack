@@ -1,5 +1,7 @@
 package ie.cit.pro.aspects;
 
+import ie.cit.pro.session.CustomUser;
+
 import java.sql.Date;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,6 +12,7 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Aspect
 public class SqlLoggerAspect {
@@ -20,13 +23,15 @@ public class SqlLoggerAspect {
 	@SuppressWarnings("unused")
 	private static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
-
-	//@Before("execution(* org.springframework.jdbc.core.JdbcTemplate.*.*(String, ..))")
 	@Before("execution(* org.springframework.jdbc.core.JdbcOperations.*(String, ..))")
 	public void log(JoinPoint jp) throws Throwable {
 		Object[] methodArgs = jp.getArgs(), sqlArgs = null;
-		// get the SQL statement
-		System.out.println("SqlLoggerAspectSqlLoggerAspectSqlLoggerAspectSqlLoggerAspect");
+		
+		CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		// get the SQL statement and wrap it in the constraining WHERE Clause to restrict by tenant
+		methodArgs[0] = "SELECT * FROM (" + methodArgs[0] + ") AS domain_object WHERE ktn = "+ customUser.getKtn() +" OR ktn = NULL";
+		
 		String statement = methodArgs[0].toString();
 		// find the SQL arguments (parameters)
 		for (int i = 1, n = methodArgs.length; i < n; i++) {
@@ -42,6 +47,7 @@ public class SqlLoggerAspect {
 				: fillParameters(statement, sqlArgs));
 
 		// log it
+		System.out.println("SqlLogger: " + completedStatement);
 		log.debug(completedStatement);
 	}
 

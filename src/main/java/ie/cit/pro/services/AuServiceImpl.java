@@ -14,13 +14,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class AuServiceImpl implements AuService {
 
-	private final DataRepository repo;
+	private DataRepository repo;
 	
 	// Constructor
 	public AuServiceImpl(DataRepository repo) {
 		this.repo = repo;
 	}
 	
+	public AuServiceImpl() {
+
+	}
+	
+	public DataRepository getRepo() {
+		return repo;
+	}
+
+	public void setRepo(DataRepository repo) {
+		this.repo = repo;
+	}
+
 	/***************************AU_USER***************************/
 	public AuUser getAuUser(String id) {
 		AuUser auUser = new AuUser();

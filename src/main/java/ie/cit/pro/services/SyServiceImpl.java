@@ -17,8 +17,20 @@ public class SyServiceImpl implements SyService {
 		this.repo = repo;
 	}
 	
+	public SyServiceImpl() {
+	
+	}
+	
 	/*##########################CUSTOM##########################*/
 	
+	public DataRepository getRepo() {
+		return repo;
+	}
+
+	public void setRepo(DataRepository repo) {
+		this.repo = repo;
+	}
+
 	/***************************SY_SECFIELD***************************/
 	public List<SySecfield> getSySecfieldsByCode(List<SySecfield> sySecfields)
 	{

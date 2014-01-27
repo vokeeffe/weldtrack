@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class FbServiceImpl implements FbService {
 
 	private DataRepository repo;
+
 	private String  fbDomainObject;
 
 	public String getFbDomainObject() {
@@ -31,6 +32,10 @@ public class FbServiceImpl implements FbService {
 	// Constructor
 	public FbServiceImpl(DataRepository repo) {
 		this.repo = repo;
+	}
+	
+	public FbServiceImpl() {
+
 	}
 	
 	public List<? extends FbDomainObject> getAllFbDomainObjects(){
@@ -83,6 +88,14 @@ public class FbServiceImpl implements FbService {
 			return null;
 		}
 	}*/
+	
+	public DataRepository getRepo() {
+		return repo;
+	}
+
+	public void setRepo(DataRepository repo) {
+		this.repo = repo;
+	}
 	
 	/***************************FB_WELDTYPE***************************/
 	public FbWeldType getFbWeldType(String id) {

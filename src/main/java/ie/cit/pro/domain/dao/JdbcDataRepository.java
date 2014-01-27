@@ -191,9 +191,8 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_READ"})
 	public List<FbWeld> getAllFbWelds(){
-	System.out.println("SqlLoggerAspectSqlLoggerAspectSqlLoggerAspectSqlLoggerAspect");
-	return jdbcTemplate.query("SELECT * FROM (SELECT * FROM fb_weld) AS domain_object WHERE ktn = ? OR ktn = NULL", fbWeldMapper, this.getCurrentUserKtn());
-	//return jdbcTemplate.query("SELECT * FROM fb_weld", fbWeldMapper);
+	//return jdbcTemplate.query("SELECT * FROM (SELECT * FROM fb_weld) AS domain_object WHERE ktn = ? OR ktn = NULL", fbWeldMapper, this.getCurrentUserKtn());
+	return jdbcTemplate.query("SELECT * FROM fb_weld", fbWeldMapper);
 	}
 
 
