@@ -119,10 +119,13 @@ public class JdbcDataRepository implements DataRepository {
 		{
 			if (sySection.getStn_code() != null)
 			{
+				System.out.println("About to :SELECT * FROM sy_section WHERE stn_code=" + sySection.getStn_code());
 				sySectionsList.addAll(jdbcTemplate.query("SELECT * FROM sy_section WHERE stn_code=?", sySectionMapper, sySection.getStn_code()));
+				System.out.println("sySectionsList.size()=" + sySectionsList.size());
 			}	    
 		}
 
+	
 		return sySectionsList;
 	}
 	

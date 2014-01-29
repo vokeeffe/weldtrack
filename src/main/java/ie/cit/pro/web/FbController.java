@@ -71,7 +71,7 @@ public class FbController {
 		SySection sySection = new SySection();
 		sySection.setStn_code(request.getParameter("MainArea"));
 		sySections.add(sySection);
-		//SELECT * FROM sy_section WHERE stn_code=?
+
 		//Retrieve the section information
 		List<SySecfield> sySecfields = new ArrayList<SySecfield>();
 		SySecfield sySecfield = new SySecfield();
@@ -89,35 +89,19 @@ public class FbController {
 		//Set the superclass type to that of the bodytable
 		fbService.setFbDomainObject(sySection.getStn_btable());
 		
-		System.out.println("sySection.getStn_btable(): " + sySection.getStn_btable());
+		System.out.println("sySection.getStn_btable(): " + sySection.getStn_btable() + "fbService.getFbDomainObject(): " + fbService.getFbDomainObject());
 		//model.addAttribute("btable", fbService.getAllFbDomainObjects());
 		model.addAttribute("btable", fbService.getAllFbWelds());
 		
 		return "fbservice.jsp";
 	}
-	//create-fbweld?MainArea=%25WFBWLD101
-	//index?MainArea=%25WFBWLD101
-	//@RequestMapping(value = "index", params = {"MainArea"})
-	//create-fbweld?MainArea=-WFBWLD101
-	
-	//create-fbweld?MainArea=-WFBWLD101
-  //@RequestMapping(value = "create-fbweld", params = {"MainArea"})
-	@RequestMapping(value = "create-fbweld", params = {"MainArea"})
+
+	@RequestMapping(value = "create-fb_weld", params = {"MainArea"})
 	public String create(@ModelAttribute ("btable") FbWeld fbWeld, Model model, HttpServletRequest request, HttpServletResponse response){
 		fbWeld.setId(UUID.randomUUID().toString());
-		System.out.println("Create fbWeld: " + fbWeld.toString());
-		System.out.println("Create getRequestURI(): " + request.getRequestURI());
-		System.out.println("Create getContextPath(): " + request.getContextPath());
-		System.out.println("Create getPathTranslated(): " + request.getPathTranslated());
-		System.out.println("Create getParameter(MainArea): " + request.getParameter("MainArea"));
-		//System.out.println("Create response: " + response.set//);
 		fbService.createFbWeld(fbWeld);
 		model.addAttribute("btable", fbService.getAllFbWelds());
-
-		//return "fb.jsp";
-		System.out.println("return index?MainArea="+request.getParameter("MainArea"));
-		//index?MainArea=%25WFBWLD101
-		//index?MainArea=%WFBWLD101
+		System.out.println("index?MainArea="+request.getParameter("MainArea"));
 		return "index?MainArea="+request.getParameter("MainArea");
 	}
 

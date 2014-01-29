@@ -40,25 +40,28 @@ public class FbServiceImpl implements FbService {
 	
 	public List<? extends FbDomainObject> getAllFbDomainObjects(){
 		
-		if(fbDomainObject=="fb_weldtype"){
+		System.out.println("FbServiceImpl.fbDomainObject: " + this.fbDomainObject);
+		
+		if(fbDomainObject.equals("fb_weldtype")){
 			return getAllFbWeldTypes();
 		}
-		else if(fbDomainObject=="fb_weld"){
+		else if(fbDomainObject.equals("fb_weld")){
+			System.out.println("about to return getAllFbWelds()");
 			return getAllFbWelds();
 		}
-		else if(fbDomainObject=="fb_welder"){
+		else if(fbDomainObject.equals("fb_welder")){
 			return getAllFbWelders();
 		}
-		else if(fbDomainObject=="fb_isometric"){
+		else if(fbDomainObject.equals("fb_isometric")){
 			return getAllFbIsometrics();
 		}
-		else if(fbDomainObject=="fb_spool"){
+		else if(fbDomainObject.equals("fb_spool")){
 			return getAllFbSpools();
 		}
-		else if(fbDomainObject=="fb_pipediam"){
+		else if(fbDomainObject.equals("fb_pipediam")){
 			return getAllFbPipediams();
 		}
-		else if(fbDomainObject=="fb_fittings"){
+		else if(fbDomainObject.equals("fb_fittings")){
 			return getAllFbFittings();
 		}
 		
