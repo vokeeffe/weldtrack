@@ -26,39 +26,48 @@ public class SqlLoggerAspect {
 	private static final DateTimeFormatter TIMESTAMP_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
 
 	//@Before("execution(* org.springframework.jdbc.core.JdbcOperations.*(String, ..))")
+
 	@Around("execution(* org.springframework.jdbc.core.JdbcOperations.*(String, ..))")
-	public void log(ProceedingJoinPoint jp) throws Throwable {
+	public Object constrainResultSetByKTN(final ProceedingJoinPoint jp) throws Throwable {
+
 		Object[] methodArgs = jp.getArgs(), sqlArgs = null;
-		
-		CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-	
-		// get the SQL statement and wrap it in the constraining WHERE Clause to restrict by tenant
-		methodArgs[0] = new String ("SELECT * FROM (" + methodArgs[0] + ") AS domain_object WHERE ktn = "+ customUser.getKtn() +" OR ktn = NULL");
-		String statement = methodArgs[0].toString();
-		// find the SQL arguments (parameters)
-		for (int i = 1, n = methodArgs.length; i < n; i++) {
-			Object arg = methodArgs[i];
-			if (arg instanceof Object[]) {
-				sqlArgs = (Object[]) arg;
-				break;
+
+		if (methodArgs != null) {
+			
+			Object o = methodArgs[0];
+			
+			if (o != null && o instanceof String) {
+				CustomUser customUser = (CustomUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+				String s = (String) o;
+				if(s.startsWith("SELECT"))
+				{
+					methodArgs[0] = "SELECT * FROM (" + s + ") AS domain_object WHERE (ktn = "+ customUser.getKtn() +") OR (ktn is NULL)";
+				}
+				// get the SQL statement and wrap it in the constraining WHERE Clause to restrict by tenant
+				String statement = methodArgs[0].toString();
+				// find the SQL arguments (parameters)
+				for (int i = 1, n = methodArgs.length; i < n; i++) {
+					Object arg = methodArgs[i];
+					if (arg instanceof Object[]) {
+						sqlArgs = (Object[]) arg;
+						break;
+					}
+				}
+
+				// fill in any SQL parameter place-holders (?'s)
+				String completedStatement = (sqlArgs == null ? statement
+						: fillParameters(statement, sqlArgs));
+
+				// log it
+				System.out.println("jp.getArgs()[0]: " + jp.getArgs()[0].toString());
+				System.out.println("SqlLogger completedStatement: " + completedStatement);
+				log.debug(completedStatement);
+
+
 			}
 		}
-
-		// fill in any SQL parameter place-holders (?'s)
-		String completedStatement = (sqlArgs == null ? statement
-				: fillParameters(statement, sqlArgs));
-
-		// log it
-
-
-		System.out.println("SqlLogger completedStatement: " + completedStatement);
-		log.debug(completedStatement);
 		
-		System.out.println("jp.getArgs()[0]: " + jp.getArgs()[0].toString());
-		//System.out.println("jp.getArgs()[1]: " + jp.getArgs()[1].toString());
-		//System.out.println("jp.getArgs()[2]: " + jp.getArgs()[2].toString());
-		
-		jp.proceed(methodArgs);
+		return jp.proceed(methodArgs);
 	}
 
 	private String fillParameters(String statement, Object[] sqlArgs) {
@@ -81,7 +90,7 @@ public class SqlLoggerAspect {
 			else if (arg instanceof String) {
 				// wrap the String in quotes and escape any quotes within
 				completedSqlBuilder.append('\'')
-						.append(arg.toString().replace("'", "''")).append('\'');
+				.append(arg.toString().replace("'", "''")).append('\'');
 			} else if (arg instanceof Date) {
 				// convert it to a Joda DateTime
 				DateTime dateTime = new DateTime((Date) arg);
@@ -89,16 +98,16 @@ public class SqlLoggerAspect {
 				if (dateTime.getHourOfDay() == LocalTime.MIDNIGHT
 						.getHourOfDay()
 						&& dateTime.getMinuteOfHour() == LocalTime.MIDNIGHT
-								.getMinuteOfHour()
+						.getMinuteOfHour()
 						&& dateTime.getSecondOfMinute() == LocalTime.MIDNIGHT
-								.getSecondOfMinute()) {
+						.getSecondOfMinute()) {
 					completedSqlBuilder.append("DATE '")
-							.append(DATE_FORMATTER.print(dateTime))
-							.append('\'');
+					.append(DATE_FORMATTER.print(dateTime))
+					.append('\'');
 				} else {
 					completedSqlBuilder.append("TIMESTAMP '")
-							.append(TIMESTAMP_FORMATTER.print(dateTime))
-							.append('\'');
+					.append(TIMESTAMP_FORMATTER.print(dateTime))
+					.append('\'');
 				}
 			} else
 				completedSqlBuilder.append(arg.toString());

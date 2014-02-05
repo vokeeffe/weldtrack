@@ -32,7 +32,7 @@
 	</bean>
 
 	<aop:aspectj-autoproxy proxy-target-class="true">
-		<aop:include name = "tracingAspect"/>
+		<!--<aop:include name = "tracingAspect"/>-->
 		<aop:include name = "sqlLogger"/>
 	</aop:aspectj-autoproxy>
 	

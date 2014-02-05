@@ -103,6 +103,7 @@ public class JdbcDataRepository implements DataRepository {
 			if (sySecfield.getStn_code() != null)
 			{
 				sySecfieldsList.addAll(jdbcTemplate.query("SELECT * FROM sy_secfield WHERE stn_code=?", sySecfieldMapper, sySecfield.getStn_code()));
+			
 			}	    
 		}
 
@@ -119,8 +120,14 @@ public class JdbcDataRepository implements DataRepository {
 		{
 			if (sySection.getStn_code() != null)
 			{
+				//"SELECT * FROM (" + methodArgs[0] + ") AS domain_object WHERE ktn = "+ customUser.getKtn() +" OR ktn = NULL");
+				
 				System.out.println("About to :SELECT * FROM sy_section WHERE stn_code=" + sySection.getStn_code());
+				//sySectionsList.addAll(jdbcTemplate.query("SELECT * FROM (SELECT * FROM sy_section WHERE stn_code=?) AS domain_object WHERE ktn = "+ this.getCurrentUserKtn() +" OR (ktn is NULL)", sySectionMapper, sySection.getStn_code()));
+				System.out.println("jdbcTemplate.query().size()=" + jdbcTemplate.query("SELECT * FROM sy_section WHERE stn_code=?", sySectionMapper, sySection.getStn_code()).size());
+				
 				sySectionsList.addAll(jdbcTemplate.query("SELECT * FROM sy_section WHERE stn_code=?", sySectionMapper, sySection.getStn_code()));
+		
 				System.out.println("sySectionsList.size()=" + sySectionsList.size());
 			}	    
 		}
