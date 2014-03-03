@@ -3,7 +3,6 @@ package ie.cit.pro.session;
 
 import java.util.Collection;
 
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

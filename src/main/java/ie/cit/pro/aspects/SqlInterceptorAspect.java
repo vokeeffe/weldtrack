@@ -17,9 +17,9 @@ import org.joda.time.format.DateTimeFormatter;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 @Aspect
-public class SqlLoggerAspect {
+public class SqlInterceptorAspect {
 
-	private static final Log log = LogFactory.getLog(SqlLoggerAspect.class);
+	private static final Log log = LogFactory.getLog(SqlInterceptorAspect.class);
 	@SuppressWarnings("unused")
 	private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
 	@SuppressWarnings("unused")

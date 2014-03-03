@@ -11,9 +11,6 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
-
-
-
 	
 	<bean id="weldRepository" class="ie.cit.pro.domain.dao.InMemoryDataRepository" />
 	
@@ -33,13 +30,13 @@
 
 	<aop:aspectj-autoproxy proxy-target-class="true">
 		<!--<aop:include name = "tracingAspect"/>-->
-		<aop:include name = "sqlLogger"/>
+		<aop:include name = "sqlInterceptor"/>
 	</aop:aspectj-autoproxy>
 	
 	<aop:config proxy-target-class="true">
     </aop:config>
     
-    <bean id="sqlLogger" class="ie.cit.pro.aspects.SqlLoggerAspect" />
+    <bean id="sqlInterceptor" class="ie.cit.pro.aspects.SqlInterceptorAspect" />
 	<bean id="tracingAspect" class="ie.cit.pro.aspects.TracingAspect" />
 
 	<bean class="ie.cit.pro.services.FbServiceImpl">
@@ -62,11 +59,16 @@
 	<bean id="customJdbcDaoImpl" class="ie.cit.pro.session.CustomJdbcDaoImpl">
 		<property name="dataSource" ref="dataSource" />
 		<property name="authoritiesByUsernameQuery"
-			value="SELECT usr.aus_login AS username, aut.aau_authority AS authority FROM au_user usr, au_authority aut WHERE usr.aus_login = aut.aus_login AND usr.aus_login = ?" />
+			value="SELECT usr.aus_login AS username, aut.aau_authority AS authority FROM au_user usr, 
+			au_authority aut WHERE usr.aus_login = aut.aus_login AND usr.aus_login = ?" />
 		<property name="usersByUsernameQuery"
-			value="SELECT aus_login AS username, aus_password AS password, aus_enabled AS enabled, ktn AS ktn FROM au_user WHERE aus_login = ?" />
+			value="SELECT aus_login AS username, aus_password AS password, aus_enabled AS enabled, 
+			ktn AS ktn FROM au_user WHERE aus_login = ?" />
 		<property name="groupAuthoritiesByUsernameQuery"
-			value="SELECT grp.agr_group_name AS id, grp.agr_group_name AS group_name, gra.aga_authority AS authority FROM au_group grp, au_group_member grm, au_group_authority gra WHERE grm.aus_login = ? AND grp.agr_group_name = gra.agr_group_name AND grp.agr_group_name = grm.agr_group_name" />
+			value="SELECT grp.agr_group_name AS id, grp.agr_group_name AS group_name, 
+			gra.aga_authority AS authority FROM au_group grp, au_group_member grm, 
+			au_group_authority gra WHERE grm.aus_login = ? AND grp.agr_group_name = 
+			gra.agr_group_name AND grp.agr_group_name = grm.agr_group_name" />
 	</bean>
 
 	<security:http auto-config="true">

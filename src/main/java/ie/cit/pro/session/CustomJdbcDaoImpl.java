@@ -24,7 +24,6 @@ protected List<UserDetails> loadUsersByUsername(String username) {
             System.out.println("HERE>>>LOGGING IN...**********username: " + username + " password: " + password + " ktn: " + ktn.toString());
             
             return new CustomUser(ktn, username, password, enabled, true, true, true, AuthorityUtils.NO_AUTHORITIES);
-
         }
 
     });
