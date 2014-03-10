@@ -2,9 +2,10 @@ package ie.cit.pro.domain.fb;
 
 import java.util.Date;
 import java.util.UUID;
-//import javax.xml.bind.annotation.XmlRootElement;
+//import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
-//@XmlRootElement(name = "weld")
+@XmlRootElement(name = "fb_weld")
 public class FbWeld  extends FbDomainObject{
 	
 	private String id;

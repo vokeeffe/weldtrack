@@ -80,10 +80,13 @@ public class FbController {
 		sySection = syService.getSySectionsByCode(sySections).get(0);
 		JSONObject sySectionJSONstr = JSONObject.fromObject( sySection ); 
 		System.out.println("sySectionJSONstr: " + sySectionJSONstr);
+		sySections = syService.getAllSySections();
 		
 		model.addAttribute("stn_btable", sySection.getStn_btable());
 		model.addAttribute("sy_section_jsonstr", sySectionJSONstr);
 		model.addAttribute("sy_secfields", syService.getSySecfieldsByCode(sySecfields));
+		model.addAttribute("sy_section", sySection);
+		model.addAttribute("sy_sections", sySections);
 		
 		//Set the superclass type to that of the bodytable
 		fbService.setFbDomainObject(sySection.getStn_btable());
@@ -91,8 +94,17 @@ public class FbController {
 		System.out.println("sySection.getStn_btable(): " + sySection.getStn_btable() + "fbService.getFbDomainObject(): " + fbService.getFbDomainObject());
 		//model.addAttribute("btable", fbService.getAllFbDomainObjects());
 		model.addAttribute("btable", fbService.getAllFbWelds());
+		if(sySection.getStn_btable() == "fb_weld")
+		{
+		model.addAttribute("btable", fbService.getAllFbWelds());
+		}
+		else if (sySection.getStn_btable() == "fb_welder")
+		{
+		model.addAttribute("btable", fbService.getAllFbWelders());
+		}
 		
-		return "fbservice.jsp";
+		//return "fbservice.jsp";
+		return "fbservice";
 	}
 
 	@RequestMapping(value = "create-fb_weld", params = {"MainArea"})
@@ -112,12 +124,13 @@ public class FbController {
 		return "fb.jsp";
 	}
 	
-	@RequestMapping("update")
-	public String update(@ModelAttribute ("fb_welds") FbWeld fbWeld, @RequestParam String weldId, Model model){
-		fbWeld.setId(weldId);
+	@RequestMapping(value = "update-fb_weld", params = {"MainArea"})
+	public String update(@ModelAttribute ("btable") FbWeld fbWeld, Model model, HttpServletRequest request, HttpServletResponse response){
+		System.out.println("weldId: "+fbWeld.getId()+" MainArea: "+request.getParameter("MainArea"));
+		//fbWeld.setId(weldId);
 		fbService.updateFbWeld(fbWeld);
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
-		return "fb.jsp";
+		return "index?MainArea="+request.getParameter("MainArea");
 	}
 	
 	@RequestMapping("static")

@@ -27,7 +27,7 @@ function keypressResponse(e) {
 	
 	if(keynum === 100)//fn+D
 	{
-		showHideDebugInfo();
+		//showHideDebugInfo();
 	}
 	else if(keynum === 110)//fn+N
 	{
@@ -35,7 +35,7 @@ function keypressResponse(e) {
 	}
 	else if(keynum === 102)//fn+F
 	{
-		findRecord();
+		//findRecord();
 	}
 
 }

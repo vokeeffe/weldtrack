@@ -1,28 +1,29 @@
 body {font-family: helvetica;}
 h1 {color:#0000ff; font-family: helvetica, impact, sans-serif;}
-table {border: 3px solid #000000;
+table {border: 1px solid black;
 empty-cells:hide;
 caption-side: bottom;
 }
-table#main_table{width : 580px; font-family : sans-serif; border : 5px solid black;}
+table#main_table{width : 85%; font-family : sans-serif; border : hidden;}
 table#main_table td,th{border : 1px solid black;}
 caption{
 	background:#003366
 	color:#ffffff;
 }
-
-th{
-	background:#003366
-	color:#ffffff;
-	border: 1px solid;
-	font-variant:small-caps;
-	padding:10px;
+tr#newrecord
+{ 
+background-color:#00FFFF;
 }
-td{
-	background:#ccccff
-	color:#000000;
-	border: 1px solid #0000ff;
-	padding: 3px;
+input:required
+{ 
+background-color:yellow;
+}
+input[readonly="readonly"]
+{
+    background-color:gray;
+}
+input[type="number"] {
+   width:15px;
 }
 dt.important{
 	font-style:italic;
