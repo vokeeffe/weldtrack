@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import ie.cit.pro.domain.fb.FbDomainObject;
 import ie.cit.pro.domain.fb.FbWeld;
+import ie.cit.pro.domain.fb.FbWeldType;
+import ie.cit.pro.domain.fb.FbWelder;
 import ie.cit.pro.domain.sy.SySecfield;
 import ie.cit.pro.domain.sy.SySection;
 import ie.cit.pro.services.FbService;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class FbController {
@@ -81,7 +84,7 @@ public class FbController {
 		JSONObject sySectionJSONstr = JSONObject.fromObject( sySection ); 
 		System.out.println("sySectionJSONstr: " + sySectionJSONstr);
 		sySections = syService.getAllSySections();
-		
+	
 		model.addAttribute("stn_btable", sySection.getStn_btable());
 		model.addAttribute("sy_section_jsonstr", sySectionJSONstr);
 		model.addAttribute("sy_secfields", syService.getSySecfieldsByCode(sySecfields));
@@ -91,33 +94,35 @@ public class FbController {
 		//Set the superclass type to that of the bodytable
 		fbService.setFbDomainObject(sySection.getStn_btable());
 		
-		System.out.println("sySection.getStn_btable(): " + sySection.getStn_btable() + "fbService.getFbDomainObject(): " + fbService.getFbDomainObject());
+		System.out.println("sySection.getStn_btable(): " + sySection.getStn_btable() + " fbService.getFbDomainObject(): " + fbService.getFbDomainObject());
 		//model.addAttribute("btable", fbService.getAllFbDomainObjects());
 		model.addAttribute("btable", fbService.getAllFbWelds());
-		if(sySection.getStn_btable() == "fb_weld")
+		if(sySection.getStn_btable().equals("fb_weld"))
 		{
 		model.addAttribute("btable", fbService.getAllFbWelds());
 		}
-		else if (sySection.getStn_btable() == "fb_welder")
+		else if (sySection.getStn_btable().equals("fb_welder"))
 		{
 		model.addAttribute("btable", fbService.getAllFbWelders());
 		}
-		
-		//return "fbservice.jsp";
-		return "fbservice";
+		else if (sySection.getStn_btable().equals("fb_weldtype"))
+		{
+		model.addAttribute("btable", fbService.getAllFbWeldTypes());
+		}	
+		return "index";	
 	}
-
+/**************************FB_WELD****************************************/
 	@RequestMapping(value = "create-fb_weld", params = {"MainArea"})
 	public String create(@ModelAttribute ("btable") FbWeld fbWeld, Model model, HttpServletRequest request, HttpServletResponse response){
 		fbWeld.setId(UUID.randomUUID().toString());
 		fbService.createFbWeld(fbWeld);
-		model.addAttribute("btable", fbService.getAllFbWelds());
+		//model.addAttribute("btable", fbService.getAllFbWelds());
 		System.out.println("index?MainArea="+request.getParameter("MainArea"));
-		return "index?MainArea="+request.getParameter("MainArea");
+		return "redirect:/index?MainArea="+request.getParameter("MainArea");
 	}
 
 	
-	@RequestMapping("find")
+	@RequestMapping(value = "find-fb_weld", params = {"MainArea"})
 	public String find(@ModelAttribute ("fb_welds") FbWeld fbWeld, Model model){
 		fbService.createFbWeld(fbWeld);
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
@@ -130,9 +135,47 @@ public class FbController {
 		//fbWeld.setId(weldId);
 		fbService.updateFbWeld(fbWeld);
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());
-		return "index?MainArea="+request.getParameter("MainArea");
+		return "redirect:/index?MainArea="+request.getParameter("MainArea");
+	}
+
+	/**************************FB_WELD****************************************/
+	@RequestMapping(value = "create-fb_welder", params = {"MainArea"})
+	public String create(@ModelAttribute ("btable") FbWelder fbWelder, Model model, HttpServletRequest request, HttpServletResponse response){
+		fbWelder.setId(UUID.randomUUID().toString());
+		fbService.createFbWelder(fbWelder);
+		model.addAttribute("btable", fbService.getAllFbWelders());
+		System.out.println("index?MainArea="+request.getParameter("MainArea"));
+		return "redirect:/index?MainArea="+request.getParameter("MainArea");
+	}
+
+	@RequestMapping(value = "update-fb_welder", params = {"MainArea"})
+	public String update(@ModelAttribute ("btable") FbWelder fbWelder, Model model, HttpServletRequest request, HttpServletResponse response){
+		System.out.println("welderId: "+fbWelder.getId()+" MainArea: "+request.getParameter("MainArea"));
+		//fbWeld.setId(weldId);
+		fbService.updateFbWelder(fbWelder);
+		model.addAttribute("fb_welders", fbService.getAllFbWelders());
+		return "redirect:/index?MainArea="+request.getParameter("MainArea");
 	}
 	
+	/**************************FB_WELDER****************************************/
+	@RequestMapping(value = "create-fb_weldtype", params = {"MainArea"})
+	public String create(@ModelAttribute ("btable") FbWeldType fbWeldType, Model model, HttpServletRequest request, HttpServletResponse response){
+		fbWeldType.setId(UUID.randomUUID().toString());
+		fbService.createFbWeldType(fbWeldType);
+		model.addAttribute("btable", fbService.getAllFbWelders());
+		System.out.println("index?MainArea="+request.getParameter("MainArea"));
+		return "redirect:/index?MainArea="+request.getParameter("MainArea");
+	}
+
+	@RequestMapping(value = "update-fb_weldtype", params = {"MainArea"})
+	public String update(@ModelAttribute ("btable") FbWeldType fbWeldType, Model model, HttpServletRequest request, HttpServletResponse response){
+		System.out.println("weldTypeId: "+fbWeldType.getId()+" MainArea: "+request.getParameter("MainArea"));
+		//fbWeld.setId(weldId);
+		fbService.updateFbWeldType(fbWeldType);
+		model.addAttribute("fb_weldtypes", fbService.getAllFbWeldTypes());
+		return "redirect:/index?MainArea="+request.getParameter("MainArea");
+	}
+
 	@RequestMapping("static")
 	public String static_page(Model model){
 		model.addAttribute("fb_welds", fbService.getAllFbWelds());

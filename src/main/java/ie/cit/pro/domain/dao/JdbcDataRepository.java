@@ -240,7 +240,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbWelder fbWelder) {
-	jdbcTemplate.update("INSERT INTO fb_welder (id, wdr_a_createdby, wdr_a_createddate, ktn) VALUES(?,?,?,?)", fbWelder.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_welder (id, wdr_a_createdby, wdr_a_createddate, ktn) VALUES(?,?,?,?)", fbWelder.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), this.getCurrentUserKtn());
 	this.update(fbWelder);
 	}
 
@@ -270,7 +270,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbIsometric fbIsometric) {
-	jdbcTemplate.update("INSERT INTO fb_isometric (id, iso_a_createdby, iso_a_createddate, ktn) VALUES(?,?,?,?)", fbIsometric.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_isometric (id, iso_a_createdby, iso_a_createddate, ktn) VALUES(?,?,?,?)", fbIsometric.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), this.getCurrentUserKtn());
 	this.update(fbIsometric);
 	}
 
@@ -300,7 +300,7 @@ public class JdbcDataRepository implements DataRepository {
 
 @Secured({"ROLE_CREATE"})
 	public void add(FbSpool fbSpool) {
-	jdbcTemplate.update("INSERT INTO fb_spool (id, spl_a_createdby, spl_a_createddate, ktn) VALUES(?,?,?,?)", fbSpool.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()));
+	jdbcTemplate.update("INSERT INTO fb_spool (id, spl_a_createdby, spl_a_createddate, ktn) VALUES(?,?,?,?)", fbSpool.getId(), this.getCurrentUserName(), new java.sql.Timestamp(new java.util.Date().getTime()), this.getCurrentUserKtn());
 	this.update(fbSpool);
 	}
 

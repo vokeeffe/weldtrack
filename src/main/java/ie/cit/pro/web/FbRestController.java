@@ -53,6 +53,7 @@ public class FbRestController {
 	}
 	
 	//curl -X GET -i http://vinny:Password1@localhost:8080/weldtrack/api/1/weld/{id}
+	//curl -X GET -i http://vinny:Password1@weldtrack.cfapps.io/api/1/fb_weld/{ca8bdbcb-b414-47fc-b1b9-fc2af200f343}
 	@RequestMapping(value = "fb_weld/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
